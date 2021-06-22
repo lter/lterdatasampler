@@ -12,7 +12,7 @@ Authors@R: c(
            family = "Brun",
            role = c("aut"),
            email = "",
-           comment = c(ORCID = ""))
+           comment = c(ORCID = "0000-0002-7751-6238"))
            )
 Description: Selected datasets, one from each LTER site. 
 License: CC0
