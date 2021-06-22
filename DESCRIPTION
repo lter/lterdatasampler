@@ -1,11 +1,45 @@
-Package: lterdatasampler
-Type: Package
-Title: What the Package Does (Title Case)
+Package: lterdatasets
+Title: Educational dataset examples from the Long Term Ecological Research program 
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Date: 2020-08-01
+Authors@R: c(
+    person(given = "Allison",
+           family = "Horst",
+           role = c("aut", "cre"),
+           email = "ahorst@ucsb.edu",
+           comment = c(ORCID = "0000-0002-6047-5564")),
+    person(given = "Julien",
+           family = "Brun",
+           role = c("aut"),
+           email = "",
+           comment = c(ORCID = ""))
+           )
+Description: Selected datasets, one from each LTER site. 
+License: CC0
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Depends: 
+    R (>= 2.10)
+Suggests: 
+    knitr,
+    rmarkdown,
+    tibble,
+    ggplot2,
+    dplyr,
+    tidyr,
+    recipes,
+    janitor,
+    usethis,
+    metajam,
+    markdown,
+    tidyverse,
+    here,
+    ggmap,
+    sf,
+    GGally,
+    rstatix
+URL: https://github.com/allisonhorst/lterdatasets
+BugReports: https://github.com/allisonhorst/lterdatasets/issues
+VignetteBuilder: knitr
