@@ -43,10 +43,12 @@ Articles for data and source details. Note: the three letter prefix for
 each dataset indicates the LTER site (see full list of site
 abbreviations [here](https://lternet.edu/site/)).
 
--   [`ntl_icecover`](): Ice Freeze and Thaw Dates for Madison, WI Area
-    Lakes (1853 - 2019), North Temperate Lakes LTER
--   [`ntl_airtemp`](): Daily Average Temperature Data in Madison, WI
-    (1869 - 2019), North Temperate Lakes LTER
+-   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
+    Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019),
+    North Temperate Lakes LTER
+-   [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
+    Daily Average Temperature Data in Madison, WI (1869 - 2019), North
+    Temperate Lakes LTER
 
 ## Analysis opportunities
 
