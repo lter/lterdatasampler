@@ -1,0 +1,28 @@
+url:
+
+template:
+  params:
+    ganalytics:
+  opengraph:
+    image:
+      src: man/figures/leaf.png
+      alt: "lterdatasets package in R"
+    twitter:
+      creator: "@allison_horst"
+      card: summary
+
+authors:
+  Allison Horst:
+    href: https://www.allisonhorst.com/
+  Julien Brun:
+    href:
+
+
+home:
+  title: lterdatasets package
+  description: Sampled data from each of the 28 Long Term Ecological Research network sites
+
+navbar:
+  structure:
+    left:  [home, intro, reference, articles]
+    right: [github]

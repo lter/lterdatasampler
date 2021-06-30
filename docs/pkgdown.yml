@@ -1,7 +1,7 @@
-pandoc: '2.13'
-pkgdown: 1.6.1
-pkgdown_sha: ~
+pandoc: 2.14.0.3
+pkgdown: 1.6.1.9001
+pkgdown_sha: 51268b0d9cb0588d7a6404a2b8ef4ee19c435e89
 articles:
   ntl_icecover_vignette: ntl_icecover_vignette.html
-last_built: 2021-06-30T17:19Z
+last_built: 2021-06-30T17:42Z
 

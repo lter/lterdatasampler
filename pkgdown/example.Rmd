@@ -1,0 +1,12 @@
+---
+output:
+  html_document:
+    theme: null
+    highlight: null
+    mathjax: null
+    self_contained: false
+---
+
+```{r data}
+DT::datatable(tibble::tibble(mtcars))
+``` 
