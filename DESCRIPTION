@@ -45,21 +45,11 @@ Depends:
 Suggests: 
     knitr,
     rmarkdown,
-    tibble,
-    ggplot2,
-    dplyr,
-    tidyr,
-    recipes,
     janitor,
     usethis,
     metajam,
-    markdown,
     tidyverse,
-    here,
-    ggmap,
-    sf,
-    GGally,
-    rstatix
+    here
 URL: https://github.com/lter/lterdatasampler
 BugReports: https://github.com/lter/lterdatasampler/issues
 VignetteBuilder: knitr
