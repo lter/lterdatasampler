@@ -1,8 +1,8 @@
 ---
-title: "ntl_ice and ntl_temps: Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)"
+title: "ntl_icecover and ntl_airtemp: Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ntl_ice_vignette}
+  %\VignetteIndexEntry{ntl_icecover_vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -26,12 +26,12 @@ According to the [EPA](https://www.epa.gov/climate-indicators/climate-change-ind
 ## Explore Ice Data
 
 ```{r head}
-head(ntl_ice)
+head(ntl_icecover)
 ```
 
 ```{r box_plot}
 lake_ice <-
-  ggplot(data = ntl_ice %>% filter(!is.na(ice_duration)), aes(x = lakeid, y = ice_duration)) +
+  ggplot(data = ntl_icecover %>% filter(!is.na(ice_duration)), aes(x = lakeid, y = ice_duration)) +
   geom_boxplot(aes(color = lakeid, shape = lakeid),
                alpha = 0.8,
                width = 0.5) +
@@ -56,7 +56,7 @@ Time Series Plot:
 
 ```{r ice_duration}
 ice_duration <-
-  ggplot(data = ntl_ice %>% filter(!is.na(ice_duration)), aes(x = year)) +
+  ggplot(data = ntl_icecover %>% filter(!is.na(ice_duration)), aes(x = year)) +
   geom_line(aes(y = ice_duration, color = lakeid), alpha = 0.7) +
   theme_minimal() +
   labs(x = "Year", y = "Ice Duration (Days)", title = "Ice Duration of Lakes in the Madison, WI Area", subtitle = "North Temperate Lakes LTER")
@@ -67,7 +67,7 @@ ice_duration
 Since the box plots and time series plots are similar, we can try averaging the ice duration across all three lakes:
 
 ```{r avg_ice}
-avg_ice <- ntl_ice %>%
+avg_ice <- ntl_icecover %>%
   filter(!is.na(ice_duration)) %>% 
   group_by(year) %>%
   summarise(ice_duration = mean(ice_duration)) %>%
@@ -96,20 +96,20 @@ avg_ice_duration
 
 The average ice duration in Madison is trending downwards. What environmental factors are influencing this change?
 
-[Research](http://hpkx.cnjournals.com/uploadfile/news_images/hpkx/2019-03-14/s41558-018-0393-56789.pdf) suggests that mean annual temperature is one of the primary factors that alter lake ice formation. We can look at the temperature data of Madison, WI found in `ntl_temps` to see if there is a corresponding change in climate that may have influenced the change in ice duration.
+[Research](http://hpkx.cnjournals.com/uploadfile/news_images/hpkx/2019-03-14/s41558-018-0393-56789.pdf) suggests that mean annual temperature is one of the primary factors that alter lake ice formation. We can look at the temperature data of Madison, WI found in `ntl_airtemp` to see if there is a corresponding change in climate that may have influenced the change in ice duration.
 
 (*Note that according to the original metadata: "Daily temperature data prior to 1884 were estimated from 3 times per day sampling and biases are expected and should not be comparable with data after that time."*)
 
 ## Explore Temperature Data
 
-```{r ntl_temps}
-head(ntl_temps)
+```{r ntl_airtemp}
+head(ntl_airtemp)
 ```
 
 Compute the mean annual temperature:
 
 ```{r avg_temp}
-ntl_annual_avg <- ntl_temps %>% 
+ntl_annual_avg <- ntl_airtemp %>% 
   group_by(year) %>% 
   summarise(ave_air_temp_adjusted = mean(ave_air_temp_adjusted))
 
@@ -138,11 +138,11 @@ There seems to be a general upward trend in the mean annual temperature. As a re
 
 ## Join and Compare Ice and Temperature Data
 
-To compare the ice cover and temperature data directly, the ntl_temps and ntl_ice datasets can be joined together. A common variable needs to be identified to do this. In this case, the datasets can be joined on the year of observation. Since there is one temperature for each year in `ntl_annual_avg`, each temperature will be mapped to the corresponding year in the joined table. For example, a `ave_air_temp_adjusted` value of 6.416 degrees Celsius will be added to each row that has a `year` value of 1869.
+To compare the ice cover and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined together. A common variable needs to be identified to do this. In this case, the datasets can be joined on the year of observation. Since there is one temperature for each year in `ntl_annual_avg`, each temperature will be mapped to the corresponding year in the joined table. For example, a `ave_air_temp_adjusted` value of 6.416 degrees Celsius will be added to each row that has a `year` value of 1869.
 
 ```{r full_join}
 ntl_full_join <- ntl_annual_avg %>% 
-  full_join(by = "year", ntl_ice)
+  full_join(by = "year", ntl_icecover)
 
 ntl_full_join
 ```
@@ -243,5 +243,5 @@ Anderson, L. and D. Robertson. 2020. Madison Wisconsin Daily Meteorological Data
 Magnuson, J.J., S.R. Carpenter, and E.H. Stanley. 2021. North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current ver 35. Environmental Data Initiative. https://doi.org/10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97 (Accessed 2021-03-08).
 
 # How we processed the raw data
-`r knitr::spin_child(here::here("data-raw", "ntl_temps_data.R"))`
-`r knitr::spin_child(here::here("data-raw", "ntl_ice_data.R"))`
+`r knitr::spin_child(here::here("data-raw", "ntl_airtemp_data.R"))`
+`r knitr::spin_child(here::here("data-raw", "ntl_icecover_data.R"))`
