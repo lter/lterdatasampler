@@ -1,6 +1,8 @@
 
-[![R build
-status](https://github.com/lter/lterdatasampler/workflows/R-CMD-check/badge.svg)](https://github.com/lter/lterdatasampler/actions)
+<!-- badges: start -->
+
+[![R-CMD-check](https://github.com/lter/lterdatasampler/workflows/R-CMD-check/badge.svg)](https://github.com/lter/lterdatasampler/actions)
+<!-- badges: end -->
 
 # {lterdatasets}: LTER Data Sampler
 
