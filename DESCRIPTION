@@ -32,11 +32,7 @@ Authors@R: c(
     person(given = "Karen",
            family = "Zhao",
            role = c("ctb"),
-           comment = "https://github.com/karenezhao"),
-    person(given = "Karen",
-           family = "Zhao",
-           role = c("ctb"),
-           comment = "https://github.com/karenezhao"),
+           comment = "https://github.com/karenezhao")
            )
 Description: Selected datasets, one from each LTER site. 
 License: CC0
