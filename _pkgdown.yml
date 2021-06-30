@@ -15,12 +15,12 @@ authors:
   Allison Horst:
     href: https://www.allisonhorst.com/
   Julien Brun:
-    href:
+    href: https://brunj7.github.io/
 
 
 home:
-  title: lterdatasets package
-  description: Sampled data from each of the 28 Long Term Ecological Research network sites
+  title: lterdatasampler package
+  description: Sampled 3 Long Term Ecological Research network sites
 
 navbar:
   structure:
