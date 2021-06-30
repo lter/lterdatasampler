@@ -1,43 +1,6 @@
-Skip to content
-Search or jump to…
-
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@brunj7 
-ucsb-ds-capstone-2021
-/
-lterdatasets
-Private
-forked from allisonhorst/lterdatasets
-3
-01
-Code
-Issues
-12
-Pull requests
-4
-Actions
-Projects
-1
-Security
-Insights
-Settings
-lterdatasets/.github/workflows/pkgdown.yaml
-@brunj7
-brunj7 adding github actions
-Latest commit 87d198c on Nov 24, 2020
- History
- 1 contributor
-48 lines (39 sloc)  1.37 KB
-  
 on:
   push:
-    branches:
-      - main
-      - master
+    branches: main
 
 name: pkgdown
 
@@ -49,9 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: r-lib/actions/setup-r@v1
+      - uses: r-lib/actions/setup-r@master
 
-      - uses: r-lib/actions/setup-pandoc@v1
+      - uses: r-lib/actions/setup-pandoc@master
 
       - name: Query dependencies
         run: |
@@ -61,7 +24,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache R packages
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: ${{ env.R_LIBS_USER }}
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
@@ -69,8 +32,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          install.packages("remotes")
           remotes::install_deps(dependencies = TRUE)
-          install.packages("pkgdown", type = "binary")
+          install.packages("pkgdown")
+          install.packages("ggplot2")
+          install.packages("here")
+          install.packages("dplyr")
+          install.packages("tidyr")
         shell: Rscript {0}
 
       - name: Install package
@@ -81,16 +49,3 @@ jobs:
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
           Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete
