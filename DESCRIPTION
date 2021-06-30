@@ -60,6 +60,6 @@ Suggests:
     sf,
     GGally,
     rstatix
-URL: https://github.com/allisonhorst/lterdatasets
-BugReports: https://github.com/allisonhorst/lterdatasets/issues
+URL: https://github.com/lter/lterdatasampler
+BugReports: https://github.com/lter/lterdatasampler/issues
 VignetteBuilder: knitr
