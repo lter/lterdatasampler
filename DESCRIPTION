@@ -16,23 +16,23 @@ Authors@R: c(
     person(given = "Sam",
            family = "Guo",
            role = c("ctb"),
-           comment = "https://github.com/TokyoExpress"),
+           comment = c("https://github.com/TokyoExpress"),
     person(given = "Adhitya",
            family = "Logan",
            role = c("ctb"),
-           comment = "https://github.com/adhil0"),
+           comment = c("https://github.com/adhil0")),
     person(given = "Lian",
            family = "Ran",
            role = c("ctb"),
-           comment = "https://github.com/liaaaaran"),
+           comment = c("https://github.com/liaaaaran")),
     person(given = "Sophia",
            family = "Sternberg",
            role = c("ctb"),
-           comment = "https://github.com/sophiasternberg"),
+           comment = c("https://github.com/sophiasternberg")),
     person(given = "Karen",
            family = "Zhao",
            role = c("ctb"),
-           comment = "https://github.com/karenezhao")
+           comment = c("https://github.com/karenezhao"))
            )
 Description: Selected datasets, one from each LTER site. 
 License: CC0

@@ -57,8 +57,8 @@ analyses
 
 ## Acknowledgements
 
-Thank you to the amazing students who contributed to this project: Sam
-Guo, Adhitya Logan, Lia Ran, Sophia Sternberg, Karen Zhao as part of
+Thank you to the amazing students who contributed to this project: *Sam
+Guo, Adhitya Logan, Lia Ran, Sophia Sternberg, Karen Zhao* as part of
 their [UCSB Data Science capstone
 project](https://ucsb-ds-capstone-2021.github.io/projects/nceas/update3.html).
 Thank you also go to their Course Advisor Prof. Sang-yun Oh.
