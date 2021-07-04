@@ -28,7 +28,11 @@ pie_crab <- pie_data %>%
   select(-replicate) %>%
   left_join(pie_files$factor_metadata[, 0:2], by = c("site" = "code")) %>%
   rename("name" = "definition",
-         "size" = "carapace_width")
+         "size" = "carapace_width",
+         "air_temp" = "mata",
+         "water_temp" = "matw",
+         "air_temp_sd" = "sata",
+         "water_temp_sd" = "satw")
 
 #+ save data, include=FALSE, eval=FALSE
 usethis::use_data(pie_crab, overwrite = TRUE)
