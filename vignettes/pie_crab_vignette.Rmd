@@ -1,0 +1,188 @@
+---
+title: "Plum Island Ecosystem LTER fiddler crabs"
+subtitle: "Fiddler crab body size in salt marshes from Florida to Massachusetts, USA during summer 2016 at Plum Island Ecosystem LTER"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{pie_crab_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  message = FALSE, warning = FALSE
+)
+```
+
+```{r setup}
+library(lterdatasampler)
+library(tidyverse)
+# library(car)
+```
+
+> "One of the best-known patterns in biogeography is Bergmann's rule. It predicts that organisms at higher latitudes are larger than ones at lower latitudes. Many organisms follow Bergmann's rule, including insects, birds, snakes, marine invertebrates, and terrestrial and marine mammals. What drives Bergmann's rule? Bergmann originally hypothesized that the organisms he studied, birds, were larger in the colder, higher latitudes due to heat-conservation. But the heat-conservation hypothesis relies on internal regulation of body temperature and therefore does not apply to ectotherms, some of which also follow Bergmann's rule. There is likely no universal mechanism underpinning Bergmann's rule, regardless of [ecto- or endothermy](https://www.khanacademy.org/science/ap-biology/ecology-ap/energy-flow-through-ecosystems/a/endotherms-ectotherms). As a result, other mechanisms have been proposed to explain Bergmann's rule, including the starvation-resistant hypothesis, the diet-quality hypothesis, the enemy hypothesis, the resource rule, seasonality hypothesis, and the temperature–size rule (Johnson et al., 2019)."
+
+The Atlantic marsh fiddler crab, *Minuca pugnax* (formerly *Uca pugnax*), lives in salt marshes throughout the eastern coast of the United States. Historically, *M. pugnax* were distributed from northern Florida to Cape Cod, Massachusetts, but like other species have expanded their range northward due to ocean warming. This dataset sample, `pie_crab`, is from a study that examines:
+
+a) whether *M. pugnax* size distribution follows Bergmann's rule
+b) the role of temperature in driving body size patterns for *M. pugnax*
+
+Data sampling overview:
+
+- 13 marshes were sampled on the Atlantic coast of the United States
+- Spanning > 12 degrees of latitude, from northeast Florida to northeast Massachusetts
+- 25-37 adult male fiddler crabs were collected from each marsh  between 2016-07-24 and 2016-08-13
+
+# Data Exploration
+
+```{r}
+pie_crab %>% group_by(date, latitude, name, mata, matw) %>%
+  count() %>% arrange(latitude)
+# max(pie_crab$date) - min(pie_crab$date)
+# max(pie_crab$latitude) - min(pie_crab$latitude)
+```
+
+
+by looking at the table above, we see that, generally, higher latitudes had lower temperatures. \
+
+## Summary Statistics
+```{r}
+s <- pie_crab %>% group_by(latitude, site) %>% 
+  summarise(
+  n = n(), 
+  mean = mean(size),
+  min = min(size),
+  max = max(size),
+  sd = sd(size),
+  median = median(size)
+  ) 
+s
+```
+
+**Plot Summary Statistics** \
+```{r fig.height=5.5, fig.width=6.5}
+pie_crab %>%
+  ggplot(aes(y=latitude)) +
+  geom_boxplot(aes(size, group = latitude, color=-latitude), outlier.size=0.8) +
+  geom_text(data = s,
+            aes(label=(paste('n =', n)), 
+                group = latitude, color = -latitude, x=max+0.2, y=latitude+0.15), 
+            size=3.5) +
+  scale_x_continuous(breaks = seq(from = 7, to = 23, by = 2), limits = c(6.5,24))+
+  scale_y_continuous(breaks = seq(from = 29, to = 43, by = 2), limits = c(29, 43.5)) +
+  theme(legend.position= "none") 
+```
+
+From the boxplot above, it seems like crabs from higher latitudes are larger. \
+
+# Simple Linear Regression \
+
+**Calculate Mean by Location** \
+```{r}
+crab <- pie_crab %>% group_by(site, latitude, mata, sata, matw, satw) %>%
+  summarise(
+    mean_size = mean(size),
+    mean_max = mean(head(sort(size, decreasing = TRUE), n()*0.10)),
+    max_size = max(size)
+    ) %>% ungroup()
+shapiro.test(crab$mean_size)
+crab
+```
+The values are normally distributed based on Shapiro–Wilk's test (p > .05), so we do not need to transform it prior to analysis.  \
+
+**Bergmann's rule** \
+```{r fig.height=5, fig.width=7}
+mod0 <- lm(mean_size ~ latitude, data = crab)
+summary(mod0)
+crab %>%
+  ggplot(aes(latitude, mean_size)) +
+  geom_point(color = "orangered1", size=3) +
+  geom_line(aes(latitude, mod0$fitted.values), 
+            color="royalblue", size=1.2, alpha=0.8) +
+  scale_y_continuous(n.breaks=8, limits = c(8,20)) +
+  scale_x_continuous(breaks = seq(from = 29, to = 43, by = 2), limits = c(29,43)) +
+  geom_text(aes(label=site), nudge_x = 0.3, nudge_y = 0.3, size=3) +
+  labs(x = "Latitude", 
+       y = "Mean Caraspace width (mm)",
+       title = "Relationship between latitude and mean carapace width of male fiddler crabs")
+```
+The fiddler crab does follow Bergmann's rule. On average, carapace width increased by 0.5 mm for every degree increase in latitude. \
+
+
+# Multiple Linear Regression
+
+**Temperature as a driver of body size** \
+
+> There are two temperature-related hypothesis: \
+The first hypothesis tested is the temperature-size rule, which states that there is an inverse relationship between temperature and body size \
+The second hypothesis is the seasonality hypothesis which predicts that the body size of an animal is determined by the amount of overlap between peak resource production and animal growth. \
+Since fiddler crabs are intertidal, both mean annual air and water temperatures data collected at or near each site are included. To test the seasonality hypothesis, the standard deviation of air and water temperatures are used a proxy for seasonality.\
+
+We will conduct a multiple linear regressions to test the effect of the following predictors: mean annual air temperature, mean annual water temperature, standard deviation of air temperature, and standard deviation of water temperature. \
+
+## Multicollinearity: 
+Multicollinearity is when there’s correlation between predictors in a model. As a result, estimates for regression coefficients of the independent variables can be unreliable. And tests of significance for regression coefficients can be misleading. \
+```{r fig.height=5, fig.width=5}
+cor(crab[,3:7])
+pairs(mean_size ~ mata+sata+matw+satw, gap=0.3, pch = 18, data = crab)
+```
+
+To detect multicollinearity, we can compute a score called the variance inflation factor(VIF). A VIF estimates how much the variance of a coefficient is inflated because of linear dependence with other predictors. \
+
+To minimize collinearity, we will start with the full model (all variables), calculate the VIFs for each, remove the covariate with highest VIF, and repeat this sequence until all covariates have a small VIF. \
+
+```{r}
+# Build the full model
+mod1 <- lm(mean_size~ mata+sata+matw+satw, data = crab)
+summary(mod1)$r.squared
+car::vif(mod1)
+```
+a VIF exceeding 10 clearly indicates high correlation \
+```{r}
+# Build a model excluding the variable with highest VIF, mata
+mod2 <- lm(mean_size~ sata+matw+satw, data = crab)
+summary(mod2)$r.squared
+car::vif(mod2)
+```
+different VIF thresholds are recommended to detect collinearity, usually, a VIF > 5 indicates moderate collinearity, a more stringent approach is 3 or even 2 \
+Note that multicollinearity is a lesser problem when dealing with a large sample size compared to a smaller one, since our data is quite small, we will use 3 as our threshold \
+```{r}
+# excluding the variable with highest VIF, sata
+mod3 <- lm(mean_size~ matw+satw, data = crab)
+summary(mod3)$r.squared
+car::vif(mod3)
+summary(mod3)
+```
+After sequentially eliminating covariates with VIFs > 3 from the full multiple linear regression model, mean water temperature and the standard deviation of water temperature remained in our reduced model for mean body size. \
+Mean water temperature was the only significant predictor of mean M. pugnax body size, which was inversely related to body size. Thus, M. pugnax, follows the temperature-size rule.
+
+
+# Conclusion
+
+In summary, we found that M. pugnax follows Bergmann's rule and the temperature-size rule
+with body size inversely related to mean water temperature. What does this mean? \
+
+> First, because our oceans and the atmosphere are warming and the body size of M. pugnax is inversely related to temperature, we predict that M. pugnax body size at a specific latitude will shrink as the climate continues to warm. \
+Second, as M. pugnax expands its range north due to ocean warming, crabs at the highest latitudes will continue to be the largest.  \
+Finally, because the impact an organism has on an ecosystem correlates with its body size, and M. pugnax are ecosystem engineers that modify marsh habitats through their burrowing activity, larger crabs at higher latitudes may have greater per-capita impacts on salt marshes than the smaller crabs at lower latitudes.
+
+
+# Further Exploration
+There are two other measures of body size (size variables) that you can explore: \
+Mean maximum, the average carapace width of the largest 10% crabs in each site. Mean maximum is a standard fisheries value used to estimate the upper mean size of a given population. \
+Maximum size, the maximum size is a useful index for estimating the relationship between body size and latitude in case of sampling bias because it looks at the largest individuals within each population.
+
+
+# Citation
+
+Johnson, D. 2019. Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. ver 1. Environmental Data Initiative. https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb (Accessed 2021-05-27).
+
+
+Johnson DS, Crowley C, Longmire K, Nelson J, Williams B, Wittyngham S. The fiddler crab, Minuca pugnax, follows Bergmann's rule. Ecol Evol. 2019;00:1–9. https://doi.org/10.1002/ece3.5883
+
+
+# How we processed the raw data
+
+`r knitr::spin_child(here::here("data-raw","pie_crab_data.R"))`
