@@ -58,3 +58,12 @@ People / organizations who supported this project:
 
 
 We gratefully acknowledge all authors and contributors of the `roxygen2`, `usethis`, `pkgdown`, `devtools`, `tidyverse` and `metajam`. This website relies heavily on themes created by Desirée DeLeon and Alison Hill.
+
+<br>
+<hr>
+
+```{r logos, fig.align='center', echo=FALSE}
+knitr::include_graphics("man/figures/logos.png")
+
+```
+

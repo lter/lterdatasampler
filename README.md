@@ -79,3 +79,8 @@ We gratefully acknowledge all authors and contributors of the
 `roxygen2`, `usethis`, `pkgdown`, `devtools`, `tidyverse` and `metajam`.
 This website relies heavily on themes created by Desirée DeLeon and
 Alison Hill.
+
+<br>
+<hr>
+
+<img src="man/figures/logos.png" width="75%" style="display: block; margin: auto;" />
