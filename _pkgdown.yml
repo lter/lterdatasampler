@@ -6,7 +6,7 @@ template:
   opengraph:
     image:
       src: man/figures/leaf.png
-      alt: "lterdatasets package in R"
+      alt: "lterdatasampler package in R"
     twitter:
       creator: "@allison_horst"
       card: summary
