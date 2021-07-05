@@ -208,7 +208,7 @@ ntl_joined_avg <- ntl_joined_avg  %>%
   filter(year > 1868)
 
 
-# Calculate the percent change
+# Calculate the percent of change
 pct_change <- ntl_joined_avg %>%
   mutate(
     pct_change_ice = ( avg_ice_duration / first(avg_ice_duration) -1) * 100,
