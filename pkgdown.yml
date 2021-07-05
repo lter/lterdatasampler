@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   ntl_icecover_vignette: ntl_icecover_vignette.html
   pie_crab_vignette: pie_crab_vignette.html
-last_built: 2021-07-05T17:33Z
+last_built: 2021-07-05T19:13Z
 urls:
   reference: https://lter.github.io/lterdatasampler//reference
   article: https://lter.github.io/lterdatasampler//articles
