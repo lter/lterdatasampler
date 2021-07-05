@@ -334,7 +334,7 @@
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1868</span><span class="op">)</span>
 
 
-<span class="co"># Calculate the percent change</span>
+<span class="co"># Calculate the percent of change</span>
 <span class="va">pct_change</span> <span class="op">&lt;-</span> <span class="va">ntl_joined_avg</span> <span class="op">%&gt;%</span>
   <span class="fu">mutate</span><span class="op">(</span>
     pct_change_ice <span class="op">=</span> <span class="op">(</span> <span class="va">avg_ice_duration</span> <span class="op">/</span> <span class="fu">first</span><span class="op">(</span><span class="va">avg_ice_duration</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,
