@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>lterdatasampler package • lterdatasets</title>
+<title>lterdatasampler package • lterdatasampler</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -19,9 +19,9 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
 <meta property="og:title" content="lterdatasampler package">
-<meta property="og:description" content="Sampled 3 Long Term Ecological Research network sites">
-<meta property="og:image" content="/reference/figures/leaf.png">
-<meta property="og:image:alt" content="lterdatasets package in R">
+<meta property="og:description" content="Samples from 3 Long Term Ecological Research (LTER) network sites">
+<meta property="og:image" content="https://lter.github.io/lterdatasampler/reference/figures/leaf.png">
+<meta property="og:image:alt" content="lterdatasampler package in R">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@allison_horst">
 <meta name="twitter:site" content="@allison_horst">
@@ -42,7 +42,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">lterdatasets</a>
+        <a class="navbar-link" href="index.html">lterdatasampler</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
@@ -66,7 +66,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/ntl_icecover_vignette.html">ntl_icecover and ntl_airtemp: Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)</a>
+      <a href="articles/ntl_icecover_vignette.html">North Temperate Lakes Ice Cover (NTL)</a>
+    </li>
+    <li>
+      <a href="articles/pie_crab_vignette.html">Plum Island Ecosystem LTER fiddler crabs (PIE)</a>
     </li>
   </ul>
 </li>
@@ -92,21 +95,23 @@
   <div class="contents col-md-9">
 
 
-<div id="lterdatasets-lter-data-sampler" class="section level1">
+<div id="lterdatasampler-lter-data-sampler" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#lterdatasets-lter-data-sampler" class="anchor"></a>{lterdatasets}: LTER Data Sampler</h1></div>
+<a href="#lterdatasampler-lter-data-sampler" class="anchor"></a>{lterdatasampler}: LTER Data Sampler</h1></div>
 <p>The mission of the <a href="https://lternet.edu/">Long Term Ecological Research program (LTER) Network</a> is to “provide the scientific community, policy makers, and society with the knowledge and predictive understanding necessary to conserve, protect, and manage the nation’s ecosystems, their biodiversity, and the services they provide.” A specific goal of the LTER is <a href="https://lternet.edu/education-and-training/">education and training</a> - “to promote training, teaching, and learning about long-term ecological research and the Earth’s ecosystems, and to educate a new generation of scientists.”</p>
-<p>The goal of this package is to provide a variety of datasets - one from each of the <a href="https://lternet.edu/site/">28 LTER Network sites</a> - that are useful for teaching and training in environmental data science. These datasets are subsets of the original data and have been updated - sometimes substantially - from the raw data, as described in the articles.</p>
+<p>The goal of this package is to provide a small sample of datasets to gather feedback from the community. The end goal is to create a package with one data sample from each of the <a href="https://lternet.edu/site/">28 LTER Network sites</a> - that are useful for teaching and training in environmental data science. These datasets are subsets of the original data and have been updated - sometimes substantially - from the raw data, as described in the articles. <strong>This content is thus not suitable for research and should only be used for teaching purposes</strong>.</p>
 <p>We encourage you to explore existing LTER <a href="https://lternet.edu/education-and-training/">teaching and training initiatives</a>, and the <strong>many</strong> other available LTER datasets which can be accessed via the <a href="https://environmentaldatainitiative.org/">Environmental Data Initiative</a>. Please contact cited researchers directly to discuss using data for research purposes or in publication.</p>
 <div id="the-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#the-datasets" class="anchor"></a>The datasets</h2>
-<p>The <code>lterdatasets</code> package contains 3 stored data objects (one from each LTER site). The data are summarized below; see individual Articles for data and source details. Note: the three letter prefix for each dataset indicates the LTER site (see full list of site abbreviations <a href="https://lternet.edu/site/">here</a>).</p>
+<p>The <code>lterdatasampler</code> package currently contains 4 stored data objects (from 3 LTER sites). The data are summarized below; see individual Articles for data and source details. Note: the three letter prefix for each dataset indicates the LTER site (see full list of site abbreviations <a href="https://lternet.edu/site/">here</a>).</p>
 <ul>
 <li>
-<a href=""><code>ntl_icecover</code></a>: Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019), North Temperate Lakes LTER</li>
+<a href="https://lter.github.io/lterdatasampler/reference/ntl_icecover.html"><code>ntl_icecover</code></a>: Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019), North Temperate Lakes LTER</li>
 <li>
-<a href=""><code>ntl_airtemp</code></a>: Daily Average Temperature Data in Madison, WI (1869 - 2019), North Temperate Lakes LTER</li>
+<a href="https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html"><code>ntl_airtemp</code></a>: Daily Average Temperature Data in Madison, WI (1869 - 2019), North Temperate Lakes LTER</li>
+<li>
+<a href="https://lter.github.io/lterdatasampler/reference/pie_crab.html"><code>pie_crab</code></a>: Fiddler crab body size in salt marshes from Florida to Massachusetts</li>
 </ul>
 </div>
 <div id="analysis-opportunities" class="section level2">
@@ -117,15 +122,17 @@
 <div id="acknowledgements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#acknowledgements" class="anchor"></a>Acknowledgements</h2>
-<p>Thank you to…(full LTER acknowledgments here TBD)</p>
-<p>People / organizations to remember:</p>
+<p>Thank you to the amazing students who contributed to this project: <em>Sam Guo, Adhitya Logan, Lia Ran, Sophia Sternberg, Karen Zhao</em> as part of their <a href="https://ucsb-ds-capstone-2021.github.io/projects/nceas/update3.html">UCSB Data Science capstone project</a>. Thank you also go to their Course Advisor Prof. Sang-yun Oh.</p>
+<p>People / organizations who supported this project:</p>
 <ul>
-<li>LTER (esp. Marty, Frank, who else?)</li>
-<li>LTER information managers</li>
-<li>All researchers, data managers, EDI</li>
-<li>Package developers, including</li>
+<li>LTER Network Office</li>
+<li>LTER Information Managers</li>
+<li>LTER Education Committee</li>
+<li>All the LTER Researchers and Site PIs</li>
+<li>Cyber-infrastructures: <a href="https://environmentaldatainitiative.org/">EDI</a> and <a href="https://www.dataone.org/">DataONE</a>
+</li>
 </ul>
-<p>We gratefully acknowledge all authors and contributors of the <code>roxygen2</code>, <code>usethis</code>, <code>pkgdown</code>, and <code>metajam</code>. This website relies heavily on themes created by Desirée DeLeon and Alison Hill.</p>
+<p>We gratefully acknowledge all authors and contributors of the <code>roxygen2</code>, <code>usethis</code>, <code>pkgdown</code>, <code>devtools</code>, <code>tidyverse</code> and <code>metajam</code>. This website relies heavily on themes created by Desirée DeLeon and Alison Hill.</p>
 </div>
 </div>
 
@@ -161,6 +168,7 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
+<li><a href="https://github.com/lter/lterdatasampler/actions"><img src="https://github.com/lter/lterdatasampler/workflows/pkgdown/badge.svg" alt="Package Site"></a></li>
 <li><a href="https://github.com/lter/lterdatasampler/actions"><img src="https://github.com/lter/lterdatasampler/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
