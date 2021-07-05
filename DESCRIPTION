@@ -1,4 +1,4 @@
-Package: lterdatasets
+Package: lterdatasampler
 Title: Educational dataset examples from the Long Term Ecological Research program 
 Version: 0.1.0
 Date: 2020-08-01
@@ -16,7 +16,7 @@ Authors@R: c(
     person(given = "Sam",
            family = "Guo",
            role = c("ctb"),
-           comment = c("https://github.com/TokyoExpress"),
+           comment = c("https://github.com/TokyoExpress")),
     person(given = "Adhitya",
            family = "Logan",
            role = c("ctb"),

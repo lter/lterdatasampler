@@ -19,7 +19,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 ```
 
 ```{r setup, warning=FALSE, message=FALSE}
-library(lterdatasets)
+library(lterdatasampler)
 library(tidyverse)
 ```
 
