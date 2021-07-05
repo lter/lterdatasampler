@@ -49,6 +49,8 @@ abbreviations [here](https://lternet.edu/site/)).
 -   [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
     Daily Average Temperature Data in Madison, WI (1869 - 2019), North
     Temperate Lakes LTER
+-   [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
+    Fiddler crab body size in salt marshes from Florida to Massachusetts
 
 ## Analysis opportunities
 

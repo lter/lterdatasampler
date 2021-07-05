@@ -36,6 +36,7 @@ The `lterdatasampler` package  currently contains 4 stored data objects (from 3 
 
 - [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html): Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019), North Temperate Lakes LTER
 - [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html): Daily Average Temperature Data in Madison, WI (1869 - 2019), North Temperate Lakes LTER
+- [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html): Fiddler crab body size in salt marshes from Florida to Massachusetts
 
 
 ## Analysis opportunities
