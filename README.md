@@ -9,16 +9,16 @@ Site](https://github.com/lter/lterdatasampler/workflows/pkgdown/badge.svg)](http
 # {lterdatasampler}: LTER Data Sampler
 
 The mission of the [Long Term Ecological Research program (LTER)
-Network](https://lternet.edu/) is to “provide the scientific community,
+Network](https://lternet.edu/) is to “*provide the scientific community,
 policy makers, and society with the knowledge and predictive
 understanding necessary to conserve, protect, and manage the nation’s
-ecosystems, their biodiversity, and the services they provide.” A
+ecosystems, their biodiversity, and the services they provide.*” A
 specific goal of the LTER is [education and
-training](https://lternet.edu/education-and-training/) - “to promote
+training](https://lternet.edu/education-and-training/) - “*to promote
 training, teaching, and learning about long-term ecological research and
-the Earth’s ecosystems, and to educate a new generation of scientists.”
+the Earth’s ecosystems, and to educate a new generation of scientists.*”
 
-The goal of this package is to provide a small sample of datasets to
+The goal of this package is to provide a set of dataset samples to
 gather feedback from the community. The end goal is to create a package
 with one data sample from each of the [28 LTER Network
 sites](https://lternet.edu/site/) - that are useful for teaching and
