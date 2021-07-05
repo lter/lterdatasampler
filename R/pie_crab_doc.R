@@ -1,0 +1,19 @@
+#' Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016.
+#'
+#' We collected ~30 male, adult Minuca pugnax from thirteen marshes from  Florida to Massachusetts and measured their carapace width with calipers. Water and air temperature data were collected from monitoring programs (i.e., LTER, NERR sites), nearby weather stations, and ocean buoys for 2016.
+#'
+#' @format A tibble with 392 rows and 9 variables:
+#' \describe{
+#'   \item{date}{a date denoting the date crabs were collected}
+#'   \item{latitude}{a number denoting the latitude of salt marsh (degree)}
+#'   \item{site}{a character denoting the location where crabs were collected (abbreviation of site name); GTM=Guana Tolomoto Matanzas NERR | SI=Sapelo Island NERR |NIB=North Inlet Winyah Bay NERR | ZI=Zeke's Island NERR | RC=Rachel Carson NERR | VCR=Virginia Coastal Reserve LTER | DB=Delaware Bay NERR |JC=Jacques Cousteau NERR | CT=Sixpenny Island - Connecticut |NB=Narragansett Bay NERR | CC=Cape Cod | BC=Bare Cove Park | PIE=Plum Island Estuary - West Creek}
+#'   \item{size}{a number denoting carapace width of a crab (millimeter)}
+#'   \item{air_temp}{a number denoting mean annual air temperature (Celsius)}
+#'   \item{air_temp_sd}{a number denoting the standard deviation of mean annual air temperature (Celsius)}
+#'   \item{water_temp}{a number denoting mean annual water temperature (Celcius), which is surface temperature (< 1m)}
+#'   \item{water_temp_sd}{a number denoting the standard deviation of mean annual water temperature (Celsius)}
+#'   \item{name}{full name of research site;  LTER, Long-Term Ecological Research site; NERR, National Estuarine Research Reserve}
+#'   }
+#' @source {Johnson, D. 2019. Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. ver 1. Environmental Data Initiative.}
+#' \url{https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb}
+"pie_crab"
