@@ -1,5 +1,5 @@
 ---
-title: "Plum Island Ecosystem LTER fiddler crabs"
+title: "Plum Island Ecosystem LTER fiddler crabs (PIE)"
 subtitle: "Fiddler crab body size in salt marshes from Florida to Massachusetts, USA during summer 2016 at Plum Island Ecosystem LTER"
 output: rmarkdown::html_vignette
 vignette: >
@@ -16,10 +16,10 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup}
-library(lterdatasampler)
-library(tidyverse)
-```
+### Dataset sample used
+
+- `pie_crab` 
+
 
 # Introduction
 
@@ -36,6 +36,11 @@ The `pie_crab` data sample is from a study by Johnson and colleagues at the Plum
 - Between 25 and 37 adult male fiddler crabs were collected, and their sizes recorded, from each marsh between 2016-07-24 and 2016-08-13
 
 # Data Exploration
+
+```{r setup}
+library(lterdatasampler)
+library(tidyverse)
+```
 
 ## Latitude and water temperature
 

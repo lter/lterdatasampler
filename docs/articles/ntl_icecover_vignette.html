@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ntl_icecover and ntl_airtemp: Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER) • lterdatasampler</title>
+<title>North Temperate Lakes Ice Cover (NTL) • lterdatasampler</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,9 +18,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="ntl_icecover and ntl_airtemp: Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)">
+<meta property="og:title" content="North Temperate Lakes Ice Cover (NTL)">
 <meta property="og:description" content="lterdatasampler">
-<meta property="og:image" content="/reference/figures/leaf.png">
+<meta property="og:image" content="https://lter.github.io/lterdatasampler/reference/figures/leaf.png">
 <meta property="og:image:alt" content="lterdatasampler package in R">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@allison_horst">
@@ -62,7 +62,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/ntl_icecover_vignette.html">ntl_icecover and ntl_airtemp: Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)</a>
+      <a href="../articles/ntl_icecover_vignette.html">North Temperate Lakes Ice Cover (NTL)</a>
+    </li>
+    <li>
+      <a href="../articles/pie_crab_vignette.html">Plum Island Ecosystem LTER fiddler crabs (PIE)</a>
     </li>
   </ul>
 </li>
@@ -87,7 +90,8 @@
       </header><script src="ntl_icecover_vignette_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>ntl_icecover and ntl_airtemp: Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)</h1>
+      <h1 data-toc-skip>North Temperate Lakes Ice Cover (NTL)</h1>
+            <h3 data-toc-skip class="subtitle">Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)</h3>
             
       
       <small class="dont-index">Source: <a href="https://github.com/lter/lterdatasampler/blob/master/vignettes/ntl_icecover_vignette.Rmd" class="external-link"><code>vignettes/ntl_icecover_vignette.Rmd</code></a></small>
@@ -97,10 +101,25 @@
 
     
     
+<div id="dataset-sample-used" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dataset-sample-used" class="anchor" aria-hidden="true"></a>Dataset sample used</h3>
+<ul>
+<li><code>ntl_icecover</code></li>
+<li><code>ntl_airtemp</code></li>
+</ul>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lter/lterdatasampler" class="external-link">lterdatasampler</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></code></pre></div>
+</div>
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor" aria-hidden="true"></a>Introduction</h1>
 <p>According to the <a href="https://www.epa.gov/climate-indicators/climate-change-indicators-lake-ice#ref2" class="external-link">EPA</a>, lake ice duration can be an indicator of climate change. This is because lake ice is dependent on several environmental factors, so changes in these factors will influence the formation of ice on top of lakes. As a result, the study and analysis of lake ice formation can inform scientists about how quickly the climate is changing, and are critical to minimizing disruptions to lake ecosystems. We can examine the ice duration of Lake Mendota, Lake Monona, and Lake Wingra, three lakes in the Madison, WI area.</p>
+</div>
+<div id="data-exploration" class="section level1">
+<h1 class="hasAnchor">
+<a href="#data-exploration" class="anchor" aria-hidden="true"></a>Data Exploration</h1>
 <div id="explore-ice-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#explore-ice-data" class="anchor" aria-hidden="true"></a>Explore Ice Data</h2>
@@ -344,6 +363,7 @@
 <span class="co">#&gt; Warning: Removed 19 rows containing non-finite values (stat_smooth).</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/simpler_smooth-1.png" width="672"></p>
 <p>Now, it is clear that after 1900, the percent change in temperature follows an upward trend and the percent change in ice duration follows a downward trend. These changes could have dramatic effects on plants, animals, and humans in Madison, WI both now and in the future.</p>
+</div>
 </div>
 <div id="citation" class="section level1">
 <h1 class="hasAnchor">
