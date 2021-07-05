@@ -82,4 +82,4 @@ Alison Hill.
 
 <hr>
 
-<img src="man/figures/logos.png" width="90%" align="center" style="display: block; margin: auto;" />
+<img src="man/figures/logos.png" width="100%" align="center" style="display: block; margin: auto;" />
