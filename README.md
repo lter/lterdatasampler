@@ -80,7 +80,6 @@ We gratefully acknowledge all authors and contributors of the
 This website relies heavily on themes created by Desirée DeLeon and
 Alison Hill.
 
-<br>
 <hr>
 
-<img src="man/figures/logos.png" width="75%" style="display: block; margin: auto;" />
+<img src="man/figures/logos.png" width="90%" align="center" style="display: block; margin: auto;" />
