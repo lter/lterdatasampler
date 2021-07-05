@@ -25,7 +25,7 @@ sites](https://lternet.edu/site/) - that are useful for teaching and
 training in environmental data science. These datasets are subsets of
 the original data and have been updated - sometimes substantially - from
 the raw data, as described in the articles. **This content is thus not
-suitable for research and should only be used for teaching purposes**
+suitable for research and should only be used for teaching purposes**.
 
 We encourage you to explore existing LTER [teaching and training
 initiatives](https://lternet.edu/education-and-training/), and the
