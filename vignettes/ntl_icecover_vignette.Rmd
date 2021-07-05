@@ -1,5 +1,5 @@
 ---
-title: "ntl_icecover and ntl_airtemp: Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)"
+title: "North Temperate Lakes Ice Cover (NTL)"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{ntl_icecover_vignette}
@@ -22,6 +22,15 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 library(lterdatasampler)
 library(tidyverse)
 ```
+
+# Comparing Temperatures and Lake Ice in Madison, WI since the 19th Century (North Temperate Lakes LTER)
+
+## Dataset sample
+
+- `ntl_icecover`
+- `ntl_airtemp`
+
+## Description
 
 According to the [EPA](https://www.epa.gov/climate-indicators/climate-change-indicators-lake-ice#ref2), lake ice duration can be an indicator of climate change. This is because lake ice is dependent on several environmental factors, so changes in these factors will influence the formation of ice on top of lakes. As a result, the study and analysis of lake ice formation can inform scientists about how quickly the climate is changing, and are critical to minimizing disruptions to lake ecosystems. We can examine the ice duration of Lake Mendota, Lake Monona, and Lake Wingra, three lakes in the Madison, WI area.
 
