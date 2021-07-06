@@ -108,22 +108,26 @@
 
     
     
+<div id="dataset-sample-used" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dataset-sample-used" class="anchor"></a>Dataset sample used</h3>
+<ul>
+<li><code>hbr_maples</code></li>
+</ul>
+</div>
+<div id="introduction" class="section level1">
+<h1 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>Sugar maples (<em>Acer saccharum</em>) are a type of tree found at the Hubbard Brook LTER. These trees, known for things like maple syrup and their iconic leaf shape, have been compromised by decades of acid rain.</p>
+<p>Researchers S. Juice and T. Fahey at Hubbard Brook LTER have treated a watershed (W1) at the site with calcium, to see if it helps restore the health of sugar maple seedlings. By comparing seedling growth in the W1 watershed with seedling growth in a reference (non-calcium treated) watershed, calcium impacts can be investigated.</p>
+</div>
+<div id="data-exploration" class="section level1">
+<h1 class="hasAnchor">
+<a href="#data-exploration" class="anchor"></a>Data Exploration</h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lter/lterdatasampler">lterdatasampler</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="co">#&gt; ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──</span>
-<span class="co">#&gt; ✔ ggplot2 3.3.5     ✔ purrr   0.3.4</span>
-<span class="co">#&gt; ✔ tibble  3.1.2     ✔ dplyr   1.0.7</span>
-<span class="co">#&gt; ✔ tidyr   1.1.3     ✔ stringr 1.4.0</span>
-<span class="co">#&gt; ✔ readr   1.4.0     ✔ forcats 0.5.1</span>
-<span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span>
-<span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span>
-<span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></code></pre></div>
-<p>Sugar maples (<em>Acer saccharum</em>) are a type of tree found at the Hubbard Brook LTER. These trees, known for things like maple syrup and their iconic leaf shape, have been compromised by decades of acid rain.</p>
-<p>Researchers S. Juice and T. Fahey at Hubbard Brook LTER have treated a watershed (W1) at the site with calcium, to see if it helps restore the health of sugar maple seedlings. By comparing seedling growth in the W1 watershed with seedling growth in a reference (non-calcium treated) watershed, calcium impacts can be investigated.</p>
-<div id="data-exploration" class="section level2">
-<h2 class="hasAnchor">
-<a href="#data-exploration" class="anchor"></a>Data Exploration</h2>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/">broom</a></span><span class="op">)</span></code></pre></div>
 <p>Let’s explore the dataset:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span>
@@ -163,9 +167,9 @@
 <span class="va">boxplot_watershed</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>In both years of the study (2003 and 2004) it appears that calcium addition may increase maple growth.</p>
-<div id="summary-statistics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#summary-statistics" class="anchor"></a>Summary statistics</h3>
+<div id="summary-statistics" class="section level2">
+<h2 class="hasAnchor">
+<a href="#summary-statistics" class="anchor"></a>Summary statistics</h2>
 <p>Here, we find some basic summary statistics (mean, median, standard deviation, sample size) for seedling heights in the two watersheds for further comparison:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">maple_summary</span> <span class="op">&lt;-</span> <span class="va">hbr_maples</span> <span class="op">%&gt;%</span> 
@@ -177,7 +181,6 @@
     sd_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span>,
     n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>
   <span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year'. You can override using the `.groups` argument.</span>
 
 <span class="va">maple_summary</span>
 <span class="co">#&gt; # A tibble: 4 x 6</span>
@@ -189,7 +192,6 @@
 <span class="co">#&gt; 3  2004 Reference        85.9          85        15.6    59</span>
 <span class="co">#&gt; 4  2004 W1               97.5          95.5      13.8    60</span></code></pre></div>
 <p>In both years, the mean and median seedling height (stem_length) are higher in the W1 (calcium-treated) watershed.</p>
-</div>
 </div>
 <div id="seedling-height-distributions" class="section level2">
 <h2 class="hasAnchor">
@@ -204,9 +206,9 @@
     title <span class="op">=</span> <span class="st">"Distribution of Sugar Maple seedling stem lengths"</span>,
     subtitle <span class="op">=</span> <span class="st">"Hubbard Brook LTER"</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">watershed</span><span class="op">)</span>
-<span class="co">#&gt; `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></code></pre></div>
-<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"> Overall, the seedling heights appear relatively normally distributed. A quantile-quantile plot can help further assess normality:</p>
+  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">watershed</span><span class="op">)</span></code></pre></div>
+<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
+<p>Overall, the seedling heights appear relatively normally distributed. A quantile-quantile plot can help further assess normality:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_qq</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>sample <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -218,13 +220,14 @@
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Within each watershed and year, stem length distributions appear to be approximately normally distributed from histograms and Q-Q plots.</p>
 </div>
-<div id="means-comparison" class="section level2">
-<h2 class="hasAnchor">
-<a href="#means-comparison" class="anchor"></a>Means comparison</h2>
+</div>
+<div id="means-comparison" class="section level1">
+<h1 class="hasAnchor">
+<a href="#means-comparison" class="anchor"></a>Means comparison</h1>
 <p>The two watersheds are independent from one another, and according to the documentation, the data consists of a random sample of the seedlings present in each watershed. We will compare heights at the two watersheds by a two-sample t-test.</p>
-<div id="f-test-for-equal-variance" class="section level3">
-<h3 class="hasAnchor">
-<a href="#f-test-for-equal-variance" class="anchor"></a>F-test for equal variance</h3>
+<div id="f-test-for-equal-variance" class="section level2">
+<h2 class="hasAnchor">
+<a href="#f-test-for-equal-variance" class="anchor"></a>F-test for equal variance</h2>
 <p>From the histograms and QQ plots above, the data are approximately normal. Now we can use <code><a href="https://rdrr.io/r/stats/var.test.html">var.test()</a></code> to test for equal variances.</p>
 <p>Our hypotheses will be:</p>
 <ul>
@@ -254,9 +257,9 @@
 <p>With a p-value &gt;&gt; 0.05, we fail to reject the null hypothesis that the ratio of the variances of the two watersheds is equal, and we will use the t-test assumption of equal variances.</p>
 <p>Having checked data distributions and for equal variances, we can now do a two-sample t-test using <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> to determine if there is a statistically significant difference in mean stem length between the watersheds. Here, we will only use data from 2004 in the comparison.</p>
 </div>
-<div id="one-sided-two-sample-t-test" class="section level3">
-<h3 class="hasAnchor">
-<a href="#one-sided-two-sample-t-test" class="anchor"></a>One-sided, two-sample t-test</h3>
+<div id="one-sided-two-sample-t-test" class="section level2">
+<h2 class="hasAnchor">
+<a href="#one-sided-two-sample-t-test" class="anchor"></a>One-sided, two-sample t-test</h2>
 <p>Our hypotheses will be:</p>
 <ul>
 <li><p><span class="math inline">\(H_0: \mu_{1} - \mu_2 = 0\)</span></p></li>
@@ -268,10 +271,11 @@
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2004</span><span class="op">)</span>
 
 
-<span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">stem_length</span> <span class="op">~</span> <span class="va">watershed</span>, 
+<span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">stem_length</span> <span class="op">~</span> <span class="va">watershed</span>, 
        alternative <span class="op">=</span> <span class="st">"less"</span>, 
        var.equal <span class="op">=</span> <span class="cn">TRUE</span>, 
        data <span class="op">=</span> <span class="va">hbr_maples_2004</span><span class="op">)</span>
+<span class="va">tt</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  Two Sample t-test</span>
 <span class="co">#&gt; </span>
@@ -283,15 +287,23 @@
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; mean in group Reference        mean in group W1 </span>
 <span class="co">#&gt;                85.88136                97.51667</span></code></pre></div>
+<p>Note that the <code>broom</code> package can help us to create an more familiar object and store the model parameters into a data frame</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt;   estimate estimate1 estimate2 statistic   p.value parameter conf.low conf.high</span>
+<span class="co">#&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt; 1    -11.6      85.9      97.5     -4.31 0.0000172       117     -Inf     -7.16</span>
+<span class="co">#&gt; # … with 2 more variables: method &lt;chr&gt;, alternative &lt;chr&gt;</span></code></pre></div>
 <p>Since there is a p-value &lt; 0.05, we reject the null hypothesis and conclude that the true difference in means is less than 0. In other words, seedling heights in the reference watershed (no calcium treatment) are significantly smaller than those in calcium-treated watershed (W1). This provides additional information about the effectiveness of calcium treatment for restoring sugar maple growth in watersheds impacted by acid rain.</p>
 </div>
 </div>
-<div id="further-analysis-ideas" class="section level2">
-<h2 class="hasAnchor">
-<a href="#further-analysis-ideas" class="anchor"></a>Further Analysis Ideas</h2>
+<div id="further-analysis-ideas" class="section level1">
+<h1 class="hasAnchor">
+<a href="#further-analysis-ideas" class="anchor"></a>Further Analysis Ideas</h1>
 <p>We include the t-test here because it is ubiquitous in environmental science literature and analyses, and this dataset provides clear motivation for comparing sizes between seedlings in the two treatments. However, as stated by Gene Glass and included in Sullivan &amp; Feinn in their 2012 paper <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3444174/"><em>Using Effect Size—or Why the P Value Is Not Enough</em></a>, “Statistical significance is the least interesting thing about the results.” The maple datasets provide opportunity to explore size differences more meaningfully, for example by effect size, absolute or percent differences in seedling size, and others.</p>
 <p>There are some relationships in this dataset that could be further examined. For example, stem length versus mass provides regression opportunities:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">stem_plot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>
@@ -303,9 +315,9 @@
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">stem_plot</span></code></pre></div>
-<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Clarified when separated by study year and watershed:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">stem_year</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>
@@ -319,9 +331,9 @@
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">stem_year</span></code></pre></div>
-<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>You could also examine the relationship between <code>corrected_leaf_area</code> and <code>leaf_dry_mass</code> before and after the obvious outlier is removed.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">outlier_plot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">corrected_leaf_area</span>, y <span class="op">=</span> <span class="va">leaf_dry_mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>
@@ -332,11 +344,10 @@
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">outlier_plot</span>
-<span class="co">#&gt; Warning: Removed 119 rows containing missing values (geom_point).</span></code></pre></div>
-<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
+<span class="va">outlier_plot</span></code></pre></div>
+<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 <hr>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">leaf_linear</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">leaf1area</span>, y <span class="op">=</span> <span class="va">leaf2area</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>
@@ -347,9 +358,8 @@
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
 
-<span class="va">leaf_linear</span>
-<span class="co">#&gt; Warning: Removed 119 rows containing missing values (geom_point).</span></code></pre></div>
-<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
+<span class="va">leaf_linear</span></code></pre></div>
+<p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>… and many more!</p>
 </div>
 <div id="citation" class="section level1">
@@ -363,7 +373,7 @@
 <div id="download-the-raw-data-from-edi-org" class="section level3">
 <h3 class="hasAnchor">
 <a href="#download-the-raw-data-from-edi-org" class="anchor"></a>Download the raw data from EDI.org</h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam">metajam</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
@@ -382,7 +392,7 @@
 <div id="data-cleaning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-cleaning" class="anchor"></a>Data cleaning</h3>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in data</span>
 <span class="va">hbr_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html">read_d1_files</a></span><span class="op">(</span><span class="va">hbr_download</span><span class="op">)</span>
 <span class="va">hbr_maples_raw</span> <span class="op">&lt;-</span> <span class="va">hbr_files</span><span class="op">$</span><span class="va">data</span>
