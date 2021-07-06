@@ -30,9 +30,18 @@ The goal of this package is to provide a set of dataset samples to gather feedba
 
 We encourage you to explore existing LTER [teaching and training initiatives](https://lternet.edu/education-and-training/), and the **many** other available LTER datasets which can be accessed via the [Environmental Data Initiative](https://environmentaldatainitiative.org/). Please contact  cited researchers directly to discuss using data for research purposes or in publication. 
 
-## The datasets
+## Installation
 
-The `lterdatasampler` package  currently contains 4 stored data objects (from 3 LTER sites). The data are summarized below; see individual Articles for data and source details. Note: the three letter prefix for each dataset indicates the LTER site (see full list of site abbreviations [here](https://lternet.edu/site/)).
+You can install the development version of `lterdatasampler` from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("lter/lterdatasampler")
+```
+
+## The dataset samples
+
+The `lterdatasampler` package currently contains 4 stored data objects (with 3 examples). The data are summarized below; see individual Articles for data and source details. Note: the three letter prefix for each dataset indicates the LTER site (see full list of site abbreviations [here](https://lternet.edu/site/)).
 
 - [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html): Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019), North Temperate Lakes LTER
 - [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html): Daily Average Temperature Data in Madison, WI (1869 - 2019), North Temperate Lakes LTER

@@ -35,10 +35,20 @@ Initiative](https://environmentaldatainitiative.org/). Please contact
 cited researchers directly to discuss using data for research purposes
 or in publication.
 
-## The datasets
+## Installation
+
+You can install the development version of `lterdatasampler` from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("lter/lterdatasampler")
+```
+
+## The dataset samples
 
 The `lterdatasampler` package currently contains 4 stored data objects
-(from 3 LTER sites). The data are summarized below; see individual
+(with 3 examples). The data are summarized below; see individual
 Articles for data and source details. Note: the three letter prefix for
 each dataset indicates the LTER site (see full list of site
 abbreviations [here](https://lternet.edu/site/)).
