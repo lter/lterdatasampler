@@ -76,7 +76,10 @@ Is the data normally distributed?
 density_curve <- ggplot(data = hbr_maples, aes(stem_length)) +
   geom_density() +
   theme_minimal() +
-  labs(x = "Stem Length (mm)", y = "Density", title = "Distribution of Sugar Maple Seedling Stem Lengths", subtitle = "Hubbard Brook LTER")
+  labs(x = "Stem Length (mm)", 
+       y = "Density", 
+       title = "Distribution of Sugar Maple Seedling Stem Lengths", 
+       subtitle = "Hubbard Brook LTER")
 
 density_curve
 ```
@@ -86,7 +89,10 @@ density_watershed <-
   ggplot(data = hbr_maples, aes(stem_length)) +
   geom_density(aes(color = watershed)) +
   theme_minimal() +
-  labs(x = "Stem Length (mm)", y = "Density", title = "Distribution of Sugar Maple Seedling Stem Lengths By Watershed", subtitle = "Hubbard Brook LTER")
+  labs(x = "Stem Length (mm)", 
+       y = "Density", 
+       title = "Distribution of Sugar Maple Seedling Stem Lengths By Watershed", 
+       subtitle = "Hubbard Brook LTER")
 
 density_watershed
 ```
@@ -101,8 +107,8 @@ qq_reference <- ggplot(data = hbr_maples %>% filter(watershed == "Reference")) +
   geom_qq_line(aes(sample = stem_length)) +
   labs(title = "Q-Q Plot for Reference Watershed Stem Lengths", 
        subtitle = "Hubbard Brook LTER",
-       y = "Sample quantiles",
-       x = "Normal distribution quantiles") +
+       x = "Normal distribution quantiles",
+       y = "Sample quantiles") +
   theme_minimal()
 
 qq_reference
@@ -114,14 +120,18 @@ qq_calcium <- ggplot(data = hbr_maples %>% filter(watershed == "W1")) +
   geom_qq_line(aes(sample = stem_length)) +
   labs(title = "Q-Q Plot for Calcium Watershed Stem Lengths",
        subtitle = "Hubbard Brook LTER",
-       y = "Sample quantiles",
-       x = "Normal distribution quantiles") +
+       x = "Normal distribution quantiles",
+       y = "Sample quantiles") +
   theme_minimal()
 
 qq_calcium
 ```
 
-Both watershed distributions appear to be normally distributed according to the density and Q-Q plots with no strong skewness nor kurtosis. Now we can use `var.test` to see if they have equal variances. 
+Both watershed distributions appear to be normally distributed according to the density and Q-Q plots with no strong skewness nor kurtosis. 
+
+## Hypothesis testing
+
+Now we can use `var.test` to see if they have equal variances. 
 
 Our hypotheses will be:
 
@@ -167,14 +177,27 @@ Since there is a p-value < 0.05, we can reject the null hypothesis and say that 
 There are some relationships in this dataset that could examined more:
 
 ```{r}
-stem_plot <- ggplot(hbr_maples) + geom_point(aes(x=stem_length, y = stem_dry_mass)) + labs(x = "Stem Length (mm)", y = "Stem Dry Mass (g)", title = "Stem Dry Mass vs. Stem Length in Sugar Maple Seedlings", subtitle = "Hubbard Brook LTER") + theme_minimal()
+stem_plot <- ggplot(hbr_maples) + 
+  geom_point(aes(x=stem_length, y = stem_dry_mass)) + 
+  labs(x = "Stem Length (mm)", 
+       y = "Stem Dry Mass (g)", 
+       title = "Stem Dry Mass vs. Stem Length in Sugar Maple Seedlings", 
+       subtitle = "Hubbard Brook LTER") + 
+  theme_minimal()
 stem_plot
 ```
 
 Now color each point based on the year of observation:
 
 ```{r}
-stem_year <- ggplot(hbr_maples) + geom_point(aes(x=stem_length, y = stem_dry_mass, color = factor(year))) + labs(x = "Stem Length (mm)", y = "Stem Dry Mass (g)", title = "Stem Dry Mass vs. Stem Length in Sugar Maple Seedlings", subtitle = "Hubbard Brook LTER", color = "year") + theme_minimal()
+stem_year <- ggplot(hbr_maples) + 
+  geom_point(aes(x=stem_length, y = stem_dry_mass, color = factor(year))) + 
+  labs(x = "Stem Length (mm)", 
+       y = "Stem Dry Mass (g)", 
+       title = "Stem Dry Mass vs. Stem Length in Sugar Maple Seedlings", 
+       subtitle = "Hubbard Brook LTER",
+       color = "year") + 
+  theme_minimal()
 stem_year
 ```
 
@@ -194,7 +217,10 @@ Outlier Analysis: You could examine the relationship between `corrected_leaf_are
 ```{r}
 outlier_plot <- ggplot(hbr_maples) + 
   geom_point(aes(x=corrected_leaf_area, y = leaf_dry_mass)) + 
-  labs(x = "Corrected Leaf Area (sq. cm)", y = "Leaf Dry Mass (g)", title = "Leaf Dry Mass vs. Corrected Leaf Area in Sugar Maple Seedlings", subtitle = "Hubbard Brook LTER") +
+  labs(x = "Corrected Leaf Area (sq. cm)", 
+       y = "Leaf Dry Mass (g)", 
+       title = "Leaf Dry Mass vs. Corrected Leaf Area in Sugar Maple Seedlings", 
+       subtitle = "Hubbard Brook LTER") +
   theme_minimal()
 outlier_plot
 ```
@@ -204,7 +230,10 @@ outlier_plot
 ```{r}
 leaf_linear <- ggplot(hbr_maples) + 
   geom_point(aes(x=leaf1area, y = leaf2area)) +
-  labs(x = "Leaf 1 Area (sq. cm)", y = "Leaf 2 Area (sq. cm)", title = "Leaf 1 Area vs. Leaf 2 Area in Sugar Maple Seedlings", subtitle = "Hubbard Brook LTER") +
+  labs(x = "Leaf 1 Area (sq. cm)", 
+       y = "Leaf 2 Area (sq. cm)", 
+       title = "Leaf 1 Area vs. Leaf 2 Area in Sugar Maple Seedlings", 
+       subtitle = "Hubbard Brook LTER") +
   theme_minimal()
 leaf_linear
 ```
