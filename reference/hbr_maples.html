@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019), North Temperate Lakes LTER — ntl_icecover • lterdatasampler</title>
+<title>Health of Sugar Maple (Acer saccharum) Seedlings in Response to Calcium Addition (2003-2004), Hubbard Brook LTER — hbr_maples • lterdatasampler</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,9 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019), North Temperate Lakes LTER — ntl_icecover" />
-<meta property="og:description" content="Data includes lake name, dates of freeze-up and thaw, and duration of ice cover of lakes in the Madison, WI area. Ice cover duration is the number of days that a lake is frozen, excluding periods where the lake thaws before refreezing again. Lakes Monona and Wingra are considered to be frozen if they are completely ice covered,
-while Lake Mendota is considered to be frozen if there is ice from Picnic Point to Maple Bluff and more than 50% of the lake is covered by ice." />
+<meta property="og:title" content="Health of Sugar Maple (Acer saccharum) Seedlings in Response to Calcium Addition (2003-2004), Hubbard Brook LTER — hbr_maples" />
+<meta property="og:description" content="Sugar maple seedlings were examined at Hubbard Brook Experimental Forest on calcium-treated and reference sites during August 2003 and June 2004. Seedlings were sampled every ten steps in transects." />
 <meta property="og:image" content="https://lter.github.io/lterdatasampler/reference/figures/leaf.png" />
 <meta property="og:image:alt" content="lterdatasampler package in R" />
 <meta name="twitter:card" content="summary" />
@@ -141,34 +140,39 @@ while Lake Mendota is considered to be frozen if there is ice from Picnic Point 
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019), North Temperate Lakes LTER</h1>
-    <small class="dont-index">Source: <a href='https://github.com/lter/lterdatasampler/blob/master/R/ntl_icecover_doc.R'><code>R/ntl_icecover_doc.R</code></a></small>
-    <div class="hidden name"><code>ntl_icecover.Rd</code></div>
+    <h1>Health of Sugar Maple (Acer saccharum) Seedlings in Response to Calcium Addition (2003-2004), Hubbard Brook LTER</h1>
+    <small class="dont-index">Source: <a href='https://github.com/lter/lterdatasampler/blob/master/R/hbr_maples_doc.R'><code>R/hbr_maples_doc.R</code></a></small>
+    <div class="hidden name"><code>hbr_maples.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Data includes lake name, dates of freeze-up and thaw, and duration of ice cover of lakes in the Madison, WI area. Ice cover duration is the number of days that a lake is frozen, excluding periods where the lake thaws before refreezing again. Lakes Monona and Wingra are considered to be frozen if they are completely ice covered,
-while Lake Mendota is considered to be frozen if there is ice from Picnic Point to Maple Bluff and more than 50% of the lake is covered by ice.</p>
+    <p>Sugar maple seedlings were examined at Hubbard Brook Experimental Forest on calcium-treated and reference sites during August 2003 and June 2004. Seedlings were sampled every ten steps in transects.</p>
     </div>
 
-    <pre class="usage"><span class='va'>ntl_icecover</span></pre>
+    <pre class="usage"><span class='va'>hbr_maples</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with 431 rows and 5 variables</p><dl>
-<dt>lakeid</dt><dd><p>a factor denoting the lake name</p></dd>
-<dt>ice_on</dt><dd><p>a date denoting the freeze date of each lake</p></dd>
-<dt>ice_off</dt><dd><p>a date denoting the ice breakup date of each lake</p></dd>
-<dt>ice_duration</dt><dd><p>a number denoting the number of days between the freeze and breakup dates of each lake</p></dd>
-<dt>year</dt><dd><p>a number denoting the year of observation</p></dd>
+    <p>A tibble with 359 rows and 11 variables</p><dl>
+<dt>year</dt><dd><p>a number denoting the year that the sample was taken</p></dd>
+<dt>watershed</dt><dd><p>a factor denoting the watershed where the sample was collected; W1 = calcium-treated, Reference = reference</p></dd>
+<dt>elevation</dt><dd><p>a factor describing the sample staion where the fecal sample was collected</p></dd>
+<dt>transect</dt><dd><p>a factor denoting the transect number within the watershed</p></dd>
+<dt>sample</dt><dd><p>a factor denoting the sample number within transect. There are twenty samples in each transect</p></dd>
+<dt>stem_length</dt><dd><p>a number denoting the height of the seedling in millimeters</p></dd>
+<dt>leaf1area</dt><dd><p>a number denoting the area of the first sampled leaf in square centimeters</p></dd>
+<dt>leaf2area</dt><dd><p>a number denoting the area of the second sampled leaf in square centimeters</p></dd>
+<dt>leaf_dry_mass</dt><dd><p>a number denoting the dry mass of both sampled leaves in grams</p></dd>
+<dt>stem_dry_mass</dt><dd><p>a number denoting the dry mass of the stem in grams</p></dd>
+<dt>corrected_leaf_area</dt><dd><p>a number denoting the area of both leaves in addition to the area removed for chlorophyll measurements in square centimeters</p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Magnuson, J.J., S.R. Carpenter, and E.H. Stanley. 2021. North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current ver 35. Environmental Data Initiative.
-<a href='https://doi.org/10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97'>https://doi.org/10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97</a></p>
+    <p>Juice, S. and T. Fahey. 2019. Health and mycorrhizal colonization response of sugar maple (Acer saccharum) seedlings to calcium addition in Watershed 1 at the Hubbard Brook Experimental Forest ver 3. Environmental Data Initiative.
+<a href='https://doi.org/10.6073/pasta/0ade53ede9a916a36962799b2407097e'>https://doi.org/10.6073/pasta/0ade53ede9a916a36962799b2407097e</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

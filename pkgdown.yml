@@ -2,9 +2,10 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
+  hbr_maples_vignette: hbr_maples_vignette.html
   ntl_icecover_vignette: ntl_icecover_vignette.html
   pie_crab_vignette: pie_crab_vignette.html
-last_built: 2021-07-06T00:12Z
+last_built: 2021-07-06T20:51Z
 urls:
   reference: https://lter.github.io/lterdatasampler//reference
   article: https://lter.github.io/lterdatasampler//articles

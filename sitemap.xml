@@ -4,6 +4,9 @@
     <loc>https://lter.github.io/lterdatasampler//index.html</loc>
   </url>
   <url>
+    <loc>https://lter.github.io/lterdatasampler//reference/hbr_maples.html</loc>
+  </url>
+  <url>
     <loc>https://lter.github.io/lterdatasampler//reference/ntl_airtemp.html</loc>
   </url>
   <url>
@@ -11,6 +14,9 @@
   </url>
   <url>
     <loc>https://lter.github.io/lterdatasampler//reference/pie_crab.html</loc>
+  </url>
+  <url>
+    <loc>https://lter.github.io/lterdatasampler//articles/hbr_maples_vignette.html</loc>
   </url>
   <url>
     <loc>https://lter.github.io/lterdatasampler//articles/ntl_icecover_vignette.html</loc>
