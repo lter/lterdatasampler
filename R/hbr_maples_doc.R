@@ -1,4 +1,4 @@
-#' Health of Sugar Maple (Acer saccharum) Seedlings in Response to Calcium Addition, Hubbard Brook LTER
+#' Health of Sugar Maple (Acer saccharum) Seedlings in Response to Calcium Addition (2003-2004), Hubbard Brook LTER
 #'
 #' Sugar maple seedlings were examined at Hubbard Brook Experimental Forest on calcium-treated and reference sites during August 2003 and June 2004. Seedlings were sampled every ten steps in transects.
 #'

@@ -3,7 +3,7 @@
 \docType{data}
 \name{hbr_maples}
 \alias{hbr_maples}
-\title{Health of Sugar Maple (Acer saccharum) Seedlings in Response to Calcium Addition, Hubbard Brook LTER}
+\title{Health of Sugar Maple (Acer saccharum) Seedlings in Response to Calcium Addition (2003-2004), Hubbard Brook LTER}
 \format{
 A tibble with 359 rows and 11 variables
 \describe{
