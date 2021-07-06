@@ -174,21 +174,21 @@
 
 <span class="va">lake_ice</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/box_plot-1.png" width="672"></p>
-<p>Now let’s have a look at the time-series accross the different lakes:</p>
+<p>Now let’s have a look at the time-series across the different lakes:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ice_duration</span> <span class="op">&lt;-</span>
-  <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_icecover</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_icecover</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>y <span class="op">=</span> <span class="va">ice_duration</span>, color <span class="op">=</span> <span class="va">lakeid</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>, title <span class="op">=</span> <span class="st">"Ice Duration of Lakes in the Madison, WI Area"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span>
 
 <span class="va">ice_duration</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/ice_duration-1.png" width="672"></p>
-<p>Since the box plots and time series plots are similar for the 3 lakes, we can try averaging the ice duration across all three lakes.</p>
-<p>Boxplot:</p>
+<p>Box plots and time series plots reveal similarities across the 3 lakes. What does the trend look like for <em>average</em> ice cover duration in the region, based on data for the 3 lakes here?</p>
+<p>Boxplot (3-lake average):</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ntl_icecover_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu">drop_na</span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu">group_by</span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">summarise</span><span class="op">(</span>ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">rename</span><span class="op">(</span>avg_ice_duration <span class="op">=</span> <span class="va">ice_duration</span><span class="op">)</span>
@@ -224,7 +224,7 @@
 
 <span class="va">avg_ice_duration</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/ice_avg_time-1.png" width="672"></p>
-<p>The average ice duration in Madison is trending downwards. What environmental factors are influencing this change?</p>
+<p>The average ice duration in Madison is decreasing. What environmental factors are influencing this change?</p>
 <p><a href="http://hpkx.cnjournals.com/uploadfile/news_images/hpkx/2019-03-14/s41558-018-0393-56789.pdf">Research</a> suggests that mean annual temperature is one of the primary factors that alter lake ice formation. We can look at the temperature data of Madison, WI found in <code>ntl_airtemp</code> to see if there is a corresponding change in climate that may have influenced the change in ice duration.</p>
 <p><em>Note that according to the original metadata: “Daily temperature data prior to 1884 were estimated from 3 times per day sampling and biases are expected and should not be comparable with data after that time.”</em></p>
 </div>
@@ -286,7 +286,7 @@
 <div id="join-and-compare-ice-and-temperature-data" class="section level1">
 <h1 class="hasAnchor">
 <a href="#join-and-compare-ice-and-temperature-data" class="anchor"></a>Join and Compare Ice and Temperature Data</h1>
-<p>To compare the ice cover and temperature data directly, the <code>ntl_airtemp</code> and <code>ntl_icecover</code> datasets can be joined together. A common variable needs to be identified to do this. In this case, the datasets can be joined on the year of observation. Since there is one temperature for each year in <code>ntl_airtemp_avg</code>, each temperature will be mapped to the corresponding year in the joined table. For example, a <code>ave_air_temp_adjusted</code> value of 6.416 degrees Celsius will be added to each row that has a <code>year</code> value of 1869.</p>
+<p>To compare the ice cover and temperature data directly, the <code>ntl_airtemp</code> and <code>ntl_icecover</code> datasets can be joined. In this case, the datasets can be joined by the common <strong>year</strong> variable. Since there is one temperature for each year in <code>ntl_airtemp_avg</code>, each temperature will be mapped to the corresponding year in the joined table.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ntl_joined_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover_avg</span>  <span class="op">%&gt;%</span> 
   <span class="fu">left_join</span><span class="op">(</span>by <span class="op">=</span> <span class="st">"year"</span>, <span class="va">ntl_airtemp_avg</span><span class="op">)</span>
@@ -306,7 +306,7 @@
 <span class="co">#&gt;  9  1862             112.                    NA</span>
 <span class="co">#&gt; 10  1863             128                     NA</span>
 <span class="co">#&gt; # … with 156 more rows</span></code></pre></div>
-<p>Plot the average air temperature against the average ice cover durations:</p>
+<p>Plot the average air temperature against the average ice cover duration:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">scatter</span> <span class="op">&lt;-</span>
   <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_joined_avg</span> <span class="op">%&gt;%</span>
@@ -330,20 +330,20 @@
 <span class="va">scatter</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/scatter-1.png" width="672"></p>
 <p>It appears that there is a negative correlation between the mean annual temperature and the amount of time that each lake was frozen. This means that as temperature increases, the ice duration decreases.</p>
-<p>To compare the temperature with the ice duration on a time-series plot, calculate the percent change in ice duration and temperature from the earliest data point for both variables. The earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869. These values can be determined from the <code>ntl_icecover_avg</code> and <code>ntl_airtemp_avg</code> dataframes that were calculated earlier. First, join the full dataset with the average ice duration data that we calculated earlier, and then add two columns with the percent changes.</p>
+<p>To compare the temperature with the ice duration on a time-series plot, calculate the percent change in ice duration and temperature from the earliest data point for both variables. The earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869. These values can be determined from the <code>ntl_icecover_avg</code> and <code>ntl_airtemp_avg</code> values calculated earlier. First, join the full dataset with the average ice duration data that we calculated earlier, and then add new columns containing the calculated percent changes.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Remove data prior to 1868</span>
 <span class="va">ntl_joined_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_joined_avg</span>  <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1868</span><span class="op">)</span>
 
 
-<span class="co"># Calculate the percent of change</span>
+<span class="co"># Calculate the percent change</span>
 <span class="va">pct_change</span> <span class="op">&lt;-</span> <span class="va">ntl_joined_avg</span> <span class="op">%&gt;%</span>
   <span class="fu">mutate</span><span class="op">(</span>
-    pct_change_ice <span class="op">=</span> <span class="op">(</span> <span class="va">avg_ice_duration</span> <span class="op">/</span> <span class="fu">first</span><span class="op">(</span><span class="va">avg_ice_duration</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,
-    pct_change_temp <span class="op">=</span> <span class="op">(</span><span class="va">ave_air_temp_adjusted</span> <span class="op">/</span> <span class="fu">first</span><span class="op">(</span><span class="va">ave_air_temp_adjusted</span><span class="op">)</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>
+    pct_change_ice <span class="op">=</span> <span class="op">(</span><span class="va">avg_ice_duration</span> <span class="op">/</span> <span class="fu">first</span><span class="op">(</span><span class="va">avg_ice_duration</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>,
+    pct_change_temp <span class="op">=</span> <span class="op">(</span><span class="va">ave_air_temp_adjusted</span> <span class="op">/</span> <span class="fu">first</span><span class="op">(</span><span class="va">ave_air_temp_adjusted</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span> <span class="op">*</span> <span class="fl">100</span>
   <span class="op">)</span> </code></pre></div>
-<p>Then plot a time series to compare the magnitude in changes in temperature and ice duration. Use the <code>pivot longer</code> function so that both lines can easily be plotted on the same axes.</p>
+<p>Then plot a time series to compare the magnitude in changes in temperature and ice duration. Use the <code>pivot_longer</code> function so that both lines can easily be plotted on the same axes.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">comparison_df</span> <span class="op">&lt;-</span> <span class="va">pct_change</span>  <span class="op">%&gt;%</span> 
   <span class="fu">select</span><span class="op">(</span><span class="va">year</span>, <span class="va">pct_change_temp</span>, <span class="va">pct_change_ice</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -355,25 +355,20 @@
          <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">value</span>, color <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">geom_line</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"Percent Change"</span>, title <span class="op">=</span> <span class="st">"Percent Change in Ice Duration and Temperature"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span>
+  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"Percent Change"</span>, title <span class="op">=</span> <span class="st">"Percent Change in Ice Duration and Temperature (from 1859 values)"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span>
 
 <span class="va">comparison_plot</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/comparison_plot-1.png" width="672"></p>
 <p>It appears that the change in ice somewhat mirrors the change in temperature each year, as several spikes in temperature have a corresponding dip in ice duration. This may indicate a relationship between the two variables that would be worth further investigation.</p>
-<p>We can use <code>stat_smooth()</code> to get a clearer picture of the overall trends present in the data:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">comparison_plot</span> <span class="op">+</span> <span class="fu">stat_smooth</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, method <span class="op">=</span> <span class="st">"loess"</span><span class="op">)</span></code></pre></div>
-<p><img src="ntl_icecover_vignette_files/figure-html/stat_smooth-1.png" width="672"></p>
-<p>To get a cleaner plot, omit the <code>geom_line()</code> function:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">trend_line</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">comparison_df</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">value</span>, color <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"Perchant Change"</span>, title <span class="op">=</span> <span class="st">"Percent Change in Ice Duration and Temperature"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">stat_smooth</span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, method <span class="op">=</span> <span class="st">"loess"</span><span class="op">)</span>
-
-<span class="va">trend_line</span></code></pre></div>
-<p><img src="ntl_icecover_vignette_files/figure-html/simpler_smooth-1.png" width="672"></p>
-<p>Now, it is clear that after 1900, the percent change in temperature follows an upward trend and the percent change in ice duration follows a downward trend. These changes could have dramatic effects on plants, animals, and humans in Madison, WI both now and in the future.</p>
+<div id="other-things-to-explore" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-things-to-explore" class="anchor"></a>Other things to explore:</h2>
+<ul>
+<li>How does interpretation change with different methods / visualizations of smoothing (e.g. moving average)</li>
+<li>Predictions of ice cover duration in the future</li>
+<li>Comparison of how those predictions change if you pick a longer or shorter dataset (e.g. how does the coefficient compare if you use all of the data, versus just data since ~1975?)</li>
+</ul>
+</div>
 </div>
 <div id="citation" class="section level1">
 <h1 class="hasAnchor">
@@ -390,7 +385,7 @@
 <div id="download-the-raw-data-from-edi-org" class="section level3">
 <h3 class="hasAnchor">
 <a href="#download-the-raw-data-from-edi-org" class="anchor"></a>Download the raw data from EDI.org</h3>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam">metajam</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
@@ -409,7 +404,7 @@
 <div id="data-cleaning" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-cleaning" class="anchor"></a>Data Cleaning</h3>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in data</span>
 <span class="va">ntl_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html">read_d1_files</a></span><span class="op">(</span><span class="va">ntl_download</span><span class="op">)</span>
 <span class="va">ntl_ice_raw</span> <span class="op">&lt;-</span> <span class="va">ntl_files</span><span class="op">$</span><span class="va">data</span>
@@ -441,7 +436,7 @@
 <div id="download-the-raw-data-from-edi-org-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#download-the-raw-data-from-edi-org-1" class="anchor"></a>Download the raw data from EDI.org</h3>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org">usethis</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam">metajam</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
@@ -459,7 +454,7 @@
 <div id="data-cleaning-1" class="section level3">
 <h3 class="hasAnchor">
 <a href="#data-cleaning-1" class="anchor"></a>Data Cleaning</h3>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read in data</span>
 <span class="va">ntl_temps_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html">read_d1_files</a></span><span class="op">(</span><span class="va">ntl_temps_download</span><span class="op">)</span>
 <span class="va">ntl_temps_raw</span> <span class="op">&lt;-</span> <span class="va">ntl_temps_files</span><span class="op">$</span><span class="va">data</span>
