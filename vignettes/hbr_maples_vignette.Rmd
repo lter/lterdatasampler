@@ -1,6 +1,6 @@
 ---
-title: "Health of Sugar Maple Seedlings (HBR)"
-subtitle: "Response of Sugar Maple (Acer saccharum) to Calcium Addition at the Hubbard Brook Experimental Forest (Hubbard Brook LTER)"
+title: "Hubbard Brook Experimental Forest Sugar Maples (HBR)"
+subtitle: "Growth of Sugar Maple (Acer saccharum) seedlings in response to calcium addition at the Hubbard Brook Experimental Forest (Hubbard Brook LTER)"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{hbr_maples}
@@ -25,9 +25,9 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-Sugar maples (Acer saccharum) are a type of tree found at the Hubbard Brook LTER. These trees, known for things like maple syrup and their iconic leaf shape, have been compromised by decades of acid rain.
+Sugar maples (*Acer saccharum*) are a type of tree found at the Hubbard Brook LTER. These trees, known for things like maple syrup and their iconic leaf shape, have been compromised by decades of acid rain.
 
-Researchers have treated the W1 watershed with calcium to see if it helps restore the health of sugar maple seedlings.
+Researchers S. Juice and T. Fahey at Hubbard Brook LTER have treated a watershed (W1) at the site with calcium, to see if it helps restore the health of sugar maple seedlings. By comparing seedling growth in the W1 watershed with seedling growth in a reference (non-calcium treated) watershed, calcium impacts can be investigated.
 
 # Data Exploration
 
@@ -36,6 +36,7 @@ library(lterdatasets)
 library(tidyverse)
 library(broom)
 ```
+
 Let's explore the dataset:
 
 ```{r}
