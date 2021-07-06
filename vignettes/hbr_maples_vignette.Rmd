@@ -163,10 +163,17 @@ hbr_maples_2004 <- hbr_maples %>%
   filter(year == 2004)
 
 
-t.test(stem_length ~ watershed, 
+tt <- t.test(stem_length ~ watershed, 
        alternative = "less", 
        var.equal = TRUE, 
        data = hbr_maples_2004)
+tt
+```
+
+Note that the `broom` package can help us to create an more familiar object and store the model parameters in a data frame
+
+```{r}
+tidy(tt)
 ```
 
 Since there is a p-value < 0.05, we reject the null hypothesis and conclude that the true difference in means is less than 0. In other words, seedling heights in the reference watershed (no calcium treatment) are significantly smaller than those in  calcium-treated watershed (W1). This provides additional information about the effectiveness of calcium treatment for restoring sugar maple growth in watersheds impacted by acid rain.
