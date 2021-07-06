@@ -1,0 +1,243 @@
+---
+title: "Hubbard Brook Experimental Forest Sugar Maples (HBR)"
+subtitle: "Growth of Sugar Maple (Acer saccharum) seedlings in response to calcium addition at the Hubbard Brook Experimental Forest"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{hbr_maples}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = 'center',
+  fig.width=7, 
+  fig.height=4
+)
+```
+
+```{r setup}
+library(lterdatasampler)
+library(tidyverse)
+```
+
+Sugar maples (*Acer saccharum*) are a type of tree found at the Hubbard Brook LTER. These trees, known for things like maple syrup and their iconic leaf shape, have been compromised by decades of acid rain.
+
+Researchers S. Juice and T. Fahey at Hubbard Brook LTER have treated a watershed (W1) at the site with calcium, to see if it helps restore the health of sugar maple seedlings. By comparing seedling growth in the W1 watershed with seedling growth in a reference (non-calcium treated) watershed, calcium impacts can be investigated.
+
+## Data Exploration
+
+Let's explore the dataset:
+
+```{r}
+head(hbr_maples)
+```
+
+One way to measure seedling health is through their growth. Are there differences in maple seedling height (millimeters) between the calcium-treated (W1) and untreated (reference) watersheds?
+
+```{r}
+boxplot_watershed <-
+  ggplot(data = hbr_maples, aes(x = watershed, y = stem_length)) +
+  geom_boxplot(aes(color = watershed, shape = watershed),
+               alpha = 0.8,
+               width = 0.5) +
+  geom_jitter(
+    aes(color = watershed),
+    alpha = 0.5,
+    show.legend = FALSE,
+    position = position_jitter(width = 0.2, seed = 0)
+  ) +
+  labs(
+    x = "Watershed",
+    y = "Stem length (millimeters)",
+    title = "Stem Lengths of Sugar Maple Seedlings",
+    subtitle = "Hubbard Brook LTER"
+  ) +
+  facet_wrap(~year) +
+  theme_minimal()
+
+boxplot_watershed
+```
+
+In both years of the study (2003 and 2004) it appears that calcium addition may increase maple growth.
+
+### Summary statistics
+
+Here, we find some basic summary statistics (mean, median, standard deviation, sample size) for seedling heights in the two watersheds for further comparison:
+
+```{r}
+maple_summary <- hbr_maples %>% 
+  drop_na(stem_length) %>% 
+  group_by(year, watershed) %>% 
+  summarize(
+    mean_length = mean(stem_length),
+    median_length = median(stem_length),
+    sd_length = sd(stem_length),
+    n = n()
+  )
+
+maple_summary
+```
+
+In both years, the mean and median seedling height (stem_length) are higher in the W1 (calcium-treated) watershed. 
+
+## Seedling height distributions
+
+```{r}
+ggplot(data = hbr_maples, aes(x = stem_length)) +
+  geom_histogram() +
+  theme_minimal() +
+  labs(
+    x = "Stem Length (mm)",
+    y = "Frequency",
+    title = "Distribution of Sugar Maple seedling stem lengths",
+    subtitle = "Hubbard Brook LTER"
+  ) +
+  facet_grid(year ~ watershed)
+```
+Overall, the seedling heights appear relatively normally distributed. A quantile-quantile plot can help further assess normality: 
+
+```{r}
+  ggplot(data = hbr_maples) +
+  geom_qq(aes(sample = stem_length)) +
+  geom_qq_line(aes(sample = stem_length)) +
+  labs(title = "Quantile-quantile plot, sugar maple stem lengths", 
+       subtitle = "Hubbard Brook LTER") +
+  facet_grid(watershed ~ year) +
+  theme_minimal()
+```
+
+Within each watershed and year, stem length distributions appear to be approximately normally distributed from histograms and Q-Q plots. 
+
+## Means comparison
+
+The two watersheds are independent from one another, and according to the documentation, the data consists of a random sample of the seedlings present in each watershed. We will compare heights at the two watersheds by a two-sample t-test.
+
+### F-test for equal variance
+
+From the histograms and QQ plots above, the data are approximately normal. Now we can use `var.test()` to test for equal variances. 
+
+Our hypotheses will be:
+
+- $H_0:$ Ratio of variances is equal to 1 (equal variances)
+
+- $H_A:$ Ratio of variances is not equal to 1 (unequal variances)
+ 
+```{r}
+var.test(
+ x = hbr_maples %>% 
+   filter(watershed == "Reference") %>% 
+   pull(stem_length),
+ y = hbr_maples %>% 
+   filter(watershed == "W1") %>% 
+   pull(stem_length)
+)
+```
+
+With a p-value >> 0.05, we fail to reject the null hypothesis that the ratio of the variances of the two watersheds is equal, and we will use the t-test assumption of equal variances.
+
+Having checked data distributions and for equal variances, we can now do a two-sample t-test using `t.test()` to determine if there is a statistically significant difference in mean stem length between the watersheds. Here, we will only use data from 2004 in the comparison. 
+
+### One-sided, two-sample t-test
+
+Our hypotheses will be:
+
+- $H_0: \mu_{1} - \mu_2 = 0$
+
+- $H_A: \mu_{1} - \mu_2 < 0$
+
+By default, `t.test()` will use Welch's test to correct for unequal variances, so we set `var.equal = TRUE`. Since we are interested in seeing if the mean stem length for the reference watershed is **less than that of the calcium-treated watershed**, set `alternative = "less"`:
+
+```{r}
+hbr_maples_2004 <- hbr_maples %>% 
+  filter(year == 2004)
+
+
+t.test(stem_length ~ watershed, 
+       alternative = "less", 
+       var.equal = TRUE, 
+       data = hbr_maples_2004)
+```
+
+Since there is a p-value < 0.05, we reject the null hypothesis and conclude that the true difference in means is less than 0. In other words, seedling heights in the reference watershed (no calcium treatment) are significantly smaller than those in  calcium-treated watershed (W1). This provides additional information about the effectiveness of calcium treatment for restoring sugar maple growth in watersheds impacted by acid rain.
+
+## Further Analysis Ideas
+
+We include the t-test here because it is ubiquitous in environmental science literature and analyses, and this dataset provides clear motivation for comparing sizes between seedlings in the two treatments. However, as stated by Gene Glass and included in Sullivan & Feinn in their 2012 paper [*Using Effect Size—or Why the P Value Is Not Enough*](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3444174/), "Statistical significance is the least interesting thing about the results." The maple datasets provide opportunity to explore size differences more meaningfully, for example by effect size, absolute or percent differences in seedling size, and others.
+
+There are some relationships in this dataset that could be further examined. For example, stem length versus mass provides regression opportunities:
+
+```{r}
+stem_plot <- ggplot(hbr_maples) +
+  geom_point(aes(x = stem_length, y = stem_dry_mass)) +
+  labs(
+    x = "Stem Length (mm)",
+    y = "Stem Dry Mass (g)",
+    title = "Stem Dry Mass vs. Stem Length in Sugar Maple Seedlings",
+    subtitle = "Hubbard Brook LTER"
+  ) +
+  theme_minimal()
+
+stem_plot
+```
+
+Clarified when separated by study year and watershed: 
+
+```{r}
+stem_year <- ggplot(hbr_maples) +
+  geom_point(aes(x = stem_length, y = stem_dry_mass, color = factor(year))) +
+  labs(
+    x = "Stem Length (mm)",
+    y = "Stem Dry Mass (g)",
+    title = "Stem Dry Mass vs. Stem Length in Sugar Maple Seedlings",
+    subtitle = "Hubbard Brook LTER",
+    color = "year"
+  ) +
+  facet_wrap(~watershed) +
+  theme_minimal()
+
+stem_year
+```
+
+You could also examine the relationship between `corrected_leaf_area` and `leaf_dry_mass` before and after the obvious outlier is removed.
+
+```{r}
+outlier_plot <- ggplot(hbr_maples) +
+  geom_point(aes(x = corrected_leaf_area, y = leaf_dry_mass)) +
+  labs(
+    x = "Corrected Leaf Area (sq. cm)",
+    y = "Leaf Dry Mass (g)",
+    title = "Leaf Dry Mass vs. Corrected Leaf Area in Sugar Maple Seedlings",
+    subtitle = "Hubbard Brook LTER"
+  ) +
+  theme_minimal()
+
+outlier_plot
+```
+
+----------------------------------
+
+```{r}
+leaf_linear <- ggplot(hbr_maples) +
+  geom_point(aes(x = leaf1area, y = leaf2area)) +
+  labs(
+    x = "Leaf 1 Area (sq. cm)",
+    y = "Leaf 2 Area (sq. cm)",
+    title = "Leaf 1 Area vs. Leaf 2 Area in Sugar Maple Seedlings",
+    subtitle = "Hubbard Brook LTER"
+  ) +
+  theme_minimal()
+
+leaf_linear
+```
+
+... and many more!
+
+# Citation
+
+Juice, S. and T. Fahey. 2019. Health and mycorrhizal colonization response of sugar maple (*Acer saccharum*) seedlings to calcium addition in Watershed 1 at the Hubbard Brook Experimental Forest ver 3. Environmental Data Initiative. https://doi.org/10.6073/pasta/0ade53ede9a916a36962799b2407097e (Accessed 2021-05-17).
+
+# How we processed the raw data
+`r knitr::spin_child(here::here("data-raw", "hbr_maples_data.R"))`
