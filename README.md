@@ -37,7 +37,7 @@ or in publication.
 
 ## Installation
 
-You can install the development version of `lterdatasampler` from
+You can install the development version of lterdatasampler from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -47,11 +47,11 @@ remotes::install_github("lter/lterdatasampler")
 
 ## The dataset samples
 
-The `lterdatasampler` package currently contains 4 stored data objects
-(with 3 examples). The data are summarized below; see individual
-Articles for data and source details. Note: the three letter prefix for
-each dataset indicates the LTER site (see full list of site
-abbreviations [here](https://lternet.edu/site/)).
+This package currently contains 4 stored data objects (with 3 examples).
+The data are summarized below; see individual Articles for data and
+source details. Note: the three letter prefix for each dataset indicates
+the LTER site (see full list of site abbreviations
+[here](https://lternet.edu/site/)).
 
 -   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
     Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019),

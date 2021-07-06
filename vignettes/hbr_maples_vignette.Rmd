@@ -34,6 +34,7 @@ Researchers have treated the W1 watershed with calcium to see if it helps restor
 ```{r setup}
 library(lterdatasets)
 library(tidyverse)
+library(broom)
 ```
 Let's explore the dataset:
 
@@ -67,6 +68,10 @@ However, there are some assumptions that need to be checked before a t-test is u
 
 Is the data normally distributed?
 
+## Graphical exploration
+
+### Density curve
+
 ```{r}
 density_curve <- ggplot(data = hbr_maples, aes(stem_length)) +
   geom_density() +
@@ -86,11 +91,18 @@ density_watershed <-
 density_watershed
 ```
 
+### Q-Q plot
+
+We can explore if the shape of the two distributions seem to be similar using a Q-Q (quantile-quantile) plot.
+
 ```{r}
 qq_reference <- ggplot(data = hbr_maples %>% filter(watershed == "Reference")) + 
   geom_qq(aes(sample = stem_length)) + 
   geom_qq_line(aes(sample = stem_length)) +
-  labs(title = "Q-Q Plot for Reference Watershed Stem Lengths", subtitle = "Hubbard Brook LTER") +
+  labs(title = "Q-Q Plot for Reference Watershed Stem Lengths", 
+       subtitle = "Hubbard Brook LTER",
+       y = "Sample quantiles",
+       x = "Normal distribution quantiles") +
   theme_minimal()
 
 qq_reference
@@ -100,25 +112,29 @@ qq_reference
 qq_calcium <- ggplot(data = hbr_maples %>% filter(watershed == "W1")) + 
   geom_qq(aes(sample = stem_length)) + 
   geom_qq_line(aes(sample = stem_length)) +
-  labs(title = "Q-Q Plot for Calcium Watershed Stem Lengths", subtitle = "Hubbard Brook LTER") +
+  labs(title = "Q-Q Plot for Calcium Watershed Stem Lengths",
+       subtitle = "Hubbard Brook LTER",
+       y = "Sample quantiles",
+       x = "Normal distribution quantiles") +
   theme_minimal()
 
 qq_calcium
 ```
 
-Both watershed distributions appear to be normally distributed according to the density and Q-Q plots. Now we can use `var.test` to see if they have equal variances. 
+Both watershed distributions appear to be normally distributed according to the density and Q-Q plots with no strong skewness nor kurtosis. Now we can use `var.test` to see if they have equal variances. 
 
 Our hypotheses will be:
 
 $H_0:$ Ratio of variances is equal to 1
 
-$H_A:$ Ratio of variances is not equal to 1
+$H_a:$ Ratio of variances is not equal to 1
  
 ```{r}
 var.test(
  x = hbr_maples %>% filter(watershed == "Reference") %>% pull(stem_length),
  y = hbr_maples %>% filter(watershed == "W1") %>% pull(stem_length)
 )
+
 ```
 
 Since the p-value is not significant, we fail to reject the null hypothesis that the ratio of the variances of the two watersheds is equal to 1. In other words, the variances are likely to be equal.
@@ -129,12 +145,19 @@ Our hypotheses will be:
 
 $H_0: \mu_{1} - \mu_2 = 0$
 
-$H_A: \mu_{1} - \mu_2 < 0$
+$H_a: \mu_{1} - \mu_2 < 0$
 
-By default, `t.test()` will use Welch's test to correct for unequal variances, so set `var.equal = TRUE`. Since we are interested in seeing if the mean stem length for the reference watershed is less than that of the calcium-treated watershed, set `alternative = "less"`:
+By default, `t.test()` will use Welch's test to correct for unequal variances, so we set `var.equal = TRUE` since we just established in our case the variance were ikely to be equal. Since we are interested in seeing if the mean stem length for the reference watershed is less than that of the calcium-treated watershed, set `alternative = "less"`:
 
 ```{r}
-t.test(stem_length ~ watershed, alternative = "less", var.equal = TRUE, data = hbr_maples)
+tt <- t.test(stem_length ~ watershed, alternative = "less", var.equal = TRUE, data = hbr_maples)
+tt
+```
+
+Note that the `broom` package can help us to create an more familiar object and store the model parameters in a data frame
+
+```{r}
+tidy(tt)
 ```
 
 Since there is a p-value < 0.05, we can reject the null hypothesis and say that the true difference in means is likely less than 0, and that the calcium treatment may be effective in helping sugar maples become healthier.
