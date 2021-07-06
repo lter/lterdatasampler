@@ -74,11 +74,11 @@ lake_ice <-
 lake_ice
 ```
 
-Now let's have a look at the time-series accross the different lakes:
+Now let's have a look at the time-series across the different lakes:
 
 ```{r ice_duration}
 ice_duration <-
-  ggplot(data = ntl_icecover %>% filter(!is.na(ice_duration)), aes(x = year)) +
+  ggplot(data = ntl_icecover, aes(x = year)) +
   geom_line(aes(y = ice_duration, color = lakeid), alpha = 0.7) +
   theme_minimal() +
   labs(x = "Year", y = "Ice Duration (Days)", title = "Ice Duration of Lakes in the Madison, WI Area", subtitle = "North Temperate Lakes LTER")
@@ -86,13 +86,13 @@ ice_duration <-
 ice_duration
 ```
 
-Since the box plots and time series plots are similar for the 3 lakes, we can try averaging the ice duration across all three lakes.
+Box plots and time series plots reveal similarities across the 3 lakes. What does the trend look like for *average* ice cover duration in the region, based on data for the 3 lakes here?
 
-Boxplot:
+Boxplot (3-lake average):
 
 ```{r ntl_icecover_avg}
 ntl_icecover_avg <- ntl_icecover %>%
-  filter(!is.na(ice_duration)) %>% 
+  drop_na(ice_duration) %>% 
   group_by(year) %>%
   summarise(ice_duration = mean(ice_duration)) %>%
   rename(avg_ice_duration = ice_duration)
@@ -118,7 +118,7 @@ avg_ice_duration <-
 avg_ice_duration
 ```
 
-The average ice duration in Madison is trending downwards. What environmental factors are influencing this change?
+The average ice duration in Madison is decreasing. What environmental factors are influencing this change?
 
 [Research](http://hpkx.cnjournals.com/uploadfile/news_images/hpkx/2019-03-14/s41558-018-0393-56789.pdf) suggests that mean annual temperature is one of the primary factors that alter lake ice formation. We can look at the temperature data of Madison, WI found in `ntl_airtemp` to see if there is a corresponding change in climate that may have influenced the change in ice duration.
 
@@ -163,7 +163,7 @@ There seems to be a general upward trend in the mean annual temperature. As a re
 
 # Join and Compare Ice and Temperature Data
 
-To compare the ice cover and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined together. A common variable needs to be identified to do this. In this case, the datasets can be joined on the year of observation. Since there is one temperature for each year in `ntl_airtemp_avg`, each temperature will be mapped to the corresponding year in the joined table. For example, a `ave_air_temp_adjusted` value of 6.416 degrees Celsius will be added to each row that has a `year` value of 1869.
+To compare the ice cover and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined. In this case, the datasets can be joined by the common **year** variable. Since there is one temperature for each year in `ntl_airtemp_avg`, each temperature will be mapped to the corresponding year in the joined table.
 
 ```{r full_join}
 ntl_joined_avg <- ntl_icecover_avg  %>% 
@@ -172,7 +172,7 @@ ntl_joined_avg <- ntl_icecover_avg  %>%
 ntl_joined_avg
 ```
 
-Plot the average air temperature against the average ice cover durations:
+Plot the average air temperature against the average ice cover duration:
 
 ```{r scatter}
 scatter <-
@@ -199,8 +199,7 @@ scatter
 
 It appears that there is a negative correlation between the mean annual temperature and the amount of time that each lake was frozen. This means that as temperature increases, the ice duration decreases.
 
-
-To compare the temperature with the ice duration on a time-series plot, calculate the percent change in ice duration and temperature from the earliest data point for both variables. The earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869. These values can be determined from the `ntl_icecover_avg` and `ntl_airtemp_avg` dataframes that were calculated earlier. First, join the full dataset with the average ice duration data that we calculated earlier, and then add two columns with the percent changes.
+To compare the temperature with the ice duration on a time-series plot, calculate the percent change in ice duration and temperature from the earliest data point for both variables. The earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869. These values can be determined from the `ntl_icecover_avg` and `ntl_airtemp_avg` values calculated earlier. First, join the full dataset with the average ice duration data that we calculated earlier, and then add new columns containing the calculated percent changes.
 
 ```{r comparison}
 # Remove data prior to 1868
@@ -208,16 +207,16 @@ ntl_joined_avg <- ntl_joined_avg  %>%
   filter(year > 1868)
 
 
-# Calculate the percent of change
+# Calculate the percent change
 pct_change <- ntl_joined_avg %>%
   mutate(
-    pct_change_ice = ( avg_ice_duration / first(avg_ice_duration) -1) * 100,
-    pct_change_temp = (ave_air_temp_adjusted / first(ave_air_temp_adjusted) -1) * 100
+    pct_change_ice = (avg_ice_duration / first(avg_ice_duration) - 1) * 100,
+    pct_change_temp = (ave_air_temp_adjusted / first(ave_air_temp_adjusted) - 1) * 100
   ) 
 
 ```
 
-Then plot a time series to compare the magnitude in changes in temperature and ice duration. Use the `pivot longer` function so that both lines can easily be plotted on the same axes.
+Then plot a time series to compare the magnitude in changes in temperature and ice duration. Use the `pivot_longer` function so that both lines can easily be plotted on the same axes.
 
 ```{r pivot}
 comparison_df <- pct_change  %>% 
@@ -233,32 +232,19 @@ comparison_plot <-
          aes(x = year, y = value, color = name)) +
   geom_line() +
   theme_minimal() +
-  labs(x = "Year", y = "Percent Change", title = "Percent Change in Ice Duration and Temperature", subtitle = "North Temperate Lakes LTER")
+  labs(x = "Year", y = "Percent Change", title = "Percent Change in Ice Duration and Temperature (from 1859 values)", subtitle = "North Temperate Lakes LTER")
 
 comparison_plot
 ```
 
 It appears that the change in ice somewhat mirrors the change in temperature each year, as several spikes in temperature have a corresponding dip in ice duration. This may indicate a relationship between the two variables that would be worth further investigation.
 
-We can use `stat_smooth()` to get a clearer picture of the overall trends present in the data:
+## Other things to explore: 
 
-```{r stat_smooth}
-comparison_plot + stat_smooth(formula = y ~ x, method = "loess")
-```
+- How does interpretation change with different methods / visualizations of smoothing (e.g. moving average)
+- Predictions of ice cover duration in the future
+- Comparison of how those predictions change if you pick a longer or shorter dataset (e.g. how does the coefficient compare if you use all of the data, versus just data since ~1975?)
 
-To get a cleaner plot, omit the `geom_line()` function:
-
-```{r simpler_smooth}
-trend_line <- ggplot(comparison_df, aes(x = year, y = value, color = name)) +
-  theme_minimal() +
-  labs(x = "Year", y = "Perchant Change", title = "Percent Change in Ice Duration and Temperature", subtitle = "North Temperate Lakes LTER") +
-  stat_smooth(formula = y ~ x, method = "loess")
-
-trend_line
-```
-
-
-Now, it is  clear that after 1900, the percent change in temperature follows an upward trend and the percent change in ice duration follows a downward trend. These changes could have dramatic effects on plants, animals, and humans in Madison, WI both now and in the future.
 
 # Citation
 
