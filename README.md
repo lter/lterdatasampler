@@ -61,6 +61,9 @@ abbreviations [here](https://lternet.edu/site/)).
     Temperate Lakes LTER
 -   [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
     Fiddler crab body size in salt marshes from Florida to Massachusetts
+-   [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
+    Sugar maple seedlings at Hubbard Brook Experimental Forest on
+    calcium-treated and reference sites during August 2003 and June 2004
 
 ## Analysis opportunities
 
