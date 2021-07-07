@@ -65,11 +65,6 @@ the LTER site (see full list of site abbreviations
     Sugar maple seedlings at Hubbard Brook Experimental Forest on
     calcium-treated and reference sites during August 2003 and June 2004
 
-## Analysis opportunities
-
-Here: grid of which datasets provide opportunities for which types of
-analyses
-
 ## Acknowledgements
 
 Thank you to the amazing students who contributed to this project: *Sam

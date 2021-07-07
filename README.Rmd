@@ -49,10 +49,6 @@ This package currently contains 4 stored data objects (with 3 examples). The dat
 - [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html): Sugar maple seedlings at Hubbard Brook Experimental Forest on calcium-treated and reference sites during August 2003 and June 2004
 
 
-## Analysis opportunities
-
-Here: grid of which datasets provide opportunities for which types of analyses
-
 ## Acknowledgements
 
 Thank you to the amazing students who contributed to this project: _Sam Guo, Adhitya Logan, Lia Ran, Sophia Sternberg, Karen Zhao_ as part of their [UCSB Data Science capstone project](https://ucsb-ds-capstone-2021.github.io/projects/nceas/update3.html). Thank you also go to their Course Advisor Prof. Sang-yun Oh.
