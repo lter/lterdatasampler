@@ -153,7 +153,7 @@ Having checked data distributions and for equal variances, we can now do a two-s
 
 Our hypotheses will be:
 
-- $H_0: \mu_{1} - \mu_2 = 0$
+- $H_0: \mu_{1} - \mu_2 \ge 0$
 
 - $H_A: \mu_{1} - \mu_2 < 0$
 
