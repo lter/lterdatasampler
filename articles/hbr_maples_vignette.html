@@ -262,7 +262,7 @@
 <a href="#one-sided-two-sample-t-test" class="anchor"></a>One-sided, two-sample t-test</h2>
 <p>Our hypotheses will be:</p>
 <ul>
-<li><p><span class="math inline">\(H_0: \mu_{1} - \mu_2 = 0\)</span></p></li>
+<li><p><span class="math inline">\(H_0: \mu_{1} - \mu_2 \ge 0\)</span></p></li>
 <li><p><span class="math inline">\(H_A: \mu_{1} - \mu_2 &lt; 0\)</span></p></li>
 </ul>
 <p>By default, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> will use Welch’s test to correct for unequal variances, so we set <code>var.equal = TRUE</code>. Since we are interested in seeing if the mean stem length for the reference watershed is <strong>less than that of the calcium-treated watershed</strong>, set <code>alternative = "less"</code>:</p>
