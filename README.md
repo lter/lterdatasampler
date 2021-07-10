@@ -18,14 +18,14 @@ training](https://lternet.edu/education-and-training/) - “*to promote
 training, teaching, and learning about long-term ecological research and
 the Earth’s ecosystems, and to educate a new generation of scientists.*”
 
-The goal of this package is to provide a set of dataset samples to
-gather feedback from the community. The end goal is to create a package
-with one data sample from each of the [28 LTER Network
-sites](https://lternet.edu/site/) - that are useful for teaching and
-training in environmental data science. These datasets are subsets of
-the original data and have been updated - sometimes substantially - from
-the raw data, as described in the articles. **This content is thus not
-suitable for research and should only be used for teaching purposes**.
+The goal of this package is to provide a sampler to gather feedback from
+the community of what will be a larger package containing 28 datasets -
+one from each of the existing [US LTER
+sites](https://lternet.edu/site/). Those datasets are subsets of the
+original data and have been updated - sometimes substantially - from the
+raw data. They are aimed to be useful for teaching and training in
+environmental data science. **This content is thus not suitable for
+research and should only be used for teaching purposes**.
 
 We encourage you to explore existing LTER [teaching and training
 initiatives](https://lternet.edu/education-and-training/), and the
@@ -64,6 +64,12 @@ the LTER site (see full list of site abbreviations
 -   [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
     Sugar maple seedlings at Hubbard Brook Experimental Forest on
     calcium-treated and reference sites during August 2003 and June 2004
+
+## How to provide feedback
+
+The best way to provide feedback on this package is to open an
+[issue](https://github.com/lter/lterdatasampler/issues) and assign the
+`feedback` label. Thank you!
 
 ## Acknowledgements
 
