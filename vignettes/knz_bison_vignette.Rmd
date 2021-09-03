@@ -1,0 +1,76 @@
+---
+title: "Konza Prairie Bison Weights (KNZ)"
+subtitle: "Historical records of end-of-season weights for individual bison at Konza Prairie Biological Station LTER"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{knz_bison_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(lterdatasampler)
+library(tidyverse)
+library(ggridges)
+```
+
+Let's take a look at the existing `knz_bison` data:
+```{r}
+knz_bison
+```
+
+## Explore bison weight by age and sex
+
+We can calculate each bison's age at observation by subtracting the year of birth from the record year (putting this in a new column using `dplyr::mutate()`: 
+
+```{r}
+
+knz_bison_age <- knz_bison %>% 
+  mutate(animal_age = rec_year - animal_yob)
+```
+
+Now, we'll explore bison weight as a function of age (in years), separated by sex. 
+
+```{r}
+ggplot(data = knz_bison_age, aes(x = animal_age, y = animal_weight, group = animal_sex)) +
+  geom_point(aes(color = animal_sex), 
+             size = 0.5,
+             position = position_jitter(width = 0.2, height = 0)) +
+  labs(x = "Bison age",
+       y = "Recorded weight (pounds")
+```
+
+The bison age and weight relationship provides opportunities to ask questions about the data and sampled population. For example: 
+
+- What are possible reasons that we see observations for female bison up to ~20 years, but we do not see male bison observations beyond 10 years? Read more [here](https://keep.konza.k-state.edu/prairieecology/bison.html).
+
+- Describe the general trends in bison weight, and how they differ for male and female bison in the sampled population. 
+
+- Model bison growth
+
+## Bison herd age structure
+
+There are opportunities to explore the number of newborn (age = 0) calves each year, as well as other age bins that learners could create (e.g. with `dplyr::case_when()`). 
+
+Here, we find the counts of calves (age = 0) recorded each year to create a column graph: 
+
+```{r}
+bison_age_structure <- knz_bison_age %>% 
+  filter(animal_age == 0) %>% 
+  count(rec_year) %>% 
+  ggplot(aes(x = rec_year, y = n)) +
+  geom_col()
+
+bison_age_structure
+```
+
+**Note:** There are additional [related datasets for this data package](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-knz.78.12), containing information for the number of male and female bison per age category and bison maternal parentage (calves matched to mother by ear tags). We encourage you to check them out for more analysis opportunities with the Konza Prairie bison! 
+
+

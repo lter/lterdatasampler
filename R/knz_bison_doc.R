@@ -1,0 +1,19 @@
+#' Konza Prairie Bison Herd Information, Konza Prairie Biological Station LTER
+#'
+#' The purpose of this study is to monitor long-term changes in individual animal mass. The datasets include an annual summary of the bison herd structure, end-of-season weights of individual animals, and maternal parentage of individual bison.
+#'
+#' @format A tibble with 8,325 rows and 9 columns:
+#' \describe{
+#'   \item{data_code}{a character denoting the dataset code}
+#'   \item{rec_year}{a number denoting the year of observation}
+#'   \item{rec_month}{a number denoting the month of observation}
+#'   \item{rec_day}{a number denoting the day of observation}
+#'   \item{animal_code}{a character denoting the unique individual bison identification code based on ear tag number}
+#'   \item{animal_sex}{a character denoting the sex of bison: M = male, F = female, U = unknown}
+#'   \item{animal_weight}{a number denoting bison weight in pounds}
+#'   \item{animal_yob}{a number denoting the year animal was born}
+#'   }
+#' @source {EBlair, J. 2021. CBH01 Konza Prairie bison herd information ver 12. Environmental Data Initiative. https://doi.org/10.6073/pasta/9c641b35695abc5889edd64c3950517f (Accessed 2021-05-10).}
+#' \url{https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-knz.78.12}
+
+"knz_bison"
