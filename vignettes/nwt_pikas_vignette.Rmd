@@ -70,14 +70,13 @@ We can associate these fields with the geometry column using `st_set_crs()`. Thi
 
 ```{r proj4, eval=FALSE}
 pikas_sf <-
-  pikas_sf %>% mutate(geometry = st_set_crs(geometry, "+proj=utm +zone=13 +datum=NAD83 +units=m"))
+  st_set_crs(pikas_sf, "+proj=utm +zone=13 +datum=NAD83 +units=m")
 ```
 
 Or you can use the equivalent EPSG code:
 
 ```{r epsg}
-pikas_sf <-
-  pikas_sf %>% mutate(geometry = st_set_crs(geometry, 26913))
+pikas_sf <- st_set_crs(pikas_sf, 26913)
 ```
 
 [epsg.io](https://epsg.io) can help you find the appropriate PROJ4 syntax and EPSG code for the appropriate coordinate system. 
@@ -89,15 +88,13 @@ In the future, we may want to plot our data on top of a web-based map. Online ma
 PROJ4 Syntax:
 
 ```{r, eval=FALSE}
-pikas_sf <-
-  pikas_sf %>% mutate(geometry = st_transform(geometry, "+proj=longlat +datum=WGS84"))
+pikas_sf <- st_transform(pikas_sf, "+proj=longlat +datum=WGS84")
 ```
 
 EPSG Code:
 
 ```{r}
-pikas_sf <-
-  pikas_sf %>% mutate(geometry = st_transform(geometry, 4326))
+pikas_sf <- st_transform(pikas_sf, 4326)
 ```
 
 
@@ -115,31 +112,7 @@ pika_points <- ggplot(data = pikas_sf) +
 pika_points
 ```
 
-Because we reprojected our data, we can now plot our data onto geographic maps. We can use `ggplot`'s `map_data()` function to plot our data with basic maps from the `maps` package. First, let's plot our data on top of a map of the United States:
-
-```{r}
-usa <- map_data("usa")
-usa_plot <- ggplot() + 
-  geom_polygon(data = usa, aes(x=long, y =lat, group=group)) + 
-  geom_sf(data = pikas_sf, aes(color = site, shape = site), alpha = 0.6) +
-  theme_minimal() + 
-  labs(title = "Location of Pika Sampling Stations in the USA", subtitle = "Niwot Ridge LTER", x = "Latitude (Degrees)", y = "Longitude (Degrees)") 
-
-usa_plot
-```
-
-Next, we can plot our data onto a county map of Colorado to get a closer look:
-
-```{r}
-colorado <- map_data("county", "colorado")
-colorado_plot <- ggplot() + 
-  geom_polygon(data=colorado, aes(x=long, y =lat, group=group), color="white") +
-  geom_sf(data = pikas_sf, aes(color = site, shape = site), alpha = 0.6) + 
-  theme_minimal() + 
-  labs(title = "Location of Pika Sampling Stations in Colorado", subtitle = "Niwot Ridge LTER", x = "Latitude (Degrees)", y = "Longitude (Degrees)") 
-
-colorado_plot
-```
+Because we reprojected our data, we can now plot our data onto geographic maps.
 
 # Incorporating Online Basemaps
 
@@ -189,7 +162,7 @@ You can also use the `leaflet` package to produce interactive plots:
 ```{r leaflet}
 leaflet() %>% 
   addProviderTiles("Stamen.Terrain") %>% 
-  addCircles(data = pikas_sf)
+  addCircles(data = pikas_sf, label = ~concentration_pg_g)
 ```
 
 You can learn more about the `leaflet` package [here](https://rstudio.github.io/leaflet/). There is also a cheatsheet available [here](https://github.com/rstudio/cheatsheets/blob/master/leaflet.pdf).

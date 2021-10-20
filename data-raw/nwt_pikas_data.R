@@ -12,13 +12,16 @@ library(janitor)
 
 # Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019
 # Main URL: https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d
+
+# Stress and coordinate data
 nwt_url <-
   "https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&entityid=43270add3532c7f3716404576cfb3f2c"
 
+# Elevation Data
 elevation_url <-
   "https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&entityid=6a10b35988119d0462837f9bfa31dd2f"
 
-# Download the data package with metajam
+# Download the data packages with metajam
 nwt_download <-
   download_d1_data(data_url = nwt_url, path = tempdir())
 
@@ -27,15 +30,12 @@ elevation_download <-
 
 #' ### Data cleaning
 #+ data sampling, eval=FALSE
-# Read in data
+
+# Read in stress and coordinate data
 nwt_files <- read_d1_files(nwt_download)
-
-elevation_files <- read_d1_files(elevation_download)
-
 nwt_pikas_raw <- nwt_files$data
 
-elevation_raw <- elevation_files$data
-
+# Drop unneeded variables, convert data types, spell out abbreviations, and reorder variables
 nwt_pikas <- nwt_pikas_raw %>%
   select(-Notes,-Vial,-Plate,-Biweek) %>%
   mutate(
@@ -81,8 +81,11 @@ nwt_pikas <- nwt_pikas_raw %>%
   relocate(Sex, .before = Concentration_pg_g) %>%
   clean_names()
 
+# Read in elevation data
+elevation_files <- read_d1_files(elevation_download)
+elevation_raw <- elevation_files$data
 
-
+# Select needed variables, spell out abbreviations, and convert Station to factor
 elevation <- elevation_raw %>%
   select(Station, Elev_M) %>%
   mutate(
@@ -113,6 +116,7 @@ elevation <- elevation_raw %>%
   ) %>%
   clean_names()
 
+# Combine elevation data with stress and coordinate data
 nwt_pikas <- nwt_pikas %>% full_join(elevation, by = "station")
 
 #+ save data, include=FALSE, eval = FALSE
