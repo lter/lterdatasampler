@@ -27,6 +27,11 @@ knitr::opts_chunk$set(
 
 Researchers at the Niwot Ridge Long Term Ecological Research Site (NWT LTER) seek to study and monitor the health of the Colorado Rockies over time. Because of external factors like climate change, it's more important than ever for scientists to understand how and why the Rockies are changing. Additionally, the well-being of the Rockies is crucial to local communities like Boulder, Colorado.
 
+```{r pikas, echo=FALSE, fig.cap="LTER researcher releasing a pika at the Niwot site, LTER CC BY-SA 4.0", fig.align='center'}
+knitr::include_graphics(here::here("man","figures","nwt_pikas_img.jpg"))
+```
+
+
 The American pika (Ochotona princeps) is a key species present at the NWT LTER. Despite their small size, pikas can be very informative about the health of the ecosystem. If pikas are more stressed, it can suggest that their habitat has declined in quality. As a result, the study of pikas is critical to the Colorado Rockies ecosystem. 
 
 # Data Exploration
@@ -49,9 +54,10 @@ Not only do we have stress measurements, but the `utm_easting` and `utm_northing
 
 Geographical plotting can be helpful in our analyses. Generally speaking, it can offer a different perspective on our data and can also be easily understood by others. This is key; communicating results is an important part of data science.
 
-# Converting Our Data
 
-To make our data more digestible for mapping, we can use the [`sf`](https://r-spatial.github.io/sf/index.html) package. Using `sf`, we can represent our data as simple feature objects in R. As described in the `sf` package [documentation](https://r-spatial.github.io/sf/articles/sf1.html), simple features is a set of standards for describing how geographical data should be expressed digitally. This will allow us to use our data with various other geographical frameworks and standards, like mapping packages, GIS software, and GDAL, all of which use the simple features standard. You can work with simple features like lines and polygons, but we'll be working with point data.
+# Converting to Simple Features
+
+To leverage the geospatial features of our data, we can use the [`sf`](https://r-spatial.github.io/sf/index.html) package to transform the location information, currently stored in two columns, into information we can leverage for mapping and geospatial analysis. Using `sf`, we can represent our data as simple feature objects in R. As described in the `sf` package [documentation](https://r-spatial.github.io/sf/articles/sf1.html), simple features is a set of standards for describing how geographical data should be expressed digitally. This will allow us to use our data with various other geographical frameworks and standards, like mapping packages, GIS software, and GDAL, all of which use the simple features standard. You can work with simple features like lines and polygons, but we'll be working with point data.
 
 First, we need to convert our current coordinates into an `sf` object. We can use the `st_as_sf()` function to do this:
 
@@ -62,11 +68,12 @@ st_crs(pikas_sf)
 ```
 
 ## Coordinate Reference Systems
-We now have a geometry column consisting of points instead of two separate columns for our coordinates. However, there is still no Coordinate Reference System (CRS) associated with our points. According to the University of Colorado Boulder's [Earth Lab](https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/intro-to-coordinate-reference-systems/), a Coordinate Reference System describes several things about your data: how the Earth’s 3D surface is represented in a 2D form (spatial projection), how the Earth's shape is modeled (datum), the units, and the axes. 
 
-From the package documentation, which can be viewed by running `?nwt_pikas`, we can see that our measurements use the Universal Transverse Mercator (UTM) system, are in Zone 13, and use the NAD83 datum. These all describe the CRS that our data uses.
+We now have a geometry column consisting of points instead of two separate columns for our coordinates. However, there is still no Coordinate Reference System (CRS) associated with our points. A Coordinate Reference System describes several things about your data: how the Earth’s 3D surface is represented in a 2D form (spatial projection), how the Earth's shape is modeled (datum), the units, and the axes ([here](https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/intro-to-coordinate-reference-systems/) for more). 
 
-We can associate these fields with the geometry column using `st_set_crs()`. This can be done in two ways. You can either use a string to describe the coordinate system using PROJ4 syntax:
+From the data documentation (also known as metadata), which can be viewed by running `?nwt_pikas`, we can see that our measurements use the Universal Transverse Mercator (UTM) system, are in Zone 13, and use the NAD83 datum. These all describe the CRS that our data uses.
+
+We can set the coordinate reference system of the geometry column using `st_set_crs()`. This can be done in two ways. You can either use a string to describe the coordinate system using PROJ4 syntax:
 
 ```{r proj4, eval=FALSE}
 pikas_sf <-
@@ -79,11 +86,11 @@ Or you can use the equivalent EPSG code:
 pikas_sf <- st_set_crs(pikas_sf, 26913)
 ```
 
-[epsg.io](https://epsg.io) can help you find the appropriate PROJ4 syntax and EPSG code for the appropriate coordinate system. 
+[epsg.io](https://epsg.io) can help you find the appropriate PROJ4 syntax and EPSG code for the appropriate coordinate system.
 
 ## Reprojecting Coordinates
 
-In the future, we may want to plot our data on top of a web-based map. Online maps often use the WGS84 Web Mercator coordinate system, which uses latitude and longitude coordinates. After setting our CRS, we can reproject our data to the WGS84 CRS using `st_transform()` so that it's more compatible with third-party maps, which will give us more ways to represent our data:
+Online map tiles used as map background often use the WGS84 Web Mercator coordinate system (also used by the [GPS system](https://en.wikipedia.org/wiki/Global_Positioning_System)), which uses a geographic coordinate system (latitude and longitude). After setting our CRS, we can reproject our data to the WGS84 CRS using `st_transform()` so that it's more compatible with third-party maps, which will give us more ways to represent our data:
 
 PROJ4 Syntax:
 
@@ -114,9 +121,10 @@ pika_points
 
 Because we reprojected our data, we can now plot our data onto geographic maps.
 
+
 # Incorporating Online Basemaps
 
-Although it's cool to see these plots, we still don't have much geographical context for our data points, as we don't know the finer details of the area. One way we can add this to our plots is through the use of the [`ggmap`](https://github.com/dkahle/ggmap) package. `ggmap` allows us to plot static maps from places like [Google Maps](https://www.google.com/maps/) and [Stamen Maps](http://maps.stamen.com/#terrain/12/37.7706/-122.3782). `ggmap` is also easy to use in conjunction with `ggplot2`, making it possible to combine our plots from earlier with any maps produced with `ggmap`. NCEAS has produced a [quick start guide](https://www.nceas.ucsb.edu/sites/default/files/2020-04/ggmapCheatsheet.pdf) for `ggmap` that can help you begin.
+Although it's cool to see these plots, we still don't have much geographical context for our data points, as we don't know the finer details of the area. One way we can add this to our plots is through the use of the [`ggmap`](https://github.com/dkahle/ggmap) package. `ggmap` allows us to plot static maps from places like [Google Maps](https://www.google.com/maps/) and [Stamen Maps](http://maps.stamen.com/#terrain/12/37.7706/-122.3782). `ggmap` is also easy to use in conjunction with `ggplot2`, making it possible to combine our plots from earlier with any maps produced with `ggmap`. Dr. Melanie Frazier at NCEAS has produced a [quick start guide](https://www.nceas.ucsb.edu/sites/default/files/2020-04/ggmapCheatsheet.pdf) for `ggmap` that can help you begin.
 
 ## `ggmap` Terrain Maps
 
@@ -155,9 +163,9 @@ pikas_map
 
 Now we have a unified plot consisting of our data and a terrain map!
 
-## Further Resources:
+## Interactive maps
 
-You can also use the `leaflet` package to produce interactive plots:
+You can also use the `leaflet` package to produce interactive maps:
 
 ```{r leaflet}
 leaflet() %>% 
@@ -165,11 +173,18 @@ leaflet() %>%
   addCircles(data = pikas_sf, label = ~concentration_pg_g)
 ```
 
-You can learn more about the `leaflet` package [here](https://rstudio.github.io/leaflet/). There is also a cheatsheet available [here](https://github.com/rstudio/cheatsheets/blob/master/leaflet.pdf).
+You can learn more about the `leaflet` package [here](https://rstudio.github.io/leaflet/). There is also a cheat sheet available [here](https://github.com/rstudio/cheatsheets/blob/master/leaflet.pdf).
+
+
+# Learn more
+
+Want to learn more about how iconic species, such as Pikas, help to create enthusiasm around citizen science? Read this story: https://lternet.edu/stories/pika-enthusiasts-unite-under-a-common-theme/ 
+
 
 # Citation
 
 Whipple, A. and Niwot Ridge LTER. 2020. Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019 ver 1. Environmental Data Initiative. https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d (Accessed 2021-05-06).
+
 
 # How we processed the raw data
 `r knitr::spin_child(here::here("data-raw", "nwt_pikas_data.R"))`
