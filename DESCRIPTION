@@ -50,7 +50,10 @@ Suggests:
     metajam,
     tidyverse,
     here, 
-    broom
+    broom,
+    sf,
+    ggmap,
+    leaflet
 URL: https://github.com/lter/lterdatasampler
 BugReports: https://github.com/lter/lterdatasampler/issues
 VignetteBuilder: knitr
