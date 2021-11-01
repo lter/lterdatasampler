@@ -10,11 +10,11 @@ A tibble with 109 rows and 7 variables
 \item{date}{a date denoting the observation date of the fecal sample}
 \item{site}{a factor denoting the location where the fecal sample was collected within Niwot Ridge}
 \item{station}{a factor denoting the sample station where the fecal sample was collected}
-\item{utm_easting}{a number denoting the GPS E-W coordinate of the sampling station as Universal Transverse Mercator easting (NAD83, Zone 13). Measured in meters.}
-\item{utm_northing}{a number denoting the GPS N-S coordinate of the sampling stations as Universal Transverse Mercator northing (NAD83, Zone 13). Measured in meters.}
+\item{utm_easting}{a number denoting the GPS E-W coordinate of the sampling station as Universal Transverse Mercator easting; NAD83, Zone 13. Measured in meters.}
+\item{utm_northing}{a number denoting the GPS N-S coordinate of the sampling stations as Universal Transverse Mercator northing; NAD83, Zone 13. Measured in meters.}
 \item{sex}{a factor denoting the sex of the observed pika}
 \item{concentration_pg_m}{a number denoting the glucocorticoid metabolite (GCM) concentration in picogram GCM/gram dry pika feces}
-\item{elev_m}(a number denoting the elevation in meters of the sampling station where the fecal sample was collected)
+\item{elev_m}{a number denoting the elevation in meters of the sampling station where the fecal sample was collected}
 }
 }
 \source{
