@@ -72,6 +72,9 @@
       <a href="../articles/ntl_icecover_vignette.html">North Temperate Lakes Ice Cover (NTL)</a>
     </li>
     <li>
+      <a href="../articles/nwt_pikas_vignette.html">Niwot Ridge Pika Locations (NWT)</a>
+    </li>
+    <li>
       <a href="../articles/pie_crab_vignette.html">Plum Island Ecosystem LTER fiddler crabs (PIE)</a>
     </li>
   </ul>
@@ -131,7 +134,7 @@
 <p>Let’s explore the dataset:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 11</span>
+<span class="co">#&gt; # A tibble: 6 × 11</span>
 <span class="co">#&gt;    year watershed elevation transect sample stem_length leaf1area leaf2area</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;     &lt;fct&gt;    &lt;fct&gt;        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
 <span class="co">#&gt; 1  2003 Reference Low       R1       1             86.9     13.8      12.1 </span>
@@ -145,24 +148,24 @@
 <p>One way to measure seedling health is through their growth. Are there differences in maple seedling height (millimeters) between the calcium-treated (W1) and untreated (reference) watersheds?</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">boxplot_watershed</span> <span class="op">&lt;-</span>
-  <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">watershed</span>, y <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_boxplot</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">watershed</span>, shape <span class="op">=</span> <span class="va">watershed</span><span class="op">)</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">watershed</span>, y <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">watershed</span>, shape <span class="op">=</span> <span class="va">watershed</span><span class="op">)</span>,
                alpha <span class="op">=</span> <span class="fl">0.8</span>,
                width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_jitter</span><span class="op">(</span>
-    <span class="fu">aes</span><span class="op">(</span>color <span class="op">=</span> <span class="va">watershed</span><span class="op">)</span>,
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">watershed</span><span class="op">)</span>,
     alpha <span class="op">=</span> <span class="fl">0.5</span>,
     show.legend <span class="op">=</span> <span class="cn">FALSE</span>,
-    position <span class="op">=</span> <span class="fu">position_jitter</span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
+    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="st">"Watershed"</span>,
     y <span class="op">=</span> <span class="st">"Stem length (millimeters)"</span>,
     title <span class="op">=</span> <span class="st">"Stem Lengths of Sugar Maple Seedlings"</span>,
     subtitle <span class="op">=</span> <span class="st">"Hubbard Brook LTER"</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">year</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">year</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">boxplot_watershed</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -172,18 +175,18 @@
 <a href="#summary-statistics" class="anchor"></a>Summary statistics</h2>
 <p>Here, we find some basic summary statistics (mean, median, standard deviation, sample size) for seedling heights in the two watersheds for further comparison:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">maple_summary</span> <span class="op">&lt;-</span> <span class="va">hbr_maples</span> <span class="op">%&gt;%</span> 
-  <span class="fu">drop_na</span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">group_by</span><span class="op">(</span><span class="va">year</span>, <span class="va">watershed</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">summarize</span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">maple_summary</span> <span class="op">&lt;-</span> <span class="va">hbr_maples</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html">drop_na</a></span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">watershed</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html">summarize</a></span><span class="op">(</span>
     mean_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span>,
     median_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/median.html">median</a></span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span>,
     sd_length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span>,
-    n <span class="op">=</span> <span class="fu">n</span><span class="op">(</span><span class="op">)</span>
+    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html">n</a></span><span class="op">(</span><span class="op">)</span>
   <span class="op">)</span>
 
 <span class="va">maple_summary</span>
-<span class="co">#&gt; # A tibble: 4 x 6</span>
+<span class="co">#&gt; # A tibble: 4 × 6</span>
 <span class="co">#&gt; # Groups:   year [2]</span>
 <span class="co">#&gt;    year watershed mean_length median_length sd_length     n</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;</span>
@@ -197,26 +200,26 @@
 <h2 class="hasAnchor">
 <a href="#seedling-height-distributions" class="anchor"></a>Seedling height distributions</h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span>, <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_histogram</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>
+<code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="st">"Stem Length (mm)"</span>,
     y <span class="op">=</span> <span class="st">"Frequency"</span>,
     title <span class="op">=</span> <span class="st">"Distribution of Sugar Maple seedling stem lengths"</span>,
     subtitle <span class="op">=</span> <span class="st">"Hubbard Brook LTER"</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">watershed</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">year</span> <span class="op">~</span> <span class="va">watershed</span><span class="op">)</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Overall, the seedling heights appear relatively normally distributed. A quantile-quantile plot can help further assess normality:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="fu">ggplot</span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_qq</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>sample <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_qq_line</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>sample <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Quantile-quantile plot, sugar maple stem lengths"</span>, 
+<code class="sourceCode R">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">geom_qq</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>sample <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_qq.html">geom_qq_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>sample <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Quantile-quantile plot, sugar maple stem lengths"</span>, 
        subtitle <span class="op">=</span> <span class="st">"Hubbard Brook LTER"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_grid</span><span class="op">(</span><span class="va">watershed</span> <span class="op">~</span> <span class="va">year</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html">facet_grid</a></span><span class="op">(</span><span class="va">watershed</span> <span class="op">~</span> <span class="va">year</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Within each watershed and year, stem length distributions appear to be approximately normally distributed from histograms and Q-Q plots.</p>
 </div>
@@ -236,12 +239,12 @@
 </ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/stats/var.test.html">var.test</a></span><span class="op">(</span>
- x <span class="op">=</span> <span class="va">hbr_maples</span> <span class="op">%&gt;%</span> 
-   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">watershed</span> <span class="op">==</span> <span class="st">"Reference"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-   <span class="fu">pull</span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span>,
- y <span class="op">=</span> <span class="va">hbr_maples</span> <span class="op">%&gt;%</span> 
-   <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">watershed</span> <span class="op">==</span> <span class="st">"W1"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-   <span class="fu">pull</span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span>
+ x <span class="op">=</span> <span class="va">hbr_maples</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">watershed</span> <span class="op">==</span> <span class="st">"Reference"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span>,
+ y <span class="op">=</span> <span class="va">hbr_maples</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">watershed</span> <span class="op">==</span> <span class="st">"W1"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;  F test to compare two variances</span>
@@ -267,8 +270,8 @@
 </ul>
 <p>By default, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> will use Welch’s test to correct for unequal variances, so we set <code>var.equal = TRUE</code>. Since we are interested in seeing if the mean stem length for the reference watershed is <strong>less than that of the calcium-treated watershed</strong>, set <code>alternative = "less"</code>:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hbr_maples_2004</span> <span class="op">&lt;-</span> <span class="va">hbr_maples</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2004</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">hbr_maples_2004</span> <span class="op">&lt;-</span> <span class="va">hbr_maples</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2004</span><span class="op">)</span>
 
 
 <span class="va">tt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">stem_length</span> <span class="op">~</span> <span class="va">watershed</span>, 
@@ -290,7 +293,7 @@
 <p>Note that the <code>broom</code> package can help us to create an more familiar object and store the model parameters into a data frame</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="va">tt</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 10</span>
+<span class="co">#&gt; # A tibble: 1 × 10</span>
 <span class="co">#&gt;   estimate estimate1 estimate2 statistic   p.value parameter conf.low conf.high</span>
 <span class="co">#&gt;      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;</span>
 <span class="co">#&gt; 1    -11.6      85.9      97.5     -4.31 0.0000172       117     -Inf     -7.16</span>
@@ -304,59 +307,59 @@
 <p>We include the t-test here because it is ubiquitous in environmental science literature and analyses, and this dataset provides clear motivation for comparing sizes between seedlings in the two treatments. However, as stated by Gene Glass and included in Sullivan &amp; Feinn in their 2012 paper <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3444174/"><em>Using Effect Size—or Why the P Value Is Not Enough</em></a>, “Statistical significance is the least interesting thing about the results.” The maple datasets provide opportunity to explore size differences more meaningfully, for example by effect size, absolute or percent differences in seedling size, and others.</p>
 <p>There are some relationships in this dataset that could be further examined. For example, stem length versus mass provides regression opportunities:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stem_plot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">stem_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="st">"Stem Length (mm)"</span>,
     y <span class="op">=</span> <span class="st">"Stem Dry Mass (g)"</span>,
     title <span class="op">=</span> <span class="st">"Stem Dry Mass vs. Stem Length in Sugar Maple Seedlings"</span>,
     subtitle <span class="op">=</span> <span class="st">"Hubbard Brook LTER"</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">stem_plot</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Clarified when separated by study year and watershed:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">stem_year</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">stem_year</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="st">"Stem Length (mm)"</span>,
     y <span class="op">=</span> <span class="st">"Stem Dry Mass (g)"</span>,
     title <span class="op">=</span> <span class="st">"Stem Dry Mass vs. Stem Length in Sugar Maple Seedlings"</span>,
     subtitle <span class="op">=</span> <span class="st">"Hubbard Brook LTER"</span>,
     color <span class="op">=</span> <span class="st">"year"</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">facet_wrap</span><span class="op">(</span><span class="op">~</span><span class="va">watershed</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">watershed</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">stem_year</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>You could also examine the relationship between <code>corrected_leaf_area</code> and <code>leaf_dry_mass</code> before and after the obvious outlier is removed.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">outlier_plot</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">corrected_leaf_area</span>, y <span class="op">=</span> <span class="va">leaf_dry_mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">outlier_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">corrected_leaf_area</span>, y <span class="op">=</span> <span class="va">leaf_dry_mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="st">"Corrected Leaf Area (sq. cm)"</span>,
     y <span class="op">=</span> <span class="st">"Leaf Dry Mass (g)"</span>,
     title <span class="op">=</span> <span class="st">"Leaf Dry Mass vs. Corrected Leaf Area in Sugar Maple Seedlings"</span>,
     subtitle <span class="op">=</span> <span class="st">"Hubbard Brook LTER"</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">outlier_plot</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;"></p>
 <hr>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">leaf_linear</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">geom_point</span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">leaf1area</span>, y <span class="op">=</span> <span class="va">leaf2area</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">leaf_linear</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">leaf1area</span>, y <span class="op">=</span> <span class="va">leaf2area</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>
     x <span class="op">=</span> <span class="st">"Leaf 1 Area (sq. cm)"</span>,
     y <span class="op">=</span> <span class="st">"Leaf 2 Area (sq. cm)"</span>,
     title <span class="op">=</span> <span class="st">"Leaf 1 Area vs. Leaf 2 Area in Sugar Maple Seedlings"</span>,
     subtitle <span class="op">=</span> <span class="st">"Hubbard Brook LTER"</span>
   <span class="op">)</span> <span class="op">+</span>
-  <span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span>
 
 <span class="va">leaf_linear</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -396,11 +399,11 @@
 <code class="sourceCode R"><span class="co"># Read in data</span>
 <span class="va">hbr_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html">read_d1_files</a></span><span class="op">(</span><span class="va">hbr_download</span><span class="op">)</span>
 <span class="va">hbr_maples_raw</span> <span class="op">&lt;-</span> <span class="va">hbr_files</span><span class="op">$</span><span class="va">data</span>
-<span class="va">hbr_maples</span> <span class="op">&lt;-</span> <span class="va">hbr_maples_raw</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">select</span><span class="op">(</span><span class="op">-</span><span class="va">root_area</span>,<span class="op">-</span><span class="va">root_length</span>,<span class="op">-</span><span class="va">root_dry_mass</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">hbr_maples</span> <span class="op">&lt;-</span> <span class="va">hbr_maples_raw</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">root_area</span>,<span class="op">-</span><span class="va">root_length</span>,<span class="op">-</span><span class="va">root_dry_mass</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html">%&gt;%</a></span>
   <span class="co"># change values of -999 to NA</span>
-  <span class="fu">mutate</span><span class="op">(</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>
     leaf1area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">leaf1area</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">leaf1area</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span>,
     leaf2area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">leaf2area</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">leaf2area</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span>,
     corrected_leaf_area <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html">replace</a></span><span class="op">(</span><span class="va">corrected_leaf_area</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html">which</a></span><span class="op">(</span><span class="va">corrected_leaf_area</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span>,
