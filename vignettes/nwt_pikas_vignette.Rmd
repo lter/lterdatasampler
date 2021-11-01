@@ -143,7 +143,7 @@ Now we can combine our `ggmap()` and our `geom_sf()` plots:
 
 ```{r combined_map}
 combined_map <- ggmap(get_stamenmap(nwt, zoom = 10, maptype = "terrain")) + 
- geom_sf(data = pikas_sf, inherit.aes = FALSE, aes(color = site, shape = site), alpha = 0.3) +
+ geom_sf(data = pikas_sf, inherit.aes = FALSE, aes(color = site, shape = site)) +
   theme_minimal() +
   labs(title = "Location of Pika Sampling Stations", subtitle = "Niwot Ridge LTER", x = "Longitude (Degrees)", y = "Latitude (Degrees)") +
    scale_color_manual(values = c("black","red","purple")) # Choosing colors to make sure points are visible
@@ -156,7 +156,7 @@ Finally, adjust the bounding box and zoom to get a better look:
 ```{r zoom}
 pikas_location <- c(left = -105.65, bottom = 40.04, right = -105.55, top = 40.1)
 pikas_map <- ggmap(get_stamenmap(pikas_location, zoom = 13, maptype = "terrain")) + 
- geom_sf(data = pikas_sf, inherit.aes = FALSE, aes(color = site, shape = site), alpha = 0.3) +
+ geom_sf(data = pikas_sf, inherit.aes = FALSE, aes(color = site, shape = site)) +
   theme_minimal() +
   labs(title = "Location of Pika Sampling Stations", subtitle = "Niwot Ridge LTER", x = "Longitude (Degrees)", y = "Latitude (Degrees)") +
   scale_color_manual(values = c("black","red","purple")) # Choosing colors to make sure points are visible
@@ -172,8 +172,8 @@ You can also use the `leaflet` package to produce interactive maps:
 
 ```{r leaflet}
 leaflet() %>% 
-  addProviderTiles("Stamen.Terrain") %>% 
-  addCircles(data = pikas_sf, label = ~concentration_pg_g)
+  addTiles() %>% 
+  addCircles(data = pikas_sf, label = ~station)
 ```
 
 You can learn more about the `leaflet` package [here](https://rstudio.github.io/leaflet/). There is also a cheat sheet available [here](https://github.com/rstudio/cheatsheets/blob/master/leaflet.pdf).
