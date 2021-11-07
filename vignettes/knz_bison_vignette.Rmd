@@ -19,10 +19,15 @@ knitr::opts_chunk$set(
 
 This data provides age and weight records for the bison herd at [Konza Prairie Biological Station LTER](http://lter.konza.ksu.edu/konza-prairie-long-term-ecological-research-lter) in Kansas. 
 
-In this vignette, we highlight:
+This vignette highlights:
 
 - An example of modeling bison weight (as a function of age) using the Gompertz model with `nls`
-- Using the `broom` package to tidy up outputs of `nls` for easier use
+- Use of the `broom` package to tidy up outputs of `nls` for easier use
+
+<figure style="text-align:center;">
+  <img src="../man/figures/knz_bison_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Konza Prairie LTER bison herd, LTER CC BY-SA 4.0</figcaption>
+</figure>
 
 # Packages
 

@@ -1,5 +1,5 @@
 ---
-title: "Cutthroat trout and salamanders recorded in Mack Creek (Andrews Forest LTER)"
+title: "Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND)"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{and_vertebrates}
