@@ -37,7 +37,7 @@ or in publication.
 
 ## Installation
 
-You can install the development version of lterdatasampler from
+You can install the development version of `lterdatasampler` from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -47,23 +47,32 @@ remotes::install_github("lter/lterdatasampler")
 
 ## The dataset samples
 
-This package currently contains 4 stored data objects (with 3 examples).
-The data are summarized below; see individual Articles for data and
-source details. Note: the three letter prefix for each dataset indicates
-the LTER site (see full list of site abbreviations
-[here](https://lternet.edu/site/)).
+Dataset samples currently included in the package are summarized below;
+see individual Articles for data and source details. Note: the three
+letter prefix for each dataset indicates the LTER site (see full list of
+site abbreviations [here](https://lternet.edu/site/)).
 
--   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
-    Ice Freeze and Thaw Dates for Madison, WI Area Lakes (1853 - 2019),
-    North Temperate Lakes LTER
--   [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
-    Daily Average Temperature Data in Madison, WI (1869 - 2019), North
-    Temperate Lakes LTER
--   [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
-    Fiddler crab body size in salt marshes from Florida to Massachusetts
+-   [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
+    Records for aquatic vertebrates (cutthroat trout and salamanders) in
+    Mack Creek, Andrews Experimental Forest, Oregon (1987 - present)
 -   [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
-    Sugar maple seedlings at Hubbard Brook Experimental Forest on
-    calcium-treated and reference sites during August 2003 and June 2004
+    Sugar maple seedlings at Hubbard Brook Experimental Forest (New
+    Hampshire) on calcium-treated and reference sites in August 2003 and
+    June 2004
+-   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
+    Ice freeze and thaw dates for Madison, Wisconsin Area lakes (1853 -
+    2019), North Temperate Lakes LTER
+-   [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
+    Daily average air temperature data for Madison, Wisconsin (1869 -
+    2019), North Temperate Lakes LTER
+-   [`nwt_pikas`](https://lter.github.io/lterdatasampler/reference/nwt_pikas.html):
+    Pika observations for habitat and stress analysis at Niwot Ridge
+    LTER, Colorado
+-   [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
+    Fiddler crab body size recorded summer 2016 in salt marshes from
+    Florida to Massachusetts including Plum Island Ecosystem LTER,
+    Virginia Coast LTER, and NOAA’s National Estuarine Research Reserve
+    System
 
 ## How to provide feedback
 
@@ -90,9 +99,14 @@ People / organizations who supported this project:
     [DataONE](https://www.dataone.org/)
 
 We gratefully acknowledge all authors and contributors of the
-`roxygen2`, `usethis`, `pkgdown`, `devtools`, `tidyverse` and `metajam`.
-This website relies heavily on themes created by Desirée DeLeon and
-Alison Hill.
+[`roxygen2`](https://roxygen2.r-lib.org/),
+[`usethis`](https://usethis.r-lib.org/),
+[`pkgdown`](https://pkgdown.r-lib.org/),
+[`devtools`](https://devtools.r-lib.org/),
+[`tidyverse`](https://www.tidyverse.org/) and
+[`metajam`](https://github.com/NCEAS/metajam) packages. This website
+relies heavily on themes created by Dr. Desirée DeLeon and Dr. Alison
+Hill.
 
 <hr>
 
