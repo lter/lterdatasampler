@@ -1,0 +1,98 @@
+---
+title: "Cutthroat trout and salamanders recorded in Mack Creek (Andrews Forest LTER)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{and_vertebrates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+This dataset contains length and weight for West Slope cutthroat trout and two salamander species (Coastal giant salamander, and Olympic torrent salamander) in previously clear cut (c. 1963) and old growth coniferous forest sections of Mack Creek in HJ Andrews Experimental Forest in Willamette National Forest, Oregon. For more information, click [here](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-and.4027.14).
+
+The data provides opportunities to explore length-weight relationships for three species observed, to compare biomass, abundance and sizes of species in old growth versus previously clear cut forest sections of the creek, and more.
+
+# Packages
+
+```{r setup}
+library(lterdatasampler)
+library(tidyverse)
+```
+
+# Example analyses
+
+## Exploring length-weight relationships
+
+There is opportunity to explore and model the length-weight relationships for the three species (for example, using the standard lenght-weight relationship for fish: $W = aL^b$). 
+
+```{r}
+ggplot(data = and_vertebrates, aes(x = length_1_mm, y = weight_g)) +
+  geom_point(aes(color = species)) +
+  scale_color_viridis_d() +
+  theme_minimal()
+```
+
+Length observations for Olympic torrent salamanders are in the `length_2_mm` variable.
+
+## Comparisons by section (clear cut or old growth)
+
+The two sections in the dataset (CC = clear cut circa 1963, OG = upstream 500 year old growth coniferous forest) provide opportunity to explore differences in vertebrate biomass and abundance in the separate sections.
+
+This can be further motivated by 
+
+### Vertebrate abundance by year and section
+
+```{r}
+vert_counts <- and_vertebrates %>% 
+  drop_na(year, species, section) %>% 
+  count(year, species, section)
+
+ggplot(data = vert_counts, aes(x = year, y = n)) +
+  geom_line(aes(color = section)) +
+  geom_point(aes(color = section)) +
+  scale_color_viridis_d() +
+  theme_minimal() +
+  facet_wrap(~species)
+```
+
+### Abundance correlation by section
+
+```{r}
+vert_counts_wide <- vert_counts %>% 
+  pivot_wider(names_from = section, values_from = n)
+
+ggplot(data = vert_counts_wide, aes(x = CC, y = OG)) +
+  geom_point() +
+  theme_minimal()
+```
+
+
+### Vertebrate biomass by section
+
+Similarly, total biomass by section and/or reach can be compared for the vertebrate species to explore differences in clear cut versus old growth sections. 
+
+```{r}
+vert_biomass <- and_vertebrates %>% 
+  drop_na(year, species, section, weight_g) %>% 
+  group_by(year, species, section) %>% 
+  summarize(tot_biomass = sum(weight_g))
+
+ggplot(data = vert_biomass, aes(x = year, y = tot_biomass)) +
+  geom_point(aes(color = section)) +
+  scale_color_viridis_d() +
+  theme_minimal() +
+  facet_wrap(~species)
+```
+
+# How we processes the raw data
+
+`r knitr::spin_child(here::here("data-raw","and_vertebrates_data.R"))`

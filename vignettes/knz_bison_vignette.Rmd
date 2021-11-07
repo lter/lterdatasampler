@@ -1,0 +1,161 @@
+---
+title: "Konza Prairie Bison Weights (KNZ)"
+subtitle: "Historical records of end-of-season weights for individual bison at Konza Prairie Biological Station LTER"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{knz_bison_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Overview
+
+This data provides age and weight records for the bison herd at [Konza Prairie Biological Station LTER](http://lter.konza.ksu.edu/konza-prairie-long-term-ecological-research-lter) in Kansas. 
+
+In this vignette, we highlight:
+
+- An example of modeling bison weight (as a function of age) using the Gompertz model with `nls`
+- Using the `broom` package to tidy up outputs of `nls` for easier use
+
+# Packages
+
+```{r setup, message = FALSE, warning = FALSE}
+library(lterdatasampler)
+library(tidyverse)
+library(broom)
+```
+
+# Data exploration
+
+Let's take a look at the existing `knz_bison` data:
+```{r}
+knz_bison
+```
+
+We can calculate each bison's age at observation by subtracting the year of birth from the record year (putting this in a new column using `dplyr::mutate()`: 
+
+```{r}
+
+knz_bison_age <- knz_bison %>% 
+  mutate(animal_age = rec_year - animal_yob)
+```
+
+Now, we'll explore bison weight as a function of age (in years), separated by sex. 
+
+```{r}
+ggplot(data = knz_bison_age, aes(x = animal_age, y = animal_weight, group = animal_sex)) +
+  geom_point(aes(color = animal_sex), 
+             size = 0.5,
+             position = position_jitter(width = 0.2, height = 0)) +
+  labs(x = "Bison age",
+       y = "Recorded weight (pounds") +
+  scale_color_viridis_d() +
+  theme_minimal()
+```
+
+# Gompertz model (with nonlinear least squares)
+
+As used by Martin and Barboza (2020), bison body mass as a function of age can be modeled using a sex-specific Gompertz model: 
+
+$$BM =b1*exp(-exp(-b2*(age-b3)))$$
+Where $b1$ is the *asymptotic body mass* (pounds), $b2$ is instantaneous growth-rate at inflection point, and $b3$ is age at inflection point (years). 
+
+Using nonlinear least squares (nls) to estimate $b1$, $b2$ and $b3$ requires starting estimates for each. We will use the following (based on visualizations above, and estimates from Supplemental Materials for Martin and Barbosa (2020): 
+
+### Female bison parameter initial estimates: 
+
+- $b1$ initial estimate: 1000 pounds
+- $b2$ initial estimate: 1 
+- $b3$ initial estimate: 0.6
+
+## Create the Gompertz model function:
+
+```{r}
+gompertz <- function(b1, b2, b3, animal_age) {
+  b1*exp(-exp(-b2*(animal_age-b3)))
+}
+```
+
+## Use `nls()` to model growth for female bison
+
+Isolate just the female bison (note that this starts from the dataset `knz_bison_age` created above that contains the calculated bison **age**, stored as `animal_age`): 
+```{r}
+bison_f <- knz_bison_age %>% 
+  filter(animal_sex == "F")
+```
+
+Use `nls` to estimate parameters (note: add `trace = TRUE` to print iterative estimates): 
+```{r}
+bison_f_gompertz <- nls(animal_weight ~ gompertz(b1, b2, b3, animal_age),
+                        data = bison_f,
+                        start = list(b1 = 1000, b2 = 1, b3 = 0.6),
+                        trace = TRUE)
+```
+## Plot the predicted masses with the observed data
+
+```{r}
+# Create a new series of ages
+age_series <- seq(0, 22, by = 0.1)
+
+# Make predictions using the model over those times: 
+pred <- predict(bison_f_gompertz, list(animal_age = age_series))
+
+# Bind the predictions and age sequence together into a data frame: 
+bison_f_predicted <- data.frame(age_series, pred)
+
+# Plot the observed data and predictions together:
+ggplot() +
+  geom_point(data = bison_f, 
+             aes(x = animal_age, y = animal_weight),
+             size = 0.3,
+             alpha = 0.2) +
+  geom_line(data = bison_f_predicted, 
+            aes(x = age_series, y = pred),
+            color = "darkorchid",
+            size = 1) +
+  theme_minimal()
+
+```
+
+# Explore & use model outputs with `broom`
+
+The wonderful [`broom` package](https://broom.tidymodels.org/) "summarizes key information about models in tidy tibbles." For example, the `broom::tidy()` function summarizes important model information: 
+
+```{r}
+# Put model outputs into a tidy tibble: 
+bison_f_gompertz_tidy <- bison_f_gompertz %>% broom::tidy()
+
+# Check it out! 
+bison_f_gompertz_tidy
+```
+
+We can also use the `broom::glance()` function to return important information about the model overall: 
+
+```{r}
+bison_f_gompertz %>% broom::glance()
+```
+We can use `broom::augment()` to added fitted values and residuals to our `bison_f` data frame: 
+
+```{r}
+augment(bison_f_gompertz, bison_f)
+```
+
+**Note:** There are additional [related datasets for this data package](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-knz.78.12), containing information for the number of male and female bison per age category and bison maternal parentage (calves matched to mother by ear tags). We encourage you to check them out for more analysis opportunities with the Konza Prairie bison! 
+
+# Citations
+
+David Robinson, Alex Hayes and Simon Couch (2021). broom: Convert Statistical Objects into Tidy Tibbles. R package version 0.7.8. https://CRAN.R-project.org/package=broom
+
+Martin, JM and Barboza PS (2020). Decadal heat and drought drive body size of North American bison (Bison bison) along the Great Plains. Ecology and Evolution *10* (1): 336 - 349. https://doi.org/10.1002/ece3.5898.
+
+
+# How we processed the raw data
+
+`r knitr::spin_child(here::here("data-raw","knz_bison_data.R"))`
