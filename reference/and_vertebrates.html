@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. — pie_crab • lterdatasampler</title>
+<title>Cutthroat trout and salamander length and weights in Mack Creek, Andrews Forest LTER — and_vertebrates • lterdatasampler</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. — pie_crab" />
-<meta property="og:description" content="We collected ~30 male, adult Minuca pugnax from thirteen marshes from  Florida to Massachusetts and measured their carapace width with calipers. Water and air temperature data were collected from monitoring programs (i.e., LTER, NERR sites), nearby weather stations, and ocean buoys for 2016." />
+<meta property="og:title" content="Cutthroat trout and salamander length and weights in Mack Creek, Andrews Forest LTER — and_vertebrates" />
+<meta property="og:description" content="Includes count and size data for cutthroat trout and salamanders in clear cut or old growth sections of Mack Creek, Andrews Forest LTER." />
 <meta property="og:image" content="https://lter.github.io/lterdatasampler/reference/figures/leaf.png" />
 <meta property="og:image:alt" content="lterdatasampler package in R" />
 <meta name="twitter:card" content="summary" />
@@ -149,37 +149,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/lter/lterdatasampler/blob/master/R/pie_crab_doc.R'><code>R/pie_crab_doc.R</code></a></small>
-    <div class="hidden name"><code>pie_crab.Rd</code></div>
+    <h1>Cutthroat trout and salamander length and weights in Mack Creek, Andrews Forest LTER</h1>
+    <small class="dont-index">Source: <a href='https://github.com/lter/lterdatasampler/blob/master/R/and_vertebrates_doc.R'><code>R/and_vertebrates_doc.R</code></a></small>
+    <div class="hidden name"><code>and_vertebrates.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>We collected ~30 male, adult Minuca pugnax from thirteen marshes from  Florida to Massachusetts and measured their carapace width with calipers. Water and air temperature data were collected from monitoring programs (i.e., LTER, NERR sites), nearby weather stations, and ocean buoys for 2016.</p>
+    <p>Includes count and size data for cutthroat trout and salamanders in clear cut or old growth sections of Mack Creek, Andrews Forest LTER.</p>
     </div>
 
-    <pre class="usage"><span class='va'>pie_crab</span></pre>
+    <pre class="usage"><span class='va'>and_vertebrates</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with 392 rows and 9 variables:</p><dl>
-<dt>date</dt><dd><p>a date denoting the date crabs were collected</p></dd>
-<dt>latitude</dt><dd><p>a number denoting the latitude of salt marsh (degree)</p></dd>
-<dt>site</dt><dd><p>a character denoting the location where crabs were collected (abbreviation of site name); GTM=Guana Tolomoto Matanzas NERR | SI=Sapelo Island NERR |NIB=North Inlet Winyah Bay NERR | ZI=Zeke's Island NERR | RC=Rachel Carson NERR | VCR=Virginia Coastal Reserve LTER | DB=Delaware Bay NERR |JC=Jacques Cousteau NERR | CT=Sixpenny Island - Connecticut |NB=Narragansett Bay NERR | CC=Cape Cod | BC=Bare Cove Park | PIE=Plum Island Estuary - West Creek</p></dd>
-<dt>size</dt><dd><p>a number denoting carapace width of a crab (millimeter)</p></dd>
-<dt>air_temp</dt><dd><p>a number denoting mean annual air temperature (Celsius)</p></dd>
-<dt>air_temp_sd</dt><dd><p>a number denoting the standard deviation of mean annual air temperature (Celsius)</p></dd>
-<dt>water_temp</dt><dd><p>a number denoting mean annual water temperature (Celcius), which is surface temperature (&lt; 1m)</p></dd>
-<dt>water_temp_sd</dt><dd><p>a number denoting the standard deviation of mean annual water temperature (Celsius)</p></dd>
-<dt>name</dt><dd><p>full name of research site;  LTER, Long-Term Ecological Research site; NERR, National Estuarine Research Reserve</p></dd>
+    <p>A tibble with 32,209 rows and 6 variables:</p><dl>
+<dt>year</dt><dd><p>a number indicating the observation year</p></dd>
+<dt>sitecode</dt><dd><p>a character denoting the coded name of sample area</p></dd>
+<dt>section</dt><dd><p>a character denoting the section in Mack Creek (CC = clear cut forest, OG = upstream old growth coniferous forest)</p></dd>
+<dt>reach</dt><dd><p>a character denoting the reach sampled from each section; L = lower reach (0 - 50 meters), M = middle reach (50 - 100 meters), U = upper reach (100 - 150 meters))</p></dd>
+<dt>pass</dt><dd><p>a number denoting the electroshocking pass number, either 1 or 2</p></dd>
+<dt>unitnum</dt><dd><p>a number denoting the channel unit number</p></dd>
+<dt>unittype</dt><dd><p>a character denoting the channel unit classification type (C = cascade, I = riffle, IP = isolated pool (not connected to channel), P = pool, R = rapid, S = step (small falls), SC = side channel, NA = not sampled by unit)</p></dd>
+<dt>vert_index</dt><dd><p>a number denoting the unique index for each vertebrate</p></dd>
+<dt>pitnumber</dt><dd><p>a number denoting the unique tag number embedded into vertebrate (tagging started in 2007)</p></dd>
+<dt>species</dt><dd><p>a character denoting species measured</p></dd>
+<dt>length_1_mm</dt><dd><p>a number denoting vertebrate length in millimeters; total or snout-fork length for trout, and snout-vent length for salamanders</p></dd>
+<dt>length_2_mm</dt><dd><p>a number denoting snout-tail length in millimeters (for Coastal giant salamander only)</p></dd>
+<dt>weight_g</dt><dd><p>a number denoting vertebrate mass in grams</p></dd>
+<dt>clip</dt><dd><p>a character denoting the fin clip type for cutthroat trout, ended in 2006 (LV = left ventrical fin; LVRV = left and right ventrical fins; RV = right ventrical fin; NONE = no ventral fin clip)</p></dd>
+<dt>sampledate</dt><dd><p>a date denoting the date of observation</p></dd>
+<dt>notes</dt><dd><p>a character denoting additional comments</p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Johnson, D. 2019. Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. ver 1. Environmental Data Initiative.
-<a href='https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb'>https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb</a></p>
+    <p>Gregory, S.V. and I. Arismendi. 2020. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present ver 14. Environmental Data Initiative.
+<a href='https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165'>https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. — pie_crab • lterdatasampler</title>
+<title>Konza Prairie Bison Herd Information, Konza Prairie Biological Station LTER — knz_bison • lterdatasampler</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -48,8 +48,8 @@
   <link href="../extra.css" rel="stylesheet">
   
 
-<meta property="og:title" content="Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. — pie_crab" />
-<meta property="og:description" content="We collected ~30 male, adult Minuca pugnax from thirteen marshes from  Florida to Massachusetts and measured their carapace width with calipers. Water and air temperature data were collected from monitoring programs (i.e., LTER, NERR sites), nearby weather stations, and ocean buoys for 2016." />
+<meta property="og:title" content="Konza Prairie Bison Herd Information, Konza Prairie Biological Station LTER — knz_bison" />
+<meta property="og:description" content="The purpose of this study is to monitor long-term changes in individual animal mass. The datasets include an annual summary of the bison herd structure, end-of-season weights of individual animals, and maternal parentage of individual bison." />
 <meta property="og:image" content="https://lter.github.io/lterdatasampler/reference/figures/leaf.png" />
 <meta property="og:image:alt" content="lterdatasampler package in R" />
 <meta name="twitter:card" content="summary" />
@@ -149,37 +149,36 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/lter/lterdatasampler/blob/master/R/pie_crab_doc.R'><code>R/pie_crab_doc.R</code></a></small>
-    <div class="hidden name"><code>pie_crab.Rd</code></div>
+    <h1>Konza Prairie Bison Herd Information, Konza Prairie Biological Station LTER</h1>
+    <small class="dont-index">Source: <a href='https://github.com/lter/lterdatasampler/blob/master/R/knz_bison_doc.R'><code>R/knz_bison_doc.R</code></a></small>
+    <div class="hidden name"><code>knz_bison.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>We collected ~30 male, adult Minuca pugnax from thirteen marshes from  Florida to Massachusetts and measured their carapace width with calipers. Water and air temperature data were collected from monitoring programs (i.e., LTER, NERR sites), nearby weather stations, and ocean buoys for 2016.</p>
+    <p>The purpose of this study is to monitor long-term changes in individual animal mass. The datasets include an annual summary of the bison herd structure, end-of-season weights of individual animals, and maternal parentage of individual bison.</p>
     </div>
 
-    <pre class="usage"><span class='va'>pie_crab</span></pre>
+    <pre class="usage"><span class='va'>knz_bison</span></pre>
 
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A tibble with 392 rows and 9 variables:</p><dl>
-<dt>date</dt><dd><p>a date denoting the date crabs were collected</p></dd>
-<dt>latitude</dt><dd><p>a number denoting the latitude of salt marsh (degree)</p></dd>
-<dt>site</dt><dd><p>a character denoting the location where crabs were collected (abbreviation of site name); GTM=Guana Tolomoto Matanzas NERR | SI=Sapelo Island NERR |NIB=North Inlet Winyah Bay NERR | ZI=Zeke's Island NERR | RC=Rachel Carson NERR | VCR=Virginia Coastal Reserve LTER | DB=Delaware Bay NERR |JC=Jacques Cousteau NERR | CT=Sixpenny Island - Connecticut |NB=Narragansett Bay NERR | CC=Cape Cod | BC=Bare Cove Park | PIE=Plum Island Estuary - West Creek</p></dd>
-<dt>size</dt><dd><p>a number denoting carapace width of a crab (millimeter)</p></dd>
-<dt>air_temp</dt><dd><p>a number denoting mean annual air temperature (Celsius)</p></dd>
-<dt>air_temp_sd</dt><dd><p>a number denoting the standard deviation of mean annual air temperature (Celsius)</p></dd>
-<dt>water_temp</dt><dd><p>a number denoting mean annual water temperature (Celcius), which is surface temperature (&lt; 1m)</p></dd>
-<dt>water_temp_sd</dt><dd><p>a number denoting the standard deviation of mean annual water temperature (Celsius)</p></dd>
-<dt>name</dt><dd><p>full name of research site;  LTER, Long-Term Ecological Research site; NERR, National Estuarine Research Reserve</p></dd>
+    <p>A tibble with 8,325 rows and 9 columns:</p><dl>
+<dt>data_code</dt><dd><p>a character denoting the dataset code</p></dd>
+<dt>rec_year</dt><dd><p>a number denoting the year of observation</p></dd>
+<dt>rec_month</dt><dd><p>a number denoting the month of observation</p></dd>
+<dt>rec_day</dt><dd><p>a number denoting the day of observation</p></dd>
+<dt>animal_code</dt><dd><p>a character denoting the unique individual bison identification code based on ear tag number</p></dd>
+<dt>animal_sex</dt><dd><p>a character denoting the sex of bison: M = male, F = female, U = unknown</p></dd>
+<dt>animal_weight</dt><dd><p>a number denoting bison weight in pounds</p></dd>
+<dt>animal_yob</dt><dd><p>a number denoting the year animal was born</p></dd>
 
 </dl>
 
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
-    <p>Johnson, D. 2019. Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. ver 1. Environmental Data Initiative.
-<a href='https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb'>https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb</a></p>
+    <p>EBlair, J. 2021. CBH01 Konza Prairie bison herd information ver 12. Environmental Data Initiative. https://doi.org/10.6073/pasta/9c641b35695abc5889edd64c3950517f (Accessed 2021-05-10).
+<a href='https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-knz.78.12'>https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-knz.78.12</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
