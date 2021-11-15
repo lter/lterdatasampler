@@ -93,6 +93,6 @@ ggplot(data = vert_biomass, aes(x = year, y = tot_biomass)) +
   facet_wrap(~species)
 ```
 
-# How we processes the raw data
+# How we processed the raw data
 
 `r knitr::spin_child(here::here("data-raw","and_vertebrates_data.R"))`
