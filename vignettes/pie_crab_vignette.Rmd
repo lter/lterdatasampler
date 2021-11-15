@@ -29,6 +29,11 @@ The `pie_crab` data sample is from a study by Johnson and colleagues at the Plum
 
 > "One of the best-known patterns in biogeography is Bergmann's rule. It predicts that organisms at higher latitudes are larger than ones at lower latitudes. Many organisms follow Bergmann's rule, including insects, birds, snakes, marine invertebrates, and terrestrial and marine mammals. What drives Bergmann's rule? Bergmann originally hypothesized that the organisms he studied, birds, were larger in the colder, higher latitudes due to heat-conservation. But the heat-conservation hypothesis relies on internal regulation of body temperature and therefore does not apply to ectotherms, some of which also follow Bergmann's rule. There is likely no universal mechanism underpinning Bergmann's rule, regardless of [ecto- or endothermy](https://www.khanacademy.org/science/ap-biology/ecology-ap/energy-flow-through-ecosystems/a/endotherms-ectotherms). As a result, other mechanisms have been proposed to explain Bergmann's rule, including the starvation-resistant hypothesis, the diet-quality hypothesis, the enemy hypothesis, the resource rule, seasonality hypothesis, and the temperature–size rule (Johnson et al., 2019)."
 
+<figure style="text-align:center;">
+  <img src="../man/figures/pie_landscape_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Plum Island Ecosystem LTER, LTER CC BY-SA 4.0</figcaption>
+</figure>
+
 ### Data sampling overview:
 
 - 13 marshes were sampled on the Atlantic coast of the United States in summer 2016
