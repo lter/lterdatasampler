@@ -31,7 +31,7 @@ knitr::opts_chunk$set(
 According to the [EPA](https://www.epa.gov/climate-indicators/climate-change-indicators-lake-ice#ref2), lake ice duration can be an indicator of climate change. This is because lake ice is dependent on several environmental factors, so changes in these factors will influence the formation of ice on top of lakes. As a result, the study and analysis of lake ice formation can inform scientists about how quickly the climate is changing, and are critical to minimizing disruptions to lake ecosystems. We can examine the ice duration of Lake Mendota, Lake Monona, and Lake Wingra, three lakes in the Madison, WI area.
 
 <figure style="text-align:center;">
-  <img src="../man/figures/ntl_icecover_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
+  <img src="../reference/figures/ntl_icecover_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
   <figcaption>North Temperate Lakes LTER study site, LTER CC BY-SA 4.0</figcaption>
 </figure>
 
