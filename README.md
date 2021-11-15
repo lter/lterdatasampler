@@ -1,8 +1,7 @@
 
 <!-- badges: start -->
 
-[![Package
-Site](https://github.com/lter/lterdatasampler/workflows/pkgdown/badge.svg)](https://github.com/lter/lterdatasampler/actions)
+[![PackageSite](https://github.com/lter/lterdatasampler/workflows/pkgdown/badge.svg)](https://github.com/lter/lterdatasampler/actions)
 [![R-CMD-check](https://github.com/lter/lterdatasampler/workflows/R-CMD-check/badge.svg)](https://github.com/lter/lterdatasampler/actions)
 <!-- badges: end -->
 
@@ -86,7 +85,7 @@ Thank you to the amazing students who contributed to this project: *Sam
 Guo, Adhitya Logan, Lia Ran, Sophia Sternberg, Karen Zhao* as part of
 their [UCSB Data Science capstone
 project](https://ucsb-ds-capstone-2021.github.io/projects/nceas/update3.html).
-Thank you also go to their Course Advisor Prof. Sang-yun Oh.
+Thank you also go to their Course Advisor Prof. Sang-yun Oh.
 
 People / organizations who supported this project:
 
@@ -105,7 +104,7 @@ We gratefully acknowledge all authors and contributors of the
 [`devtools`](https://devtools.r-lib.org/),
 [`tidyverse`](https://www.tidyverse.org/) and
 [`metajam`](https://github.com/NCEAS/metajam) packages. This website
-relies heavily on themes created by Dr. Desirée DeLeon and Dr. Alison
+relies heavily on themes created by Dr. Desirée DeLeon and Dr. Alison
 Hill.
 
 <hr>
