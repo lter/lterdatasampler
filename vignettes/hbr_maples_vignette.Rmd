@@ -30,7 +30,7 @@ Sugar maples (*Acer saccharum*) are a type of tree found at the Hubbard Brook LT
 Researchers S. Juice and T. Fahey at Hubbard Brook LTER have treated a watershed (W1) at the site with calcium, to see if it helps restore the health of sugar maple seedlings. By comparing seedling growth in the W1 watershed with seedling growth in a reference (non-calcium treated) watershed, calcium impacts can be investigated.
 
 <figure style="text-align:center;">
-  <img src="../reference/figures/hbr_maples_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
+  <img src="../man/figures/hbr_maples_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
   <figcaption>Hubbard Brooks LTER seedlings. Photo credit: Erika Zambello / LTER.</figcaption>
 </figure>
 

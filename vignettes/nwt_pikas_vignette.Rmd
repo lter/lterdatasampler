@@ -29,7 +29,7 @@ Researchers at the Niwot Ridge Long Term Ecological Research Site (NWT LTER) see
 
 
 <figure style="text-align:center;">
-  <img src="../reference/figures/nwt_pikas_img.jpg" width=40% style="display:block; margin-left: auto; margin-right: auto;">
+  <img src="../man/figures/nwt_pikas_img.jpg" width=40% style="display:block; margin-left: auto; margin-right: auto;">
   <figcaption>LTER researcher releasing a pika at the Niwot site, LTER CC BY-SA 4.0</figcaption>
 </figure>
 
