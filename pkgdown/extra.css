@@ -11,14 +11,9 @@ body {
   text-spacing: 2px;
 }
 
-h1 {font-size: 40px;}
-h2 {font-size: 30px;}
-h3 {font-size: 23px;}
-
 h1, h2, h3 {
   font-family: 'Nanum Myeongjo', sans-serif;
   font-weight: normal;
-  font-size: 1.3em;
   letter-spacing: 1.25pt;
 }
 
@@ -30,12 +25,20 @@ h1, h2, h3 {
   font-size: 2.4em;
 }
 
+
+h1 {
+  color: #172a3a;
+  font-size: 2.1em;
+}
+
 h2 {
   color: #172a3a;
+  font-size: 1.6em;
 }
 
 h3 {
   color: #172a3acc;
+  font-size: 1.2em;
 }
 
 .contents .page-header {
@@ -51,8 +54,8 @@ a:hover {
   text-decoration: underline;
 }
 
-code a, pre a {
-    color: #445C16;
+code {
+  color: inherit;
 }
 
 
