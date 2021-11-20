@@ -117,11 +117,17 @@
 
     
     
-<div id="overview" class="section level1">
+<div id="dataset-sample-used" class="section level3">
+<h3 class="hasAnchor">
+<a href="#dataset-sample-used" class="anchor"></a>Dataset sample used</h3>
+<ul>
+<li><code>knz_bison</code></li>
+</ul>
+</div>
+<div id="introduction" class="section level1">
 <h1 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h1>
-<p>This data provides age and weight records for the bison herd at <a href="http://lter.konza.ksu.edu/konza-prairie-long-term-ecological-research-lter">Konza Prairie Biological Station LTER</a> in Kansas.</p>
-<p>This vignette highlights:</p>
+<a href="#introduction" class="anchor"></a>Introduction</h1>
+<p>This data provides age and weight records for the bison herd at <a href="http://lter.konza.ksu.edu/konza-prairie-long-term-ecological-research-lter">Konza Prairie Biological Station LTER</a> in Kansas. The vignette highlights:</p>
 <ul>
 <li>An example of modeling bison weight (as a function of age) using the Gompertz model with <code>nls</code>
 </li>
@@ -131,18 +137,15 @@
 Konza Prairie LTER bison herd, LTER CC BY-SA 4.0
 </figcaption></figure>
 </div>
-<div id="packages" class="section level1">
+<div id="data-exploration" class="section level1">
 <h1 class="hasAnchor">
-<a href="#packages" class="anchor"></a>Packages</h1>
+<a href="#data-exploration" class="anchor"></a>Data exploration</h1>
+<p>Attach required packages:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lter/lterdatasampler">lterdatasampler</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/">broom</a></span><span class="op">)</span></code></pre></div>
-</div>
-<div id="data-exploration" class="section level1">
-<h1 class="hasAnchor">
-<a href="#data-exploration" class="anchor"></a>Data exploration</h1>
-<p>Let’s take a look at the existing <code>knz_bison</code> data:</p>
+<p>Let’s take a look at the existing <code>knz_bison</code> data sample:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">knz_bison</span>
 <span class="co">#&gt; # A tibble: 8,325 × 8</span>
@@ -159,12 +162,12 @@ Konza Prairie LTER bison herd, LTER CC BY-SA 4.0
 <span class="co">#&gt;  9 CBH01         1994        11       8 B-601       F                    978</span>
 <span class="co">#&gt; 10 CBH01         1994        11       8 B-602       F                   1188</span>
 <span class="co">#&gt; # … with 8,315 more rows, and 1 more variable: animal_yob &lt;dbl&gt;</span></code></pre></div>
-<p>We can calculate each bison’s age at observation by subtracting the year of birth from the record year (putting this in a new column using <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>:</p>
+<p>We can calculate each bison’s age at observation by subtracting the year of birth (<code>animal_yob</code>) from the record year (<code>rec_year</code>), adding a new column called <code>animal_age</code> using <code><a href="https://dplyr.tidyverse.org/reference/mutate.html">dplyr::mutate()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="va">knz_bison_age</span> <span class="op">&lt;-</span> <span class="va">knz_bison</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>animal_age <span class="op">=</span> <span class="va">rec_year</span> <span class="op">-</span> <span class="va">animal_yob</span><span class="op">)</span></code></pre></div>
-<p>Now, we’ll explore bison weight as a function of age (in years), separated by sex.</p>
+<p>Now, we’ll explore bison weight as a function of age (in years), separated by sex:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">knz_bison_age</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">animal_age</span>, y <span class="op">=</span> <span class="va">animal_weight</span>, group <span class="op">=</span> <span class="va">animal_sex</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">animal_sex</span><span class="op">)</span>, 
@@ -274,31 +277,31 @@ Konza Prairie LTER bison herd, LTER CC BY-SA 4.0
 <span class="co">#&gt;   sigma isConv     finTol  logLik    AIC    BIC  deviance df.residual  nobs</span>
 <span class="co">#&gt;   &lt;dbl&gt; &lt;lgl&gt;       &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;       &lt;int&gt; &lt;int&gt;</span>
 <span class="co">#&gt; 1  81.1 TRUE   0.00000311 -29358. 58724. 58750. 33206307.        5046  5049</span></code></pre></div>
-<p>We can use <code><a href="https://generics.r-lib.org/reference/augment.html">broom::augment()</a></code> to added fitted values and residuals to our <code>bison_f</code> data frame:</p>
+<p>We can use <code><a href="https://generics.r-lib.org/reference/augment.html">broom::augment()</a></code> to added predicted values and residuals for each of the existing bison in the <code>bison_f</code> data frame:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">bison_f_gompertz</span>, <span class="va">bison_f</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5,049 × 11</span>
-<span class="co">#&gt;    data_code rec_year rec_month rec_day animal_code animal_sex animal_weight</span>
-<span class="co">#&gt;    &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;              &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 CBH01         1994        11       8 813         F                    890</span>
-<span class="co">#&gt;  2 CBH01         1994        11       8 834         F                   1074</span>
-<span class="co">#&gt;  3 CBH01         1994        11       8 B-301       F                   1060</span>
-<span class="co">#&gt;  4 CBH01         1994        11       8 B-402       F                    989</span>
-<span class="co">#&gt;  5 CBH01         1994        11       8 B-403       F                   1062</span>
-<span class="co">#&gt;  6 CBH01         1994        11       8 B-502       F                    978</span>
-<span class="co">#&gt;  7 CBH01         1994        11       8 B-503       F                   1068</span>
-<span class="co">#&gt;  8 CBH01         1994        11       8 B-504       F                   1024</span>
-<span class="co">#&gt;  9 CBH01         1994        11       8 B-601       F                    978</span>
-<span class="co">#&gt; 10 CBH01         1994        11       8 B-602       F                   1188</span>
-<span class="co">#&gt; # … with 5,039 more rows, and 4 more variables: animal_yob &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   animal_age &lt;dbl&gt;, .fitted &lt;dbl&gt;, .resid &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://generics.r-lib.org/reference/augment.html">augment</a></span><span class="op">(</span><span class="va">bison_f_gompertz</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 5,049 × 4</span>
+<span class="co">#&gt;    animal_age animal_weight .fitted .resid</span>
+<span class="co">#&gt;         &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;</span>
+<span class="co">#&gt;  1         13           890   1010. -120. </span>
+<span class="co">#&gt;  2         11          1074   1009.   64.7</span>
+<span class="co">#&gt;  3         11          1060   1009.   50.7</span>
+<span class="co">#&gt;  4         10           989   1009.  -19.9</span>
+<span class="co">#&gt;  5         10          1062   1009.   53.1</span>
+<span class="co">#&gt;  6          9           978   1008.  -30.0</span>
+<span class="co">#&gt;  7          9          1068   1008.   60.0</span>
+<span class="co">#&gt;  8          9          1024   1008.   16.0</span>
+<span class="co">#&gt;  9          8           978   1006.  -28.1</span>
+<span class="co">#&gt; 10          8          1188   1006.  182. </span>
+<span class="co">#&gt; # … with 5,039 more rows</span></code></pre></div>
 <p><strong>Note:</strong> There are additional <a href="https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-knz.78.12">related datasets for this data package</a>, containing information for the number of male and female bison per age category and bison maternal parentage (calves matched to mother by ear tags). We encourage you to check them out for more analysis opportunities with the Konza Prairie bison!</p>
 </div>
 <div id="citations" class="section level1">
 <h1 class="hasAnchor">
 <a href="#citations" class="anchor"></a>Citations</h1>
-<p>David Robinson, Alex Hayes and Simon Couch (2021). broom: Convert Statistical Objects into Tidy Tibbles. R package version 0.7.8. <a href="https://CRAN.R-project.org/package=broom" class="uri">https://CRAN.R-project.org/package=broom</a></p>
+<p>Blair, J. 2021. CBH01 Konza Prairie bison herd information ver 12. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/9c641b35695abc5889edd64c3950517f" class="uri">https://doi.org/10.6073/pasta/9c641b35695abc5889edd64c3950517f</a> (Accessed 2021-10-18).</p>
 <p>Martin, JM and Barboza PS (2020). Decadal heat and drought drive body size of North American bison (Bison bison) along the Great Plains. Ecology and Evolution <em>10</em> (1): 336 - 349. <a href="https://doi.org/10.1002/ece3.5898" class="uri">https://doi.org/10.1002/ece3.5898</a>.</p>
+<p>Robinson, D, Hayes A and Couch S (2021). broom: Convert Statistical Objects into Tidy Tibbles. R package version 0.7.8. <a href="https://CRAN.R-project.org/package=broom" class="uri">https://CRAN.R-project.org/package=broom</a></p>
 </div>
 <div id="how-we-processed-the-raw-data" class="section level1">
 <h1 class="hasAnchor">
