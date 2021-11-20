@@ -60,8 +60,8 @@ ggplot(data = knz_bison_age, aes(x = animal_age, y = animal_weight, group = anim
   geom_point(aes(color = animal_sex), 
              size = 0.5,
              position = position_jitter(width = 0.2, height = 0)) +
-  labs(x = "Bison age",
-       y = "Recorded weight (pounds") +
+  labs(x = "Bison age (years)",
+       y = "Recorded weight (pounds)") +
   scale_color_viridis_d() +
   theme_minimal()
 ```
