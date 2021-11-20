@@ -15,11 +15,13 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Overview
+### Dataset sample used
 
-This data provides age and weight records for the bison herd at [Konza Prairie Biological Station LTER](http://lter.konza.ksu.edu/konza-prairie-long-term-ecological-research-lter) in Kansas. 
+- `knz_bison`
 
-This vignette highlights:
+# Introduction
+
+This data provides age and weight records for the bison herd at [Konza Prairie Biological Station LTER](http://lter.konza.ksu.edu/konza-prairie-long-term-ecological-research-lter) in Kansas. The vignette highlights:
 
 - An example of modeling bison weight (as a function of age) using the Gompertz model with `nls`
 - Use of the `broom` package to tidy up outputs of `nls` for easier use
@@ -29,22 +31,21 @@ This vignette highlights:
   <figcaption>Konza Prairie LTER bison herd, LTER CC BY-SA 4.0</figcaption>
 </figure>
 
-# Packages
+# Data exploration
 
+Attach required packages: 
 ```{r setup, message = FALSE, warning = FALSE}
 library(lterdatasampler)
 library(tidyverse)
 library(broom)
 ```
 
-# Data exploration
-
-Let's take a look at the existing `knz_bison` data:
+Let's take a look at the existing `knz_bison` data sample:
 ```{r}
 knz_bison
 ```
 
-We can calculate each bison's age at observation by subtracting the year of birth from the record year (putting this in a new column using `dplyr::mutate()`: 
+We can calculate each bison's age at observation by subtracting the year of birth (`animal_yob`) from the record year (`rec_year`), adding a new column called `animal_age` using `dplyr::mutate()`: 
 
 ```{r}
 
@@ -52,7 +53,7 @@ knz_bison_age <- knz_bison %>%
   mutate(animal_age = rec_year - animal_yob)
 ```
 
-Now, we'll explore bison weight as a function of age (in years), separated by sex. 
+Now, we'll explore bison weight as a function of age (in years), separated by sex:
 
 ```{r}
 ggplot(data = knz_bison_age, aes(x = animal_age, y = animal_weight, group = animal_sex)) +
@@ -146,19 +147,21 @@ We can also use the `broom::glance()` function to return important information a
 ```{r}
 bison_f_gompertz %>% broom::glance()
 ```
-We can use `broom::augment()` to added fitted values and residuals to our `bison_f` data frame: 
+We can use `broom::augment()` to added predicted values and residuals for each of the existing bison in the `bison_f` data frame: 
 
 ```{r}
-augment(bison_f_gompertz, bison_f)
+augment(bison_f_gompertz)
 ```
 
 **Note:** There are additional [related datasets for this data package](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-knz.78.12), containing information for the number of male and female bison per age category and bison maternal parentage (calves matched to mother by ear tags). We encourage you to check them out for more analysis opportunities with the Konza Prairie bison! 
 
 # Citations
 
-David Robinson, Alex Hayes and Simon Couch (2021). broom: Convert Statistical Objects into Tidy Tibbles. R package version 0.7.8. https://CRAN.R-project.org/package=broom
+Blair, J. 2021. CBH01 Konza Prairie bison herd information ver 12. Environmental Data Initiative. https://doi.org/10.6073/pasta/9c641b35695abc5889edd64c3950517f (Accessed 2021-10-18).
 
 Martin, JM and Barboza PS (2020). Decadal heat and drought drive body size of North American bison (Bison bison) along the Great Plains. Ecology and Evolution *10* (1): 336 - 349. https://doi.org/10.1002/ece3.5898.
+
+Robinson, D, Hayes A and Couch S (2021). broom: Convert Statistical Objects into Tidy Tibbles. R package version 0.7.8. https://CRAN.R-project.org/package=broom
 
 
 # How we processed the raw data
