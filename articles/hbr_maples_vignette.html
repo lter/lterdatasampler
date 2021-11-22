@@ -127,7 +127,7 @@
 <div id="introduction" class="section level1">
 <h1 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h1>
-<p>Growth of sugar maples (<em>Acer saccharum</em>), known for their maple syrup and iconic leaf shape, can be stunted due to soil acidification from prolonged acid rain, which leaches calcium - a nutrient important for plant growth - from soils and stresses maple seedlings (learn more: <a href="https://news.cornell.edu/stories/2006/05/acid-rain-causing-decline-sugar-maples-say-researchers">Decades of acid rain is causing loss of valuable Northeast sugar maples, Cornell researchers warn</a>). To investigate the impact of soil calcium supplementation on sugar maple seedling growth, researchers S. Juice and T. Fahey at Hubbard Brook LTER treated a watershed (W1) with calcium, then quantified “general sugar maple germinant health by height, leaf area, biomass, and chlorophyll content” (Juice and Fahey 2019). By comparing seedling growth in calcium-treated versus reference (non-calcium treated) watersheds, calcium impacts on sugar maple seedling growth can be explored.</p>
+<p>Growth of sugar maples (<em>Acer saccharum</em>), known for their maple syrup and iconic leaf shape, can be stunted due to soil acidification from prolonged acid rain, which leaches calcium - a nutrient important for plant growth - from soils and stresses maple seedlings (learn more: <a href="https://news.cornell.edu/stories/2006/05/acid-rain-causing-decline-sugar-maples-say-researchers">Decades of acid rain is causing loss of valuable Northeast sugar maples, Cornell researchers warn</a>). To investigate the impact of soil calcium supplementation on sugar maple seedling growth, researchers Stephanie Juice and Tim Fahey at Hubbard Brook LTER treated a watershed (W1) with calcium, then quantified “general sugar maple germinant health by height, leaf area, biomass, and chlorophyll content” (Juice and Fahey 2019). By comparing seedling growth in calcium-treated versus reference (non-calcium treated) watersheds, calcium impacts on sugar maple seedling growth can be explored.</p>
 <figure style="text-align:center;"><img src="../man/figures/hbr_maples_img.jpg" width="80%" style="display:block; margin-left: auto; margin-right: auto;"><figcaption>
 Hubbard Brooks LTER seedlings. Photo credit: Erika Zambello / LTER.
 </figcaption></figure>
@@ -137,9 +137,8 @@ Hubbard Brooks LTER seedlings. Photo credit: Erika Zambello / LTER.
 <a href="#data-exploration" class="anchor"></a>Data Exploration</h1>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lter/lterdatasampler">lterdatasampler</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://broom.tidymodels.org/">broom</a></span><span class="op">)</span></code></pre></div>
-<p>The <code>hbr_maples</code> data sample is in tidy format and contains both numeric and factor variables. Learn more about the variables by checking the dataset documentation (<code><a href="../reference/hbr_maples.html">?hbr_maples</a></code>).</p>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></code></pre></div>
+<p>The <code>hbr_maples</code> data sample is in tidy format and contains both numeric and factor variables. Learn more about the variables in the dataset documentation (<code><a href="../reference/hbr_maples.html">?hbr_maples</a></code>).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html">glimpse</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span>
 <span class="co">#&gt; Rows: 359</span>
@@ -155,7 +154,7 @@ Hubbard Brooks LTER seedlings. Photo credit: Erika Zambello / LTER.
 <span class="co">#&gt; $ leaf_dry_mass       &lt;dbl&gt; 0.0453, 0.0476, 0.0423, 0.0397, 0.0204, 0.0317, 0.…</span>
 <span class="co">#&gt; $ stem_dry_mass       &lt;dbl&gt; 0.0300, 0.0338, 0.0248, 0.0194, 0.0180, 0.0246, 0.…</span>
 <span class="co">#&gt; $ corrected_leaf_area &lt;dbl&gt; 29.104, 32.976, 25.319, 23.179, 15.455, 20.440, 21…</span></code></pre></div>
-<p>Now, let’s create an exploratory visualization of the data using <code>ggplot</code>. Is there evidence for differences in maple seedling height (millimeters) between the calcium-treated (W1) and untreated (reference) watersheds?</p>
+<p>First, let’s create an exploratory visualization of the data using <code>ggplot</code>. Is there evidence for differences in maple seedling height (millimeters) between the calcium-treated (W1) and untreated (reference) watersheds?</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R">  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">watershed</span>, y <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">watershed</span>, shape <span class="op">=</span> <span class="va">watershed</span><span class="op">)</span>,
@@ -176,7 +175,7 @@ Hubbard Brooks LTER seedlings. Photo credit: Erika Zambello / LTER.
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html">facet_wrap</a></span><span class="op">(</span><span class="op">~</span><span class="va">year</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>In both years of the study (2003 and 2004) it appears that seedling height is greater overall in the calcium-treated watershed (W1), compared to the untreated watershed.</p>
+<p>In both years of the study (2003 and 2004) it appears that seedling heights shift toward longer stem lengths in the calcium-treated watershed (W1), compared to the untreated watershed.</p>
 <div id="summary-statistics" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summary-statistics" class="anchor"></a>Summary statistics</h2>
@@ -245,7 +244,7 @@ In summary, within each watershed and year, stem length distributions appear app
 <div id="f-test-for-equal-variance" class="section level2">
 <h2 class="hasAnchor">
 <a href="#f-test-for-equal-variance" class="anchor"></a>F-test for equal variance</h2>
-<p>Having explored distributions in the histograms and QQ plots above, we can conclude that the data are approximately normal. As a next step, we will use <code><a href="https://rdrr.io/r/stats/var.test.html">var.test()</a></code> to test for equal variances of 2004 seedling height (<code>stem_length</code>, in millimeters) observations in each watershed.</p>
+<p>Having explored distributions in the histograms above, we can conclude that the data are approximately normal. As a next step, we will use <code><a href="https://rdrr.io/r/stats/var.test.html">var.test()</a></code> to test for equal variances of 2004 seedling height (<code>stem_length</code>, in millimeters) observations in each watershed.</p>
 <p>Null and alternative hypotheses:</p>
 <ul>
 <li><p><span class="math inline">\(H_0:\)</span> Ratio of variances is equal to 1 (equal variances)</p></li>
@@ -266,7 +265,7 @@ In summary, within each watershed and year, stem length distributions appear app
 <span class="co">#&gt; sample estimates:</span>
 <span class="co">#&gt; ratio of variances </span>
 <span class="co">#&gt;           1.270104</span></code></pre></div>
-<p>With a p-value &gt; 0.05, we fail to reject the null hypothesis that the ratio of the variances of the two watersheds is equal, and we will use the t-test assumption of equal variances.</p>
+<p>With a p-value &gt; 0.05, we fail to reject the null hypothesis that the ratio of the variances of the two watersheds is equal, and continue with the assumption of equal variances.</p>
 <p>Now, we’ll do a two-sided two-sample t-test using <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> to determine if there is a statistically significant difference in seedling height between the watersheds (using only 2004 observations).</p>
 </div>
 <div id="two-sided-two-sample-t-test" class="section level2">
@@ -277,7 +276,7 @@ In summary, within each watershed and year, stem length distributions appear app
 <li><p><span class="math inline">\(H_0: \mu_{1} = \mu_2\)</span></p></li>
 <li><p><span class="math inline">\(H_A: \mu_{1} \ne \mu_2\)</span></p></li>
 </ul>
-<p>By default, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> will use Welch’s test to correct for unequal variances, so we set <code>var.equal = TRUE</code> based on the outcome of our F-test above:</p>
+<p>By default, <code><a href="https://rdrr.io/r/stats/t.test.html">t.test()</a></code> will use a Welch t-test that does <em>not</em> assume equal variances (default argument is <code>var.equal = FALSE</code>). We set <code>var.equal = TRUE</code> based on the outcome of our F-test above:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">hbr_maples</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2004</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> 
@@ -301,7 +300,7 @@ In summary, within each watershed and year, stem length distributions appear app
 <div id="further-analysis-ideas" class="section level1">
 <h1 class="hasAnchor">
 <a href="#further-analysis-ideas" class="anchor"></a>Further Analysis Ideas</h1>
-<p>The <code>hbr_maples</code> data sample provides additional opportunity for analysis and data science skill-building. For example, stem length versus seedling mass provides regression opportunities…</p>
+<p>The <code>hbr_maples</code> data sample provides additional opportunity for analysis and data science skill-building. For example, stem length versus seedling mass provides regression opportunities:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -313,7 +312,7 @@ In summary, within each watershed and year, stem length distributions appear app
   <span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></p>
-<p>…clarified when separated by study year and watershed:</p>
+<p>Which is clarified when separated by study year and watershed:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
@@ -365,7 +364,7 @@ leaf_linear
 
 <img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" />
 -->
-<p>… and many more! Enjoy exploring and analyzing the impact of calcium addition on sugar maple seedling growth.</p>
+<p>And many more! Enjoy exploring and analyzing the impact of calcium addition on sugar maple seedling growth.</p>
 </div>
 <div id="citation" class="section level1">
 <h1 class="hasAnchor">
