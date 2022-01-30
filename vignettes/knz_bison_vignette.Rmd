@@ -21,15 +21,32 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This data provides age and weight records for the bison herd at [Konza Prairie Biological Station LTER](http://lter.konza.ksu.edu/konza-prairie-long-term-ecological-research-lter) in Kansas. The vignette highlights:
+The `knz_bison` data provides age and weight records for the bison herd at [Konza Prairie Biological Station LTER](http://lter.konza.ksu.edu/konza-prairie-long-term-ecological-research-lter) (KPBS) in Kansas. 
+
+The vignette highlights:
 
 - An example of modeling bison weight (as a function of age) using the Gompertz model with `nls`
 - Use of the `broom` package to tidy up outputs of `nls` for easier use
+
+From Konza Prairie LTER Information Manager Yang Xia: "Nearly 300 bison graze KPBS year-round without supplementary feed and with minimal human intervention, living as 'naturally' as possible. Bison were reintroduced in 1987, and collection of weight data began in 1994, making this dataset the longest continuous record of wild ungulate weight gain anywhere in the world. A round-up is conducted once annually at the end of the grazing season wherein each bison is weighed, calves are vaccinated and receive unique IDs, and excess individuals are culled." 
 
 <figure style="text-align:center;">
   <img src="../man/figures/knz_bison_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
   <figcaption>Konza Prairie LTER bison herd, LTER CC BY-SA 4.0</figcaption>
 </figure>
+
+<figure style="text-align:center;">
+  <img src="../man/figures/knz_bison_img_2.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Konza Prairie LTER bison in chute for data collection, LTER CC BY-SA 4.0</figcaption>
+</figure>
+
+<figure style="text-align:center;">
+  <img src="../man/figures/knz_bison_img_3.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Bison exiting chute following data collection, Konza Prairie LTER, LTER CC BY-SA 4.0</figcaption>
+</figure>
+
+
+
 
 # Data exploration
 
@@ -154,6 +171,10 @@ augment(bison_f_gompertz)
 ```
 
 **Note:** There are additional [related datasets for this data package](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-knz.78.12), containing information for the number of male and female bison per age category and bison maternal parentage (calves matched to mother by ear tags). We encourage you to check them out for more analysis opportunities with the Konza Prairie bison! 
+
+# Acknowledgements
+
+Thank you to Konza Prairie LTER Information Manager Yang Xia for reviewing this vignette, providing photos and sharing additional information on the bison data.
 
 # Citations
 
