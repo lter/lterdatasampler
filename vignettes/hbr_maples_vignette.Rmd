@@ -25,12 +25,30 @@ knitr::opts_chunk$set(
 
 # Introduction
 
+The `hbr_maples` dataset contains observations on sugar maple seedlings in untreated and calcium-amended watersheds at Hubbard Brooks Experimental Forest in New Hampshire. 
+
 Growth of sugar maples (*Acer saccharum*), known for their maple syrup and iconic leaf shape, can be stunted due to soil acidification from prolonged acid rain, which leaches calcium - a nutrient important for plant growth - from soils and stresses maple seedlings (learn more: [Decades of acid rain is causing loss of valuable Northeast sugar maples, Cornell researchers warn](https://news.cornell.edu/stories/2006/05/acid-rain-causing-decline-sugar-maples-say-researchers)). To investigate the impact of soil calcium supplementation on sugar maple seedling growth, researchers Stephanie Juice and Tim Fahey at Hubbard Brook LTER treated a watershed (W1) with calcium, then quantified "general sugar maple germinant health by height, leaf area, biomass, and chlorophyll content" (Juice and Fahey 2019). By comparing seedling growth in calcium-treated versus reference (non-calcium treated) watersheds, calcium impacts on sugar maple seedling growth can be explored.
 
+From Hubbard Brook LTER Information Manager Mary Martin: "Tracking of sugar maple seedlings continues at [Hubbard Brook], and there is now a statewide citizen science effort to study sugar maple regeneration on Forest Society properties throughout the state." 
+
 <figure style="text-align:center;">
-  <img src="../man/figures/hbr_maples_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
-  <figcaption>Hubbard Brooks LTER seedlings. Photo credit: Erika Zambello / LTER.</figcaption>
+  <img src="../man/figures/hbr_maples_img_3.jpg" width=50% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Sugar maple seedlings at Hubbard Brooks Experimental Forest, New Hampshire. Photo credit: Natalie Cleavitt.</figcaption>
 </figure>
+
+
+<figure style="text-align:center;">
+  <img src="../man/figures/hbr_maples_img_2.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Iconic sugar maple leaves on seedlings at Hubbard Brooks Experimental Forest, New Hampshire. Photo credit: Natalie Cleavitt.</figcaption>
+</figure>
+
+<figure style="text-align:center;">
+  <img src="../man/figures/hbr_maples_img_4.jpg" width=40% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Sugar maple seedling laboratory photos. Photo credit: Natalie Cleavitt.</figcaption>
+</figure>
+
+
+Want to incorporate more lessons with Hubbard Brook's iconic sugar maples? Check out this [Sugar Babies Data Lesson](https://hubbardbrook.org/sugar-babies) which explores sugar maple seedling mortality data collected by Natalie Cleavitt. 
 
 # Data Exploration
 
@@ -88,7 +106,7 @@ maple_summary <- hbr_maples %>%
 maple_summary
 ```
 
-In both years, the mean and median seedling height (stem_length) are higher in the W1 (calcium-treated) watershed, compared to the untreated watershed. 
+In both years, the mean and median seedling height (stem_length) are higher in the W1 (calcium-treated) watershed, compared to the Reference (untreated) watershed. 
 
 ## Seedling height distributions
 
@@ -233,6 +251,10 @@ leaf_linear
 -->
 
 And many more! Enjoy exploring and analyzing the impact of calcium addition on sugar maple seedling growth. 
+
+# Acknowledgements
+
+Our sincere thanks to: Hubbard Brook LTER Information Manager Mary Martin for reviewing this vignette, providing additional information on ongoing sugar maple research, and connecting us with researchers on the project; Natalie Cleavitt for providing photos and sharing the [Sugar Babies Data Lesson](https://hubbardbrook.org/sugar-babies). 
 
 # Citation
 
