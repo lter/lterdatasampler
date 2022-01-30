@@ -1,45 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://lter.github.io/lterdatasampler//index.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/404.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//reference/and_vertebrates.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//reference/hbr_maples.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/articles/hbr_maples_vignette.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//reference/knz_bison.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//reference/ntl_airtemp.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/articles/knz_bison_vignette.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//reference/ntl_icecover.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/articles/ntl_icecover_vignette.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//reference/nwt_pikas.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/articles/nwt_pikas_vignette.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//reference/pie_crab.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/articles/pie_crab_vignette.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//articles/and_vertebrates_vignette.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/authors.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//articles/hbr_maples_vignette.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/index.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//articles/knz_bison_vignette.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/reference/and_vertebrates.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//articles/ntl_icecover_vignette.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/reference/hbr_maples.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//articles/nwt_pikas_vignette.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://lter.github.io/lterdatasampler//articles/pie_crab_vignette.html</loc>
+    <loc>https://lter.github.io/lterdatasampler/reference/knz_bison.html</loc>
+  </url>
+  <url>
+    <loc>https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html</loc>
+  </url>
+  <url>
+    <loc>https://lter.github.io/lterdatasampler/reference/ntl_icecover.html</loc>
+  </url>
+  <url>
+    <loc>https://lter.github.io/lterdatasampler/reference/nwt_pikas.html</loc>
+  </url>
+  <url>
+    <loc>https://lter.github.io/lterdatasampler/reference/pie_crab.html</loc>
   </url>
 </urlset>
