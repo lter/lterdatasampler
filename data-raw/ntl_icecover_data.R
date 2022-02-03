@@ -44,6 +44,7 @@ ntl_icecover <- ntl_ice_raw %>%
     lakeid = as.factor(lakeid),
     ice_duration = replace(ice_duration, which(ice_duration < 0), NA) # change values of -999 to NA
   ) %>%
+  filter(lakeid != "Lake Wingra") %>% # too many missing data and longer ice cover duration
   clean_names() # makes headers formatting more consistent
 
 #+ save data ice, include = FALSE, eval = FALSE

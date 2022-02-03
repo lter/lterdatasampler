@@ -53,7 +53,9 @@ Suggests:
     broom,
     sf,
     ggmap,
-    leaflet
+    leaflet,
+    lubridate,
+    patchwork
 URL: https://github.com/lter/lterdatasampler
 BugReports: https://github.com/lter/lterdatasampler/issues
 VignetteBuilder: knitr
