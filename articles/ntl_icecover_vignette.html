@@ -294,11 +294,11 @@ North Temperate Lakes LTER study site, LTER CC BY-SA 4.0
 </div>
 </div>
 <div class="section level2">
-<h2 id="join-and-compare-ice-and-temperature-data">Join and Compare Ice and Temperature Data<a class="anchor" aria-label="anchor" href="#join-and-compare-ice-and-temperature-data"></a>
+<h2 id="join-and-compare-ice-cover-duration-and-temperature-data">Join and compare ice cover duration and temperature data<a class="anchor" aria-label="anchor" href="#join-and-compare-ice-cover-duration-and-temperature-data"></a>
 </h2>
 <p>To compare the ice cover duration and temperature data directly, the <code>ntl_airtemp</code> and <code>ntl_icecover</code> datasets can be joined. Since lake freezing is mostly impacted by Fall and Spring air temperatures, we will first compute the mean temperature from Nov to April (next year) to best capture the existing relationship:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Add a column to group the Fall and Spring season into a same year, similary to what is done when defining hydrological year</span>
+<code class="sourceCode R"><span class="co"># Add a column to group the Fall and Spring season into a same year, similarly to what is done when defining hydrological year</span>
 <span class="va">ntl_airtemp_hydro</span> <span class="op">&lt;-</span> <span class="va">ntl_airtemp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>hydroyear <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">sampledate</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">10</span>, <span class="va">year</span><span class="op">-</span><span class="fl">1</span>, <span class="va">year</span><span class="op">)</span><span class="op">)</span>
 
@@ -324,7 +324,7 @@ North Temperate Lakes LTER study site, LTER CC BY-SA 4.0
 
 <span class="va">temp_plot</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/temp%20nov-april%20plot-1.png" width="672"></p>
-<p>To further investigate the realtionship between the air temperature during the cold season and the ice cover duration, we can join the two datasets together unsing <code>left_join</code>:</p>
+<p>To further investigate the relationship between the air temperature during the cold season and the ice cover duration, we can join the two datasets together using <code>left_join</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ntl_joined_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover_avg</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"year"</span> <span class="op">=</span> <span class="st">"hydroyear"</span><span class="op">)</span>, <span class="va">ntl_airtemp_avg_winter</span><span class="op">)</span>
@@ -365,7 +365,10 @@ North Temperate Lakes LTER study site, LTER CC BY-SA 4.0
 <span class="va">scatter</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/scatter-1.png" width="672"></p>
 <p>There is a negative correlation between the mean air temperature from November to April and the amount of time that each lake was frozen. This means that as temperature increases, the ice duration decreases.</p>
-<p>Now let’s investigate how this relationship evolves over time. To compare the temperature with the ice duration on a time-series plot on a similar scale we are going to compute standardized anomalies for both parameters. We are going to split the time-series in two parts. The first 30 years will be used to compute the climatological reference (mean and standard devisation), that we will use to compare the other years against. Since the earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869, we opted to compute the climatiological references from 1870 to 1900.</p>
+<div class="section level3">
+<h3 id="standardized-anomalies">Standardized Anomalies<a class="anchor" aria-label="anchor" href="#standardized-anomalies"></a>
+</h3>
+<p>Now let’s investigate how this relationship evolves over time. To compare the temperature with the ice duration on a time-series plot on a similar scale we are going to compute standardized anomalies for both parameters. We are going to split the time-series in two parts. The first 30 years will be used to compute the climatological reference (mean and standard deviation), that we will use to compare the other years against. Since the earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869, we opted to compute the climatological references from 1870 to 1900.</p>
 <p>In this example, the standardized anomalies are computed as follow: <span class="math inline">\((V_{y} - \overline{V}_{clim}) / SD_{clim}\)</span></p>
 <p>Let us start with the air temperature:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
@@ -430,14 +433,17 @@ North Temperate Lakes LTER study site, LTER CC BY-SA 4.0
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Standaradized Anomalies"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Ice cover duration standaradized anomalies"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span>
 
 <span class="va">temp_plot_iceduration_anomalies</span></code></pre></div>
-<p><img src="ntl_icecover_vignette_files/figure-html/ice%20duration%20standardized%20plot-1.png" width="672"> Using the <a href="https://patchwork.data-imaginist.com/" class="external-link"><code>patchwork</code></a> package, it is very easy to combine graphs together: just add them!!</p>
+<p><img src="ntl_icecover_vignette_files/figure-html/ice%20duration%20standardized%20plot-1.png" width="672"></p>
+<p>Using the <a href="https://patchwork.data-imaginist.com/" class="external-link"><code>patchwork</code></a> package, it is very easy to combine graphs together: just add them!!</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temp_plot_airtemp_anomalies</span> <span class="op">+</span> <span class="va">temp_plot_iceduration_anomalies</span></code></pre></div>
-<p><img src="ntl_icecover_vignette_files/figure-html/unnamed-chunk-2-1.png" width="672"> or try vertically:</p>
+<p><img src="ntl_icecover_vignette_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
+<p>or try vertically:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">temp_plot_airtemp_anomalies</span> <span class="op">/</span> <span class="va">temp_plot_iceduration_anomalies</span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-<p>Note the difference of scale on the y-axis. However in both time series, there is an increase in anomalies (both in frequency and intensity) over time, suggesting the recent year are more consistantly warmer and with shorter period with frozen lakes</p>
+<p>Note the difference of scale on the y-axis. However in both time series, there is an increase in anomalies (both in frequency and intensity) over time, suggesting the recent year are more consistently warmer and with shorter period with frozen lakes</p>
+</div>
 <div class="section level3">
 <h3 id="other-things-to-explore">Other things to explore:<a class="anchor" aria-label="anchor" href="#other-things-to-explore"></a>
 </h3>
