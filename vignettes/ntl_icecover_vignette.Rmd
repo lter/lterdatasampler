@@ -40,6 +40,8 @@ According to the [EPA](https://www.epa.gov/climate-indicators/climate-change-ind
 ```{r setup}
 library(lterdatasampler)
 library(tidyverse)
+library(lubridate)
+library(patchwork)
 ```
 
 ## Ice Cover Data
@@ -79,7 +81,7 @@ lake_ice <-
 lake_ice
 ```
 
-Now let's have a look at the time-series across the different lakes:
+Looking at the time-series across the different lakes:
 
 ```{r ice_duration}
 ice_duration <-
@@ -91,9 +93,9 @@ ice_duration <-
 ice_duration
 ```
 
-Box plots and time series plots reveal similarities across the 3 lakes. What does the trend look like for *average* ice cover duration in the region, based on data for the 3 lakes here?
+Box plots and time series plots reveal similarities across the 2 lakes. What does the trend look like for *average* ice cover duration in the region, based on data for the 2 lakes here?
 
-Boxplot (3-lake average):
+Boxplot (2-lake average):
 
 ```{r ntl_icecover_avg}
 ntl_icecover_avg <- ntl_icecover %>%
@@ -139,8 +141,9 @@ Compute the mean annual temperature:
 
 ```{r avg_temp}
 ntl_airtemp_avg <- ntl_airtemp %>% 
+  filter(year > 1884) %>%   # filter out the known biased data
   group_by(year) %>% 
-  summarise(ave_air_temp_adjusted = mean(ave_air_temp_adjusted))
+  summarise(avg_air_temp_adjusted = mean(ave_air_temp_adjusted, na.rm=TRUE))
 
 ntl_airtemp_avg
 ```
@@ -148,8 +151,8 @@ Time Series Plot:
 
 ```{r temp}
 temp_plot <-
-  ggplot(data = ntl_airtemp_avg %>% filter(!is.na(ave_air_temp_adjusted)),
-         aes(x = year, y = ave_air_temp_adjusted)) +
+  ggplot(data = ntl_airtemp_avg,
+         aes(x = year, y = avg_air_temp_adjusted)) +
   geom_line(alpha = 0.7) +
   theme_minimal() +
   geom_smooth(
@@ -163,33 +166,62 @@ temp_plot <-
 temp_plot
 ```
 
-There seems to be a general upward trend in the mean annual temperature. As a result, there may be a relationship between temperature and ice duration.
+There is an upward trend in the mean annual temperature. Let's investigate potentialrelationships between air temperature and lake ice cover duration.
 
 
 # Join and Compare Ice and Temperature Data
 
-To compare the ice cover and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined. In this case, the datasets can be joined by the common **year** variable. Since there is one temperature for each year in `ntl_airtemp_avg`, each temperature will be mapped to the corresponding year in the joined table.
+To compare the ice cover duration and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined. Since lake freezing is mostly impacted by Fall and Spring air temperatures, we will first compute the mean temperature from Nov to April (next year) to best capture the existing relationship:
 
+
+```{r freezing season avg temp}
+ntl_airtemp_hydro <- ntl_airtemp %>%
+  mutate(hydroyear = if_else(month(sampledate) < 10, year-1, year))
+
+ntl_airtemp_avg_winter <-  ntl_airtemp_hydro %>%
+  filter(month(sampledate) %in% c(11:12,1:4)) %>%
+  group_by(hydroyear) %>%
+  summarise(avg_air_temp_adjusted = mean(ave_air_temp_adjusted))
+```
+
+```{r temp nov-april plot}
+temp_plot <-
+  ggplot(data = ntl_airtemp_avg_winter %>% filter(!is.na(avg_air_temp_adjusted)),
+         aes(x = hydroyear, y = avg_air_temp_adjusted)) +
+  geom_line(alpha = 0.7) +
+  theme_minimal() +
+  geom_smooth(
+    method = lm,
+    se = FALSE,
+    color = "blue",
+    linetype = "dashed"
+  ) +
+  labs(y = "Temperature", x = "Year", title = "Mean Annual Temperature in Madison, WI", subtitle = "North Temperate Lakes LTER")
+
+temp_plot
+```
+
+Now we can join the two datasets:
 ```{r full_join}
-ntl_joined_avg <- ntl_icecover_avg  %>% 
-  left_join(by = "year", ntl_airtemp_avg)
+ntl_joined_avg <- ntl_icecover_avg  %>%
+  left_join(by = c("year" = "hydroyear"), ntl_airtemp_avg_winter)
 
 ntl_joined_avg
 ```
+
+
 
 Plot the average air temperature against the average ice cover duration:
 
 ```{r scatter}
 scatter <-
-  ggplot(data = ntl_joined_avg %>%
-           filter(!is.na(ave_air_temp_adjusted) &
-                    !is.na(ice_duration)),
-         aes(y = avg_ice_duration, x = ave_air_temp_adjusted)) + geom_point(alpha = 0.8) +
+  ggplot(data = ntl_joined_avg ,
+       aes(y = avg_ice_duration, x = avg_air_temp_adjusted)) + geom_point(alpha = 0.8) +
   theme_minimal() +
   labs(
     title = "Air Temperature and Ice Duration of Lakes in Madison, WI",
     y = "Ice Duration (Days)",
-    x = "Temperature (Celsius)",
+    x = "Mean Air Temperature Dec-April (Celsius)",
     subtitle = "North Temperate Lakes LTER"
   ) +
   geom_smooth(
@@ -198,51 +230,94 @@ scatter <-
     se = FALSE,
     size = 0.3
   )
-
 scatter
 ```
 
-It appears that there is a negative correlation between the mean annual temperature and the amount of time that each lake was frozen. This means that as temperature increases, the ice duration decreases.
+There is a negative correlation between the mean air temperature from December to April and the amount of time that each lake was frozen. This means that as temperature increases, the ice duration decreases.
 
 To compare the temperature with the ice duration on a time-series plot, calculate the percent change in ice duration and temperature from the earliest data point for both variables. The earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869. These values can be determined from the `ntl_icecover_avg` and `ntl_airtemp_avg` values calculated earlier. First, join the full dataset with the average ice duration data that we calculated earlier, and then add new columns containing the calculated percent changes.
 
-```{r comparison}
-# Remove data prior to 1868
-ntl_joined_avg <- ntl_joined_avg  %>% 
-  filter(year > 1868)
+```{r air temp standardized monthly anomalies }
 
+ntl_airtemp_clim_30first <- ntl_airtemp_avg_winter %>%
+  filter(hydroyear > 1869 & hydroyear < 1901) %>% # Taking the first 30 years of common data
+  summarise(clim_winter_mean_airtemp = mean(avg_air_temp_adjusted, na.rm=TRUE), # computing the climatologies
+            clim_winter_sd_airtemp = sd(avg_air_temp_adjusted, na.rm=TRUE))
 
-# Calculate the percent change
-pct_change <- ntl_joined_avg %>%
-  mutate(
-    pct_change_ice = (avg_ice_duration / first(avg_ice_duration) - 1) * 100,
-    pct_change_temp = (ave_air_temp_adjusted / first(ave_air_temp_adjusted) - 1) * 100
-  ) 
-
+ntl_airtemp_clim <- ntl_airtemp_avg_winter %>%
+  filter(hydroyear > 1900) %>%   # The rest of the timeseries
+  add_column(clim_winter_mean_airtemp = ntl_airtemp_clim_30first$clim_winter_mean_airtemp,
+             clim_winter_sd_airtemp = ntl_iceduration_clim_30first$clim_sd_iceduration) %>%
+  mutate(standardized_anomalies_airtemp = (avg_air_temp_adjusted - clim_winter_mean_airtemp) / clim_winter_sd_airtemp)  # computing the standardized anomalies
+  
 ```
 
-Then plot a time series to compare the magnitude in changes in temperature and ice duration. Use the `pivot_longer` function so that both lines can easily be plotted on the same axes.
-
-```{r pivot}
-comparison_df <- pct_change  %>% 
-  select(year, pct_change_temp, pct_change_ice) %>% 
-  pivot_longer(cols = c(pct_change_ice, pct_change_temp)) 
-```
-
-Time Series Plot:
-
-```{r comparison_plot}
-comparison_plot <-
-  ggplot(data = comparison_df ,
-         aes(x = year, y = value, color = name)) +
-  geom_line() +
+```{r}
+temp_plot_airtemp_anomalies <-
+  ggplot(data = ntl_airtemp_clim,
+         aes(x = hydroyear, y = standardized_anomalies_airtemp)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  geom_bar(data = stat = "identity", show.legend = FALSE) +
   theme_minimal() +
-  labs(x = "Year", y = "Percent Change", title = "Percent Change in Ice Duration and Temperature (from 1859 values)", subtitle = "North Temperate Lakes LTER")
+  # scale_x_date(date_breaks = "year", date_labels = "%b") +
+  geom_smooth(
+    method = lm,
+    se = FALSE,
+    color = "blue",
+    linetype = "dashed"
+  ) +
+  labs(y = "Standaradized Anomalies", x = "Year", title = "air temperature standaradized anomalies", subtitle = "Madison, WI")
 
-comparison_plot
+temp_plot_airtemp_anomalies
+
 ```
 
-It appears that the change in ice somewhat mirrors the change in temperature each year, as several spikes in temperature have a corresponding dip in ice duration. This may indicate a relationship between the two variables that would be worth further investigation.
+```{r ice cover standardized monthly anomalies }
+
+ntl_iceduration_clim_30first <- ntl_icecover_avg %>%
+  filter(year > 1869 & year < 1901) %>% # Taking the first 30 years of common data
+  summarise(clim_mean_iceduration = mean(avg_ice_duration, na.rm=TRUE), # computing the climatologies
+         clim_sd_iceduration = sd(avg_ice_duration, na.rm=TRUE)) 
+
+
+ntl_iceduration_clim <- ntl_icecover %>%
+  filter(year > 1900) %>%   # The rest of the timeseries
+  add_column(clim_mean_iceduration = ntl_iceduration_clim_30first$clim_mean_iceduration,
+             clim_sd_iceduration = ntl_iceduration_clim_30first$clim_sd_iceduration) %>%
+  mutate(standardized_anomalies_iceduration = (ice_duration - clim_mean_iceduration) / clim_sd_iceduration) # computing the standardized anomalies
+  
+```
+
+
+```{r}
+temp_plot_iceduration_anomalies <-
+  ggplot(data = ntl_iceduration_clim,
+         aes(x = year, y = standardized_anomalies_iceduration)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  theme_minimal() +
+  # scale_x_date(date_breaks = "year", date_labels = "%b") +
+  geom_smooth(
+    method = lm,
+    se = FALSE,
+    color = "blue",
+    linetype = "dashed"
+  ) +
+  labs(y = "Standaradized Anomalies", x = "Year", title = "Ice cover duration standaradized anomalies", subtitle = "North Temperate Lakes LTER")
+
+temp_plot_iceduration_anomalies
+```
+Using the [`patchwork`](https://patchwork.data-imaginist.com/) package, it is very easy to combine graphs together: just add them!!
+
+```{r}
+temp_plot_airtemp_anomalies + temp_plot_iceduration_anomalies
+```
+or try vertically: 
+
+```{r}
+temp_plot_airtemp_anomalies / temp_plot_iceduration_anomalies
+```
+
+Note the difference of scale on the y-axis. However in both time series, there is an increase in anomalies (bith in frequency and intensity) that is increasing over time
 
 ## Other things to explore: 
 
