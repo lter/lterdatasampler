@@ -168,13 +168,13 @@ temp_plot
 There is an upward trend in the mean annual air temperature. Let's investigate potential relationships between air temperature and lake ice cover duration.
 
 
-# Join and Compare Ice and Temperature Data
+# Join and compare ice cover duration and temperature data
 
 To compare the ice cover duration and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined. Since lake freezing is mostly impacted by Fall and Spring air temperatures, we will first compute the mean temperature from Nov to April (next year) to best capture the existing relationship:
 
 
 ```{r freezing season avg temp}
-# Add a column to group the Fall and Spring season into a same year, similary to what is done when defining hydrological year
+# Add a column to group the Fall and Spring season into a same year, similarly to what is done when defining hydrological year
 ntl_airtemp_hydro <- ntl_airtemp %>%
   mutate(hydroyear = if_else(month(sampledate) < 10, year-1, year))
 
@@ -204,7 +204,8 @@ temp_plot <-
 temp_plot
 ```
 
-To further investigate the realtionship between the air temperature during the cold season and the ice cover duration,  we can join the two datasets together unsing `left_join`:
+To further investigate the relationship between the air temperature during the cold season and the ice cover duration, we can join the two datasets together using `left_join`:
+
 ```{r full_join}
 ntl_joined_avg <- ntl_icecover_avg  %>%
   left_join(by = c("year" = "hydroyear"), ntl_airtemp_avg_winter)
@@ -238,7 +239,9 @@ scatter
 
 There is a negative correlation between the mean air temperature from November to April and the amount of time that each lake was frozen. This means that as temperature increases, the ice duration decreases.
 
-Now let's investigate how this relationship evolves over time. To compare the temperature with the ice duration on a time-series plot on a similar scale we are going to compute standardized anomalies for both parameters. We are going to split the time-series in two parts. The first 30 years will be used to compute the climatological reference (mean and standard devisation), that we will use to compare the other years against. Since the earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869, we opted to compute the climatiological references from 1870 to 1900. 
+## Standardized Anomalies
+
+Now let's investigate how this relationship evolves over time. To compare the temperature with the ice duration on a time-series plot on a similar scale we are going to compute standardized anomalies for both parameters. We are going to split the time-series in two parts. The first 30 years will be used to compute the climatological reference (mean and standard deviation), that we will use to compare the other years against. Since the earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869, we opted to compute the climatological references from 1870 to 1900. 
 
 In this example, the standardized anomalies are computed as follow:  $(V_{y} - \overline{V}_{clim}) / SD_{clim}$
 
@@ -317,18 +320,20 @@ temp_plot_iceduration_anomalies <-
 
 temp_plot_iceduration_anomalies
 ```
+
 Using the [`patchwork`](https://patchwork.data-imaginist.com/) package, it is very easy to combine graphs together: just add them!!
 
 ```{r}
 temp_plot_airtemp_anomalies + temp_plot_iceduration_anomalies
 ```
+
 or try vertically: 
 
 ```{r}
 temp_plot_airtemp_anomalies / temp_plot_iceduration_anomalies
 ```
 
-Note the difference of scale on the y-axis. However in both time series, there is an increase in anomalies (both in frequency and intensity) over time, suggesting the recent year are more consistantly warmer and with shorter period with frozen lakes
+Note the difference of scale on the y-axis. However in both time series, there is an increase in anomalies (both in frequency and intensity) over time, suggesting the recent year are more consistently warmer and with shorter period with frozen lakes
 
 ## Other things to explore: 
 
