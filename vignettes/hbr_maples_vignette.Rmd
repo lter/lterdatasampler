@@ -259,7 +259,7 @@ And many more! Enjoy exploring and analyzing the impact of calcium addition on s
 
 # Acknowledgements
 
-Our sincere thanks to: Hubbard Brook LTER Information Manager Mary Martin for reviewing this vignette, providing additional information on ongoing sugar maple research, and connecting us with researchers on the project; Natalie Cleavitt for providing photos and sharing the [Sugar Babies Data Lesson](https://hubbardbrook.org/sugar-babies); Stephanie Juice for reviewing the vignette, providing additional citations, and for the fun history of the project; and Peter Groffman and Pamela Templer for their review and edits. 
+Our sincere thanks to: Hubbard Brook LTER Information Manager Mary Martin for reviewing this vignette, providing additional information on ongoing sugar maple research, and connecting us with researchers on the project; Natalie Cleavitt for providing photos and sharing the [Sugar Babies Data Lesson](https://hubbardbrook.org/sugar-babies); Stephanie Juice for reviewing the vignette, providing additional citations, and for the fun history of the project; Peter Groffman and Pamela Templer for their review and edits; and Adhitya Logan for contributions to dataset preparation and this vignette. 
 
 # Citations
 
