@@ -1,0 +1,96 @@
+---
+title: "arc_weather: Toolik Station daily weather data (Arctic LTER)"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{arc_weather}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+### Dataset sample used 
+
+- `arc_weather`
+
+# Introduction
+
+The `arc_weather` data sample contains selected meteorological records from the Toolik Field Station at Toolik Lake, Alaska, from 1988 - 2018. This dataset offers opportunities to explore and wrangle time series data, visualize patterns (e.g. seasonality), and apply different forecasting methods. 
+
+# Data exploration
+
+Attach required packages: 
+```{r setup, message = FALSE, warning = FALSE}
+library(lterdatasets)
+library(tidyverse)
+library(lubridate)
+```
+
+Let's start with a plot of mean daily air temperature (`mean_airtemp`) by date:
+
+```{r}
+ggplot(arc_weather, aes(x = date, y = mean_airtemp)) +
+  geom_line() +
+  theme_minimal()
+```
+
+The clear seasonality in the data presents opportunities to practice summarizing patterns, for example finding the mean temperature by month (i.e., finding the mean of the daily means, grouped by month). 
+
+## Parse monthly precipitation
+
+Add new columns with month & year parsed: 
+```{r}
+parse_ym <- arc_weather %>% 
+  mutate(month = lubridate::month(date),
+         year = lubridate::year(date)) %>% 
+  mutate(month_abb = month.abb[month]) %>% 
+  mutate(month_abb = fct_relevel(month_abb, month.abb))
+
+monthly_totals <- parse_ym %>% 
+  group_by(year, month_abb) %>% 
+  summarize(
+    monthly_precip = sum(daily_precip)# Find monthly totals
+  )
+
+monthly_precip <- monthly_totals %>% 
+  group_by(month_abb) %>% 
+  summarize(
+    mean_monthly_precip = mean(monthly_precip, na.rm = TRUE)
+  ) # Finds mean monthly totals
+```
+Then plot it: 
+```{r}
+ggplot(data = monthly_precip, aes(x = month_abb, y = mean_monthly_precip)) +
+  geom_col(aes(fill = month_abb), 
+           show.legend = FALSE) +
+  labs(x = "month", 
+       y = "Mean total monthly precipitation (mm)") +
+  theme_minimal()
+
+# Jitterplot by month: 
+ggplot(data = monthly_totals, aes(x = month_abb, y = monthly_precip)) +
+  geom_boxplot(color = "gray60", outlier.color = NA) +
+  geom_jitter(aes(color = month_abb), 
+              size = 2,
+              width = 0.1,
+              alpha = 0.5, 
+              show.legend = FALSE) +
+  theme_minimal() +
+  labs(x = "month", y = "total monthly precipitation (mm)")
+```
+
+# Citation
+
+Shaver, G. 2019. A multi-year DAILY weather file for the Toolik Field Station at Toolik Lake, AK starting 1988 to present. ver 4. Environmental Data Initiative. https://doi.org/10.6073/pasta/ce0f300cdf87ec002909012abefd9c5c (Accessed 2020-07-04).
+
+
+# How we processed the raw data
+
+`r knitr::spin_child(here::here("data-raw","arc_weather_data.R"))`
+
