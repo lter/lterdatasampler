@@ -1,5 +1,5 @@
 ---
-title: "arc_weather: Toolik Station daily weather data (Arctic LTER)"
+title: "Arctic LTER daily weather data from Toolik Field Station (ARC)"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{arc_weather}
@@ -40,7 +40,7 @@ ggplot(arc_weather, aes(x = date, y = mean_airtemp)) +
   theme_minimal()
 ```
 
-The clear seasonality in the data presents opportunities to practice summarizing patterns, for example finding the mean temperature by month (i.e., finding the mean of the daily means, grouped by month). 
+The clear seasonality in the data presents opportunities to practice summarizing patterns, for example finding the mean temperature by month (i.e., finding the mean of the daily means, grouped by month). Below are several examples of data aggregation and summary using useful tools from the [`lubridate`](https://lubridate.tidyverse.org/) package. 
 
 ## Parse monthly precipitation
 
@@ -64,6 +64,7 @@ monthly_precip <- monthly_totals %>%
     mean_monthly_precip = mean(monthly_precip, na.rm = TRUE)
   ) # Finds mean monthly totals
 ```
+
 Then plot it: 
 ```{r}
 ggplot(data = monthly_precip, aes(x = month_abb, y = mean_monthly_precip)) +
