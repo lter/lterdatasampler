@@ -146,6 +146,7 @@ ntl_airtemp_avg <- ntl_airtemp %>%
 
 ntl_airtemp_avg
 ```
+
 Time Series Plot:
 
 ```{r temp}
@@ -160,7 +161,7 @@ temp_plot <-
     color = "blue",
     linetype = "dashed"
   ) +
-  labs(y = "Temperature", x = "Year", title = "Mean Annual Temperature in Madison, WI", subtitle = "North Temperate Lakes LTER")
+  labs(y = "Mean Air Temperature Nov-April (Celsius)", x = "Year", title = "Mean Annual Temperature", subtitle = "Madison, WI")
 
 temp_plot
 ```
@@ -168,9 +169,9 @@ temp_plot
 There is an upward trend in the mean annual air temperature. Let's investigate potential relationships between air temperature and lake ice cover duration.
 
 
-# Join and compare ice cover duration and temperature data
+# Investigate the relationship between ice cover duration and air temperature 
 
-To compare the ice cover duration and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined. Since lake freezing is mostly impacted by Fall and Spring air temperatures, we will first compute the mean temperature from Nov to April (next year) to best capture the existing relationship:
+To compare the ice cover duration and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined. Since lake freezing is mostly impacted by Fall and Spring air temperatures, we will first compute the mean temperature from Nov to April (next year) to best capture the potential relationship:
 
 
 ```{r freezing season avg temp}
@@ -187,6 +188,7 @@ ntl_airtemp_avg_winter <-  ntl_airtemp_hydro %>%
 
 
 Let us plot the average air temperature time-series computed from the cold season:
+
 ```{r temp nov-april plot}
 temp_plot <-
   ggplot(data = ntl_airtemp_avg_winter %>% filter(!is.na(avg_air_temp_adjusted)),
@@ -199,7 +201,7 @@ temp_plot <-
     color = "blue",
     linetype = "dashed"
   ) +
-  labs(y = "Temperature", x = "Year", title = "Mean Annual Temperature in Madison, WI", subtitle = "North Temperate Lakes LTER")
+  labs(y = "Mean Air Temperature Nov-April (Celsius)", x = "Year", title = "Cold Season (Nov to Apr) Mean Annual Temperature", subtitle = "Madison, WI")
 
 temp_plot
 ```
@@ -223,9 +225,9 @@ scatter <-
        aes(y = avg_ice_duration, x = avg_air_temp_adjusted)) + geom_point(alpha = 0.8) +
   theme_minimal() +
   labs(
-    title = "Air Temperature and Ice Duration of Lakes in Madison, WI",
+    title = "Cold Season Mean Air Temperature and Ice Duration of Lakes",
     y = "Ice Duration (Days)",
-    x = "Mean Air Temperature Dec-April (Celsius)",
+    x = "Mean Air Temperature Nov-April (Celsius)",
     subtitle = "North Temperate Lakes LTER"
   ) +
   geom_smooth(
@@ -251,18 +253,12 @@ Let us start with the air temperature:
 
 ```{r air temp standardized monthly anomalies}
 # Using the first 30 years to compute the yearly climatologies
-ntl_airtemp_clim_30first <- ntl_airtemp_avg_winter %>%
-  filter(hydroyear > 1869 & hydroyear < 1901) %>%  # taking the first 30 years of common data
-  summarise(clim_winter_mean_airtemp = mean(avg_air_temp_adjusted, na.rm=TRUE), # computing the climatologies
-            clim_winter_sd_airtemp = sd(avg_air_temp_adjusted, na.rm=TRUE))
-
-# compute the yearly standardized anomalies
 ntl_airtemp_clim <- ntl_airtemp_avg_winter %>%
-  filter(hydroyear > 1900) %>%   # using the following years of the time series
-  add_column(clim_winter_mean_airtemp = ntl_airtemp_clim_30first$clim_winter_mean_airtemp,
-             clim_winter_sd_airtemp = ntl_airtemp_clim_30first$clim_winter_sd_airtemp) %>%
+  filter(hydroyear > 1869 & hydroyear < 1901) %>%   # taking the first 30 years of common data
+  summarise(clim_winter_mean_airtemp = mean(avg_air_temp_adjusted, na.rm=TRUE),  # computing the climatologies
+            clim_winter_sd_airtemp = sd(avg_air_temp_adjusted, na.rm=TRUE)) %>%
+  bind_cols(filter(ntl_airtemp_avg_winter,hydroyear > 1900), .) %>%  # Adding the climatology columns to the second part of the time-series
   mutate(standardized_anomalies_airtemp = (avg_air_temp_adjusted - clim_winter_mean_airtemp) / clim_winter_sd_airtemp)  # computing the standardized anomalies
-  
 ```
 
 ```{r air temp standardized plot}
