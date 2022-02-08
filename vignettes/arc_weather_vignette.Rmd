@@ -27,7 +27,7 @@ The `arc_weather` data sample contains selected meteorological records from the 
 
 Attach required packages: 
 ```{r setup, message = FALSE, warning = FALSE}
-library(lterdatasets)
+library(lterdatasampler)
 library(tidyverse)
 library(lubridate)
 ```
