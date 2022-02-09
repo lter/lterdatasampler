@@ -245,11 +245,21 @@ There is a negative correlation between the mean air temperature from November t
 
 Now let's investigate how this relationship evolves over time. To compare the temperature with the ice duration on a time-series plot on a similar scale we are going to compute standardized anomalies for both parameters. We are going to split the time-series in two parts. The first 30 years will be used to compute the climatological reference (mean and standard deviation), that we will use to compare the other years against. Since the earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869, we opted to compute the climatological references from 1870 to 1900. 
 
-In this example, the standardized anomalies are computed as follow:  $(V_{y} - \overline{V}_{clim}) / SD_{clim}$
+In this example, the standardized anomalies for the temperature (and ice cover duration) are computed as follow:  
+
+$A_{y_{stand}} = (T_{y} - \overline{T}_{clim}) / T_{SD_{clim}}$
+
+Where:
+
+- $A_{y_{stand}}$ = Standardized anomalies
+- $T_{y}$ = mean temperature for a specific cold season
+- $overline{T}_{clim}) $ = Mean temperature from 1870 to 1900
+- $T_{SD_{clim}} $ = Standard deviation for temperature from 1870 to 1900
 
 
+### Air Temperature Climatologies
 
-Let us start with the air temperature:
+Let us start with computing the climatologies and standardized anomalies for the air temperature:
 
 ```{r air temp standardized monthly anomalies}
 # Using the first 30 years to compute the yearly climatologies
@@ -260,6 +270,9 @@ ntl_airtemp_clim <- ntl_airtemp_avg_winter %>%
   bind_cols(filter(ntl_airtemp_avg_winter,hydroyear > 1900), .) %>%  # Adding the climatology columns to the second part of the time-series
   mutate(standardized_anomalies_airtemp = (avg_air_temp_adjusted - clim_winter_mean_airtemp) / clim_winter_sd_airtemp)  # computing the standardized anomalies
 ```
+
+
+Let's plot the standardized anomalies time-series:
 
 ```{r air temp standardized plot}
 temp_plot_airtemp_anomalies <-
@@ -274,11 +287,13 @@ temp_plot_airtemp_anomalies <-
     color = "blue",
     linetype = "dashed"
   ) +
-  labs(y = "Standaradized Anomalies", x = "Year", title = "air temperature standaradized anomalies", subtitle = "Madison, WI")
+  labs(y = "Standaradized Anomalies", x = "Year", title = "Air temperature standaradized anomalies", subtitle = "Madison, WI")
 
 temp_plot_airtemp_anomalies
 
 ```
+
+### Ice Cover Duration Climatologies 
 
 Now doing the same computations for the ice cover duration:
 
@@ -298,6 +313,7 @@ ntl_iceduration_clim <- ntl_icecover %>%
   
 ```
 
+Let's plot the standardized anomalies time-series:
 
 ```{r ice duration standardized plot}
 temp_plot_iceduration_anomalies <-
@@ -331,11 +347,13 @@ temp_plot_airtemp_anomalies / temp_plot_iceduration_anomalies
 
 Note the difference of scale on the y-axis. However in both time series, there is an increase in anomalies (both in frequency and intensity) over time, suggesting the recent year are more consistently warmer and with shorter period with frozen lakes
 
-## Other things to explore: 
+# Other things to explore: 
 
 - How does interpretation change with different methods / visualizations of smoothing (e.g. moving average)
 - Predictions of ice cover duration in the future
 - Comparison of how those predictions change if you pick a longer or shorter dataset (e.g. how does the coefficient compare if you use all of the data, versus just data since ~1975?)
+
+# Aknowledgement
 
 
 # Citation
