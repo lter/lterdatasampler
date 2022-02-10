@@ -39,10 +39,28 @@ The vignette highlights:
 
 According to the [EPA](https://www.epa.gov/climate-indicators/climate-change-indicators-lake-ice#ref2), lake ice duration can be an indicator of climate change. This is because lake ice is dependent on several environmental factors, so changes in these factors will influence the formation of ice on top of lakes. As a result, the study and analysis of lake ice formation can inform scientists about how quickly the climate is changing, and are critical to minimizing disruptions to lake ecosystems. We can examine the ice duration of Lake Mendota, Lake Monona, and Lake Wingra, three lakes in the Madison, WI area.
 
+<table style="width:80%">
+<tr>
+<td style="width:70%">
+  <figure style="text-align:center;">
+    <img src="../man/figures/ntl_icecover_img.jpg">
+    <figcaption>North Temperate Lakes, LTER CC BY-SA 4.0</figcaption>
+  </figure>
+</td>
+<td>
 <figure style="text-align:center;">
-  <img src="../man/figures/ntl_icecover_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
-  <figcaption>North Temperate Lakes LTER study site, LTER CC BY-SA 4.0</figcaption>
+  <img src="../man/figures/ntl_icecover_img_2.jpeg">
+  <figcaption>Ice measurement Mendota lake, Photo H. Dungan</figcaption>
 </figure>
+</td>
+</tr>
+</table>
+
+**Fun Fact:**
+
+Did you know that Joni Mitchell's album "Hejira" art is her skating on Lake Mendota in 1976 !? 
+https://wisconsinlife.org/story/joni-mitchell-skates-on-lake-mendota-and-into-music-history/
+
 
 # Data Exploration
 
@@ -53,7 +71,8 @@ library(lubridate)
 library(patchwork)
 ```
 
-## Ice Cover Data
+## Ice Cover Duration Data
+
 
 ```{r head}
 head(ntl_icecover)
@@ -134,6 +153,14 @@ avg_ice_duration
 ```
 
 Over the 168 years of this time series, the average ice duration in North Temperate Lakes is decreasing from about 120 days to about 80 days. Let us investigate a little more what could be the environmental factors are influencing this change!
+
+
+<figure style="text-align:center;">
+  <img src="../man/figures/ntl_icecover_img_3.png" width=60% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Pancake ice formed near shore when early ice is broken by wave action, Lake Mendota, Dec. 2003; Photo: J. Magnuson</figcaption>
+</figure>
+
+
 
 [Research](http://hpkx.cnjournals.com/uploadfile/news_images/hpkx/2019-03-14/s41558-018-0393-56789.pdf) suggests that mean annual temperature is one of the primary factors that alter lake ice formation. We can look at the temperature data of Madison, WI found in `ntl_airtemp` to see if there is a corresponding change in climate that may have influenced the change in ice duration.
 
@@ -364,6 +391,7 @@ Note the difference of scale on the y-axis. However in both time series, there i
 
 # Aknowledgement
 
+Thank you to Hillary Dungan, Corinna Gries and John Magnuson for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.
 
 # Citation
 
