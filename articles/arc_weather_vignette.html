@@ -158,8 +158,8 @@
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarize</a></span><span class="op">(</span>
     monthly_precip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html" class="external-link">sum</a></span><span class="op">(</span><span class="va">daily_precip</span><span class="op">)</span><span class="co"># Find monthly totals</span>
   <span class="op">)</span>
-<span class="co">#&gt; `summarise()` has grouped output by 'year'. You can override using the `.groups`</span>
-<span class="co">#&gt; argument.</span>
+<span class="co">#&gt; `summarise()` has grouped output by 'year'. You can override using the</span>
+<span class="co">#&gt; `.groups` argument.</span>
 
 <span class="va">monthly_precip</span> <span class="op">&lt;-</span> <span class="va">monthly_totals</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">month_abb</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
