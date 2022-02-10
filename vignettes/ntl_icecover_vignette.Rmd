@@ -28,12 +28,39 @@ knitr::opts_chunk$set(
 
 # Introduction
 
+The vignette highlights:
+
+- How to explore time-series trends
+- How to combine `group_by()` with `summarise()` and `mutate()`
+- How to join two datasets with `left_join()`
+- An example of computing standardized anomalies on long time-series
+- Use of the `patchwork` package to combine plots into one figure
+
+
 According to the [EPA](https://www.epa.gov/climate-indicators/climate-change-indicators-lake-ice#ref2), lake ice duration can be an indicator of climate change. This is because lake ice is dependent on several environmental factors, so changes in these factors will influence the formation of ice on top of lakes. As a result, the study and analysis of lake ice formation can inform scientists about how quickly the climate is changing, and are critical to minimizing disruptions to lake ecosystems. We can examine the ice duration of Lake Mendota, Lake Monona, and Lake Wingra, three lakes in the Madison, WI area.
 
+<table style="width:80%">
+<tr>
+<td style="width:70%">
+  <figure style="text-align:center;">
+    <img src="../man/figures/ntl_icecover_img.jpg">
+    <figcaption>North Temperate Lakes, LTER CC BY-SA 4.0</figcaption>
+  </figure>
+</td>
+<td>
 <figure style="text-align:center;">
-  <img src="../man/figures/ntl_icecover_img.jpg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
-  <figcaption>North Temperate Lakes LTER study site, LTER CC BY-SA 4.0</figcaption>
+  <img src="../man/figures/ntl_icecover_img_2.jpeg">
+  <figcaption>Ice measurement Mendota lake, Photo H. Dungan</figcaption>
 </figure>
+</td>
+</tr>
+</table>
+
+**Fun Fact:**
+
+Did you know that Joni Mitchell's album "Hejira" art is her skating on Lake Mendota in 1976 !? 
+https://wisconsinlife.org/story/joni-mitchell-skates-on-lake-mendota-and-into-music-history/
+
 
 # Data Exploration
 
@@ -44,7 +71,8 @@ library(lubridate)
 library(patchwork)
 ```
 
-## Ice Cover Data
+## Ice Cover Duration Data
+
 
 ```{r head}
 head(ntl_icecover)
@@ -126,6 +154,14 @@ avg_ice_duration
 
 Over the 168 years of this time series, the average ice duration in North Temperate Lakes is decreasing from about 120 days to about 80 days. Let us investigate a little more what could be the environmental factors are influencing this change!
 
+
+<figure style="text-align:center;">
+  <img src="../man/figures/ntl_icecover_img_3.png" width=60% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Pancake ice formed near shore when early ice is broken by wave action, Lake Mendota, Dec. 2003; Photo: J. Magnuson</figcaption>
+</figure>
+
+
+
 [Research](http://hpkx.cnjournals.com/uploadfile/news_images/hpkx/2019-03-14/s41558-018-0393-56789.pdf) suggests that mean annual temperature is one of the primary factors that alter lake ice formation. We can look at the temperature data of Madison, WI found in `ntl_airtemp` to see if there is a corresponding change in climate that may have influenced the change in ice duration.
 
 *Note that according to the original metadata: "Daily temperature data prior to 1884 were estimated from 3 times per day sampling and biases are expected and should not be comparable with data after that time."*
@@ -146,6 +182,7 @@ ntl_airtemp_avg <- ntl_airtemp %>%
 
 ntl_airtemp_avg
 ```
+
 Time Series Plot:
 
 ```{r temp}
@@ -160,7 +197,7 @@ temp_plot <-
     color = "blue",
     linetype = "dashed"
   ) +
-  labs(y = "Temperature", x = "Year", title = "Mean Annual Temperature in Madison, WI", subtitle = "North Temperate Lakes LTER")
+  labs(y = "Mean Air Temperature Nov-April (Celsius)", x = "Year", title = "Mean Annual Temperature", subtitle = "Madison, WI")
 
 temp_plot
 ```
@@ -168,9 +205,9 @@ temp_plot
 There is an upward trend in the mean annual air temperature. Let's investigate potential relationships between air temperature and lake ice cover duration.
 
 
-# Join and compare ice cover duration and temperature data
+# Investigate the relationship between ice cover duration and air temperature 
 
-To compare the ice cover duration and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined. Since lake freezing is mostly impacted by Fall and Spring air temperatures, we will first compute the mean temperature from Nov to April (next year) to best capture the existing relationship:
+To compare the ice cover duration and temperature data directly, the `ntl_airtemp` and `ntl_icecover` datasets can be joined. Since lake freezing is mostly impacted by Fall and Spring air temperatures, we will first compute the mean temperature from Nov to April (next year) to best capture the potential relationship:
 
 
 ```{r freezing season avg temp}
@@ -187,6 +224,7 @@ ntl_airtemp_avg_winter <-  ntl_airtemp_hydro %>%
 
 
 Let us plot the average air temperature time-series computed from the cold season:
+
 ```{r temp nov-april plot}
 temp_plot <-
   ggplot(data = ntl_airtemp_avg_winter %>% filter(!is.na(avg_air_temp_adjusted)),
@@ -199,7 +237,7 @@ temp_plot <-
     color = "blue",
     linetype = "dashed"
   ) +
-  labs(y = "Temperature", x = "Year", title = "Mean Annual Temperature in Madison, WI", subtitle = "North Temperate Lakes LTER")
+  labs(y = "Mean Air Temperature Nov-April (Celsius)", x = "Year", title = "Cold Season (Nov to Apr) Mean Annual Temperature", subtitle = "Madison, WI")
 
 temp_plot
 ```
@@ -223,9 +261,9 @@ scatter <-
        aes(y = avg_ice_duration, x = avg_air_temp_adjusted)) + geom_point(alpha = 0.8) +
   theme_minimal() +
   labs(
-    title = "Air Temperature and Ice Duration of Lakes in Madison, WI",
+    title = "Cold Season Mean Air Temperature and Ice Duration of Lakes",
     y = "Ice Duration (Days)",
-    x = "Mean Air Temperature Dec-April (Celsius)",
+    x = "Mean Air Temperature Nov-April (Celsius)",
     subtitle = "North Temperate Lakes LTER"
   ) +
   geom_smooth(
@@ -243,27 +281,34 @@ There is a negative correlation between the mean air temperature from November t
 
 Now let's investigate how this relationship evolves over time. To compare the temperature with the ice duration on a time-series plot on a similar scale we are going to compute standardized anomalies for both parameters. We are going to split the time-series in two parts. The first 30 years will be used to compute the climatological reference (mean and standard deviation), that we will use to compare the other years against. Since the earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869, we opted to compute the climatological references from 1870 to 1900. 
 
-In this example, the standardized anomalies are computed as follow:  $(V_{y} - \overline{V}_{clim}) / SD_{clim}$
+In this example, the standardized anomalies for the temperature (and ice cover duration) are computed as follow:  
+
+$A_{y_{stand}} = (T_{y} - \overline{T}_{clim}) / T_{SD_{clim}}$
+
+Where:
+
+- $A_{y_{stand}}$ = Standardized anomalies
+- $T_{y}$ = mean temperature for a specific cold season
+- $overline{T}_{clim}) $ = Mean temperature from 1870 to 1900
+- $T_{SD_{clim}} $ = Standard deviation for temperature from 1870 to 1900
 
 
+### Air Temperature Climatologies
 
-Let us start with the air temperature:
+Let us start with computing the climatologies and standardized anomalies for the air temperature:
 
 ```{r air temp standardized monthly anomalies}
 # Using the first 30 years to compute the yearly climatologies
-ntl_airtemp_clim_30first <- ntl_airtemp_avg_winter %>%
-  filter(hydroyear > 1869 & hydroyear < 1901) %>%  # taking the first 30 years of common data
-  summarise(clim_winter_mean_airtemp = mean(avg_air_temp_adjusted, na.rm=TRUE), # computing the climatologies
-            clim_winter_sd_airtemp = sd(avg_air_temp_adjusted, na.rm=TRUE))
-
-# compute the yearly standardized anomalies
 ntl_airtemp_clim <- ntl_airtemp_avg_winter %>%
-  filter(hydroyear > 1900) %>%   # using the following years of the time series
-  add_column(clim_winter_mean_airtemp = ntl_airtemp_clim_30first$clim_winter_mean_airtemp,
-             clim_winter_sd_airtemp = ntl_airtemp_clim_30first$clim_winter_sd_airtemp) %>%
+  filter(hydroyear > 1869 & hydroyear < 1901) %>%   # taking the first 30 years of common data
+  summarise(clim_winter_mean_airtemp = mean(avg_air_temp_adjusted, na.rm=TRUE),  # computing the climatologies
+            clim_winter_sd_airtemp = sd(avg_air_temp_adjusted, na.rm=TRUE)) %>%
+  bind_cols(filter(ntl_airtemp_avg_winter,hydroyear > 1900), .) %>%  # Adding the climatology columns to the second part of the time-series
   mutate(standardized_anomalies_airtemp = (avg_air_temp_adjusted - clim_winter_mean_airtemp) / clim_winter_sd_airtemp)  # computing the standardized anomalies
-  
 ```
+
+
+Let's plot the standardized anomalies time-series:
 
 ```{r air temp standardized plot}
 temp_plot_airtemp_anomalies <-
@@ -278,11 +323,13 @@ temp_plot_airtemp_anomalies <-
     color = "blue",
     linetype = "dashed"
   ) +
-  labs(y = "Standaradized Anomalies", x = "Year", title = "air temperature standaradized anomalies", subtitle = "Madison, WI")
+  labs(y = "Standaradized Anomalies", x = "Year", title = "Air temperature standaradized anomalies", subtitle = "Madison, WI")
 
 temp_plot_airtemp_anomalies
 
 ```
+
+### Ice Cover Duration Climatologies 
 
 Now doing the same computations for the ice cover duration:
 
@@ -302,6 +349,7 @@ ntl_iceduration_clim <- ntl_icecover %>%
   
 ```
 
+Let's plot the standardized anomalies time-series:
 
 ```{r ice duration standardized plot}
 temp_plot_iceduration_anomalies <-
@@ -335,12 +383,15 @@ temp_plot_airtemp_anomalies / temp_plot_iceduration_anomalies
 
 Note the difference of scale on the y-axis. However in both time series, there is an increase in anomalies (both in frequency and intensity) over time, suggesting the recent year are more consistently warmer and with shorter period with frozen lakes
 
-## Other things to explore: 
+# Other things to explore: 
 
 - How does interpretation change with different methods / visualizations of smoothing (e.g. moving average)
 - Predictions of ice cover duration in the future
 - Comparison of how those predictions change if you pick a longer or shorter dataset (e.g. how does the coefficient compare if you use all of the data, versus just data since ~1975?)
 
+# Aknowledgement
+
+Thank you to Hillary Dungan, Corinna Gries and John Magnuson for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.
 
 # Citation
 
