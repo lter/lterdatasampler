@@ -50,7 +50,7 @@ According to the [EPA](https://www.epa.gov/climate-indicators/climate-change-ind
 <td>
 <figure style="text-align:center;">
   <img src="../man/figures/ntl_icecover_img_2.jpeg">
-  <figcaption>Ice measurement Mendota lake, Photo H. Dungan</figcaption>
+  <figcaption>Ice measurement Mendota lake, Photo E. Whitaker</figcaption>
 </figure>
 </td>
 </tr>
@@ -391,7 +391,7 @@ Note the difference of scale on the y-axis. However in both time series, there i
 
 # Aknowledgement
 
-Thank you to Hillary Dungan, Corinna Gries and John Magnuson for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.
+Thank you to Hilary Dugan, Corinna Gries and John Magnuson for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.
 
 # Citation
 
