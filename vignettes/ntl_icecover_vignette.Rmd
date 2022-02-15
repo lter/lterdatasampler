@@ -385,9 +385,11 @@ Note the difference of scale on the y-axis. However in both time series, there i
 
 # Other things to explore: 
 
+- How are the freezing starting date and melting date changing over time?
 - How does interpretation change with different methods / visualizations of smoothing (e.g. moving average)
 - Predictions of ice cover duration in the future
 - Comparison of how those predictions change if you pick a longer or shorter dataset (e.g. how does the coefficient compare if you use all of the data, versus just data since ~1975?)
+- See the last citation below for more ideas!
 
 # Aknowledgement
 
@@ -398,6 +400,9 @@ Thank you to Hilary Dugan, Corinna Gries and John Magnuson for their inputs whil
 Anderson, L. and D. Robertson. 2020. Madison Wisconsin Daily Meteorological Data 1869 - current ver 32. Environmental Data Initiative. https://doi.org/10.6073/pasta/e3ff85971d817e9898bb8a83fb4c3a8b (Accessed 2021-03-08).
 
 Magnuson, J.J., S.R. Carpenter, and E.H. Stanley. 2021. North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current ver 35. Environmental Data Initiative. https://doi.org/10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97 (Accessed 2021-03-08).
+
+Magnuson, J.J. 2021. Seeing the invisible present and place: from years to centuries with lake ice from Wisconsin to the Northern Hemisphere. Chapter 9 (243- 277) in R. B. Waide and S. E. Kingsland [eds]. The Challenges of Long Term Ecological Research: A Historical Analysis. Springer, Archimedes Series #59. https://doi.org/10.1007/978-3-030-66933-1_9 (Accessed 2022-02-14).
+
 
 # How we processed the raw data
 
