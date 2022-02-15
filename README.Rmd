@@ -74,10 +74,12 @@ site abbreviations [here](https://lternet.edu/site/)).
 -   [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
     Records for aquatic vertebrates (cutthroat trout and salamanders) in
     Mack Creek, Andrews Experimental Forest, Oregon (1987 - present)
+-   [`arc_weather`](https://lter.github.io/lterdatasampler/reference/arc_weather.html): Daily meteorological (e.g. air temperature, precipitation) records from Toolik Field Station, Alaska (1988 - present)
 -   [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
     Sugar maple seedlings at Hubbard Brook Experimental Forest (New
-    Hampshire) on calcium-treated and reference sites in August 2003 and
+    Hampshire) in calcium-treated and reference watersheds in August 2003 and
     June 2004
+-   [`knz_bison`](https://lter.github.io/lterdatasampler/reference/knz_bison.html): Bison masses recorded for the herd at Konza Prairie Biological Station LTER
 -   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
     Ice freeze and thaw dates for Madison, Wisconsin Area lakes (1853 -
     2019), North Temperate Lakes LTER
