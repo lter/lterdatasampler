@@ -58,6 +58,11 @@ code {
   color: inherit;
 }
 
+/* homepage logo specs --------------- */
+
+#home_logo {
+    height: 180px;
+}
 
 /* navbar ----------------------------------------------- */
 
