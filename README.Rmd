@@ -25,7 +25,7 @@ library(lterdatasampler)
 
 <!-- badges: end -->
 
-# lterdatasampler <a href='https://lter.github.io/lterdatasampler'><img src='man/figures/logo.png' align="right" height="138.5"/></a>
+# lterdatasampler <a href='https://lter.github.io/lterdatasampler'><img src='man/figures/logo.png' align="right" height="180.0"/></a>
 
 The mission of the [Long Term Ecological Research program (LTER)
 Network](https://lternet.edu/) is to “*provide the scientific community,
