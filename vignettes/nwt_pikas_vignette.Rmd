@@ -58,7 +58,7 @@ Let's explore some stress data about pikas:
 head(nwt_pikas)
 ```
 
-Not only do we have stress measurements, but the `utm_easting` and `utm_northing` columns also provide the geographic coordinates of the fecal pellet sampling stations where the pikas were found by researchers. 
+Not only do we have stress measurements, but the `utm_easting` and `utm_northing` columns also provide the geographic coordinates of the sampling stations where fecal pellets were collected by researchers. It was from these fecal pellets that stress measurements were taken.
 
 Geographical plotting can be helpful in our analyses. Generally speaking, it can offer a different perspective on our data and can also be easily understood by others. This is key; communicating results is an important part of data science.
 
