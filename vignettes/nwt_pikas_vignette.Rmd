@@ -183,6 +183,10 @@ You can learn more about the `leaflet` package [here](https://rstudio.github.io/
 
 Want to learn more about how iconic species, such as Pikas, help to create enthusiasm around citizen science? Read this story: https://lternet.edu/stories/pika-enthusiasts-unite-under-a-common-theme/ 
 
+# Aknowledgement
+
+Thank you to Ashley Whipple and Chris Ray for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.
+
 
 # Citation
 
