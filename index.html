@@ -55,7 +55,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -144,6 +144,62 @@
 <li>
 <a href="https://lter.github.io/lterdatasampler/reference/pie_crab.html"><code>pie_crab</code></a>: Fiddler crab body size recorded summer 2016 in salt marshes from Florida to Massachusetts including Plum Island Ecosystem LTER, Virginia Coast LTER, and NOAA’s National Estuarine Research Reserve System</li>
 </ul>
+</div>
+<div class="section level2">
+<h2 id="which-dataset-should-i-use">Which dataset should I use?<a class="anchor" aria-label="anchor" href="#which-dataset-should-i-use"></a>
+</h2>
+<p>These datasets are selected because they have features we feel are commonly useful in introductory data science and statistics courses - in other words, a bunch of Data Science and Statistics 101 stuff can be taught using these data samples!</p>
+<p>In the table below, we list some introductory methods / skills, then share which data samples in this package we think are well-suited to use when teaching or learning them! It is not comprehensive - there are <em>many</em> different analyses &amp; skills that these data samples would facilitate. Here we just highlight a few that we think would be commonly useful.</p>
+<table class="table">
+<colgroup>
+<col width="18%">
+<col width="11%">
+<col width="70%">
+</colgroup>
+<thead><tr class="header">
+<th>Skill / method</th>
+<th>Amenable data samples</th>
+<th>We recommend…</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Data visualization</td>
+<td>All of them!</td>
+<td>Visualize trout and salamander length-weight relationships in <code>and_vertebrates</code>, exploring different groupings / faceting by other categorical variables in the data sample, including reach (e.g. in the old growth or clear cut forest sections of Mack Creek).</td>
+</tr>
+<tr class="even">
+<td>Simple linear regression</td>
+<td>
+<code>hbr_maples</code>, <code>ntl_icecover</code> , <code>pie_crab</code>
+</td>
+<td>Model the relationship between fiddler crab size and latitude using <code>pie_crab</code> , while learning about Bergmann’s Rule!</td>
+</tr>
+<tr class="odd">
+<td>Differences between groups (t-test, effect size, distributions, etc.)</td>
+<td>
+<code>hbr_maples</code> , <code>and_vertebrates</code>
+</td>
+<td>Compare sugar maple seedling heights in previously calcium-treated versus untreated watersheds using <code>hbr_maples</code> , using the exercise as an opportunity to think about acid rain and soil acidification.</td>
+</tr>
+<tr class="even">
+<td>Nonlinear relationships</td>
+<td>
+<code>knz_bison</code>, <code>and_vertebrates</code>
+</td>
+<td>Model the relationship between bison age and mass for male and female bison using <code>knz_bison</code>, for example estimating parameters in the Gompertz model by nonlinear least squares (as shown in the vignette).</td>
+</tr>
+<tr class="odd">
+<td>Intro to spatial data wrangling and visualization</td>
+<td><code>nwt_pikas</code></td>
+<td>Introduce basics of spatial data (e.g. CRS, projections) and tools for working with spatial data by visualizing pika locations at Niwot Ridge in the Colorado Rockies with <code>nwt_pikas</code> .</td>
+</tr>
+<tr class="even">
+<td>Intro to time series wrangling, visualization and analysis</td>
+<td><code>arc_weather</code></td>
+<td>Explore seasonality, wrangling dates, or practice forecasting using daily meteorological records from Toolik Station, Alaska in <code>arc_weather</code> !</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="how-to-provide-feedback">How to provide feedback<a class="anchor" aria-label="anchor" href="#how-to-provide-feedback"></a>
