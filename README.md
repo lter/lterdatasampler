@@ -53,29 +53,29 @@ see individual Articles for data and source details. Note: the three
 letter prefix for each dataset indicates the LTER site (see full list of
 site abbreviations [here](https://lternet.edu/site/)).
 
--   [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
+  - [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
     Records for aquatic vertebrates (cutthroat trout and salamanders) in
     Mack Creek, Andrews Experimental Forest, Oregon (1987 - present)
--   [`arc_weather`](https://lter.github.io/lterdatasampler/reference/arc_weather.html):
+  - [`arc_weather`](https://lter.github.io/lterdatasampler/reference/arc_weather.html):
     Daily meteorological (e.g. air temperature, precipitation) records
     from Toolik Field Station, Alaska (1988 - present)
--   [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
+  - [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
     Sugar maple seedlings at Hubbard Brook Experimental Forest (New
     Hampshire) in calcium-treated and reference watersheds in August
     2003 and June 2004
--   [`knz_bison`](https://lter.github.io/lterdatasampler/reference/knz_bison.html):
+  - [`knz_bison`](https://lter.github.io/lterdatasampler/reference/knz_bison.html):
     Bison masses recorded for the herd at Konza Prairie Biological
     Station LTER
--   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
+  - [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
     Ice freeze and thaw dates for Madison, Wisconsin Area lakes (1853 -
     2019), North Temperate Lakes LTER
--   [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
+  - [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
     Daily average air temperature data for Madison, Wisconsin (1869 -
     2019), North Temperate Lakes LTER
--   [`nwt_pikas`](https://lter.github.io/lterdatasampler/reference/nwt_pikas.html):
+  - [`nwt_pikas`](https://lter.github.io/lterdatasampler/reference/nwt_pikas.html):
     Pika observations for habitat and stress analysis at Niwot Ridge
     LTER, Colorado
--   [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
+  - [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
     Fiddler crab body size recorded summer 2016 in salt marshes from
     Florida to Massachusetts including Plum Island Ecosystem LTER,
     Virginia Coast LTER, and NOAA’s National Estuarine Research Reserve
@@ -86,29 +86,29 @@ site abbreviations [here](https://lternet.edu/site/)).
 These datasets are selected because they have features we feel are
 commonly useful in introductory data science and statistics courses - in
 other words, a bunch of Data Science and Statistics 101 stuff can be
-taught using these data samples!
+taught using these data samples\!
 
 In the table below, we list some introductory methods / skills, then
 share which data samples in this package we think are well-suited to use
-when teaching or learning them! It is not comprehensive - there are
+when teaching or learning them\! It is not comprehensive - there are
 *many* different analyses & skills that these data samples would
 facilitate. Here we just highlight a few that we think would be commonly
 useful.
 
 | Skill / method                                                        | Amenable data samples                     | We recommend…                                                                                                                                                                                                                                                     |
-|-----------------------------------------------------------------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Data visualization                                                    | All of them!                              | Visualize trout and salamander length-weight relationships in `and_vertebrates`, exploring different groupings / faceting by other categorical variables in the data sample, including reach (e.g. in the old growth or clear cut forest sections of Mack Creek). |
-| Simple linear regression                                              | `hbr_maples`, `ntl_icecover` , `pie_crab` | Model the relationship between fiddler crab size and latitude using `pie_crab` , while learning about Bergmann’s Rule!                                                                                                                                            |
+| --------------------------------------------------------------------- | ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Data visualization                                                    | All of them\!                             | Visualize trout and salamander length-weight relationships in `and_vertebrates`, exploring different groupings / faceting by other categorical variables in the data sample, including reach (e.g. in the old growth or clear cut forest sections of Mack Creek). |
+| Simple linear regression                                              | `hbr_maples`, `ntl_icecover` , `pie_crab` | Model the relationship between fiddler crab size and latitude using `pie_crab` , while learning about Bergmann’s Rule\!                                                                                                                                           |
 | Differences between groups (t-test, effect size, distributions, etc.) | `hbr_maples` , `and_vertebrates`          | Compare sugar maple seedling heights in previously calcium-treated versus untreated watersheds using `hbr_maples` , using the exercise as an opportunity to think about acid rain and soil acidification.                                                         |
 | Nonlinear relationships                                               | `knz_bison`, `and_vertebrates`            | Model the relationship between bison age and mass for male and female bison using `knz_bison`, for example estimating parameters in the Gompertz model by nonlinear least squares (as shown in the vignette).                                                     |
 | Intro to spatial data wrangling and visualization                     | `nwt_pikas`                               | Introduce basics of spatial data (e.g. CRS, projections) and tools for working with spatial data by visualizing pika locations at Niwot Ridge in the Colorado Rockies with `nwt_pikas` .                                                                          |
-| Intro to time series wrangling, visualization and analysis            | `arc_weather`                             | Explore seasonality, wrangling dates, or practice forecasting using daily meteorological records from Toolik Station, Alaska in `arc_weather` !                                                                                                                   |
+| Intro to time series wrangling, visualization and analysis            | `arc_weather`                             | Explore seasonality, wrangling dates, or practice forecasting using daily meteorological records from Toolik Station, Alaska in `arc_weather` \!                                                                                                                  |
 
 ## How to provide feedback
 
 The best way to provide feedback on this package is to open an
 [issue](https://github.com/lter/lterdatasampler/issues) and assign the
-`feedback` label. Thank you!
+`feedback` label. Thank you\!
 
 ## Acknowledgements
 
@@ -120,11 +120,11 @@ Thank you also go to their Course Advisor Prof. Sang-yun Oh.
 
 People / organizations who supported this project:
 
--   LTER Network Office
--   LTER Information Managers
--   LTER Education Committee
--   All the LTER Researchers and Site PIs
--   Cyber-infrastructures:
+  - LTER Network Office
+  - LTER Information Managers
+  - LTER Education Committee
+  - All the LTER Researchers and Site PIs
+  - Cyber-infrastructures:
     [EDI](https://environmentaldatainitiative.org/) and
     [DataONE](https://www.dataone.org/)
 
