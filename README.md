@@ -7,7 +7,7 @@ Site](https://github.com/lter/lterdatasampler/workflows/pkgdown/badge.svg)](http
 
 <!-- badges: end -->
 
-# lterdatasampler <a href='https://lter.github.io/lterdatasampler'><img src='man/figures/logo.png' id="home_logo" align="right" height="180" /></a>
+# lterdatasampler <a href='https://lter.github.io/lterdatasampler'><img src="man/figures/logo.png" id="home_logo" align="right" height="180"/></a>
 
 The mission of the [Long Term Ecological Research program (LTER)
 Network](https://lternet.edu/) is to “*provide the scientific community,
@@ -81,6 +81,29 @@ site abbreviations [here](https://lternet.edu/site/)).
     Virginia Coast LTER, and NOAA’s National Estuarine Research Reserve
     System
 
+## Which dataset should I use?
+
+These datasets are selected because they have features we feel are
+commonly useful in introductory data science and statistics courses - in
+other words, a bunch of Data Science and Statistics 101 stuff can be
+taught using these data samples!
+
+In the table below, we list some introductory methods / skills, then
+share which data samples in this package we think are well-suited to use
+when teaching or learning them! It is not comprehensive - there are
+*many* different analyses & skills that these data samples would
+facilitate. Here we just highlight a few that we think would be commonly
+useful.
+
+| Skill / method                                                        | Amenable data samples                     | We recommend…                                                                                                                                                                                                                                                     |
+|-----------------------------------------------------------------------|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Data visualization                                                    | All of them!                              | Visualize trout and salamander length-weight relationships in `and_vertebrates`, exploring different groupings / faceting by other categorical variables in the data sample, including reach (e.g. in the old growth or clear cut forest sections of Mack Creek). |
+| Simple linear regression                                              | `hbr_maples`, `ntl_icecover` , `pie_crab` | Model the relationship between fiddler crab size and latitude using `pie_crab` , while learning about Bergmann’s Rule!                                                                                                                                            |
+| Differences between groups (t-test, effect size, distributions, etc.) | `hbr_maples` , `and_vertebrates`          | Compare sugar maple seedling heights in previously calcium-treated versus untreated watersheds using `hbr_maples` , using the exercise as an opportunity to think about acid rain and soil acidification.                                                         |
+| Nonlinear relationships                                               | `knz_bison`, `and_vertebrates`            | Model the relationship between bison age and mass for male and female bison using `knz_bison`, for example estimating parameters in the Gompertz model by nonlinear least squares (as shown in the vignette).                                                     |
+| Intro to spatial data wrangling and visualization                     | `nwt_pikas`                               | Introduce basics of spatial data (e.g. CRS, projections) and tools for working with spatial data by visualizing pika locations at Niwot Ridge in the Colorado Rockies with `nwt_pikas` .                                                                          |
+| Intro to time series wrangling, visualization and analysis            | `arc_weather`                             | Explore seasonality, wrangling dates, or practice forecasting using daily meteorological records from Toolik Station, Alaska in `arc_weather` !                                                                                                                   |
+
 ## How to provide feedback
 
 The best way to provide feedback on this package is to open an
@@ -117,4 +140,4 @@ Hill.
 
 <hr>
 
-<img src="man/figures/logos.png" width="100%" align="center" style="display: block; margin: auto;" />
+<img src="man/figures/logos.png" width="100%" align="center" style="display: block; margin: auto;"/>
