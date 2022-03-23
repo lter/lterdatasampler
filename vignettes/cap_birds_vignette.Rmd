@@ -1,0 +1,383 @@
+---
+title: "Central Arizona - Phoenix Bird Locations (CAP)"
+subtitle: "Bird Locations from 2000 - 2019 at Central Arizona - Phoenix LTER"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{cap_birds_vignette}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.width = 7,
+  fig.height = 4,
+  message = FALSE, 
+  warning = FALSE
+)
+```
+
+### Dataset sample used
+
+- `cap_birds` 
+
+
+# Introduction
+
+As urban environments continue to expand, researchers at the Central Arizona-Phoenix Long-Term Ecological Research (CAP LTER) site study the changing ecological landscape surrounding the Phoenix, Arizona metropolitan area.   
+
+One project conducted at the CAP LTER monitors bird species as well as their geographic distribution. This data can be used to analyze relationships between native and non-native species and how urbanization is impacting them.
+
+# Data Exploration
+
+```{r setup}
+library(lterdatasampler)
+library(tidyverse)
+library(ggmap)
+library(sf)
+library(stars)
+library(gstat)
+```
+
+
+```{r}
+glimpse(cap_birds)
+```
+Two species observed in the data that can help us explore this phenomenon are Phainopepla (_Phainopepla nitens_), a species native to Phoenix, and the Rock Pigeon (_Columba livia_), which are not native to the local environment.
+
+We can filter our dataset to only include these two species:
+
+```{r}
+phainopepla <- cap_birds %>% 
+  filter(common_name == "Phainopepla")
+
+rock_pigeon <- cap_birds %>% 
+  filter(common_name == "Rock Pigeon")
+```
+
+We can now try to plot the locations of the observed birds. We can use the `sf` package to make our life easier when working with spatial data. The `nwt_pikas` [vignette](https://lter.github.io/lterdatasampler/articles/nwt_pikas_vignette.html#converting-to-simple-features) contains more details about working with `sf`. 
+
+Incorporate sf with our data:
+
+```{r}
+phainopepla <- phainopepla %>%
+  st_as_sf(coords = c("long", "lat"))
+
+
+rock_pigeon <- rock_pigeon %>%
+  st_as_sf(coords = c("long", "lat"))
+```
+
+If we try to plot our data now, both plots will simply show the survey locations, without any information between the points:
+```{r}
+ggplot(data = phainopepla) +
+  geom_sf() +
+  labs(
+    title = "Locations of Phainopeplas",
+    subtitle = "CAP LTER",
+    x = "Longitude (Degrees)",
+    y = "Latitude (Degrees)"
+  ) +
+  theme_minimal()
+```
+ 
+```{r}
+ggplot(data = rock_pigeon) +
+  geom_sf() +
+  labs(
+    title = "Locations of Rock Pigeons",
+    subtitle = "CAP LTER",
+    x = " Longitude (Degrees)",
+    y = "Latitude (Degrees)"
+  ) +
+  theme_minimal()
+```
+ 
+ 
+# Kriging
+
+To estimate how many birds are present in locations between the points, we can use a spatial interpolation technique called kriging. As described by [Columbia Public Health](http://www.publichealth.columbia.edu/research/population-health-methods/kriging), kriging uses nearby sample points to estimate values at points where no data was collected. 
+
+First let's manipulate our data so that we have our data locations and how many birds of each species were observed there:
+
+```{r}
+ph_sum <-
+  phainopepla %>% filter(!is.na(bird_count)) %>% group_by(site_code) %>% summarise(count = sum(bird_count))
+
+rock_sum <-
+  rock_pigeon %>% filter(!is.na(bird_count)) %>% group_by(site_code) %>% summarise(count = sum(bird_count))
+
+glimpse(ph_sum)
+glimpse(rock_sum)
+```
+
+There are many types of kriging. For this example, we can use ordinary kriging, which is one of the simpler types. 
+
+Ordinary kriging assumes that the mean and variance of the values is constant, and that the data is normally distributed.
+
+## Data Transformation
+
+Examine how the data is distributed:
+
+```{r}
+ggplot(data = ph_sum) +
+  geom_histogram(aes(x = count)) +
+  labs(
+    title = "Distribution of Phainopepla Counts",
+    subtitle = "CAP LTER",
+    x = "Number of Birds",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+
+ggplot(data = rock_sum) +
+  geom_histogram(aes(x = count)) +
+  labs(
+    title = "Distribution of Rock Pigeon Counts",
+    subtitle = "CAP LTER",
+    x = "Number of Birds",
+    y = "Frequency"
+  ) +
+  theme_minimal()
+```
+
+The data for both species is skewed, so we can use a Box-Cox transformation to help us normalize it.
+
+Box-Cox Formula:
+
+$$y(\lambda) = \begin{cases} \frac{y^\lambda-1}{\lambda} & \lambda \neq 0\\ log(y) & \lambda = 0 \end{cases}$$
+
+Derive lambda for both species:
+
+```{r fig.show='hide'}
+ph_box <- MASS::boxcox(lm(ph_sum %>% pluck("count") ~ 1))
+ph_max_index <- ph_box %>% pluck("y") %>% which.max()
+ph_lambda <- ph_box %>% pluck("x", ph_max_index)
+
+rock_box <- MASS::boxcox(lm(rock_sum %>% pluck("count") ~ 1))
+rock_max_index <- rock_box %>% pluck("y") %>% which.max()
+rock_lambda <- rock_box %>% pluck("x", rock_max_index)
+```
+
+Transform data:
+
+```{r}
+ph_sum <-
+  ph_sum %>% mutate(count = ((count ^ ph_lambda) - 1) / ph_lambda)
+
+rock_sum <-
+  rock_sum %>% mutate(count = ((count ^ rock_lambda) - 1) / rock_lambda)
+```
+
+Let's use QQ Plots to see if our transformed data is normally distributed:
+
+```{r}
+ggplot(ph_sum, aes(sample = count)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(
+    title = "Phainopepla Normal Q-Q Plot",
+    subtitle = "CAP LTER",
+    x = "Theoretical Quantiles",
+    y = "Sample Quantiles"
+  ) +
+  theme_minimal()
+
+ggplot(rock_sum, aes(sample = count)) +
+  stat_qq() +
+  stat_qq_line() +
+  labs(
+    title = "Rock Pigeon Normal Q-Q Plot",
+    subtitle = "CAP LTER",
+    x = "Theoretical Quantiles",
+    y = "Sample Quantiles"
+  ) +
+  theme_minimal()
+```
+
+Since the points fall approximately along the line, we can assume our data is now normal.
+
+## Variogram
+
+Next, we must fit a variogram to our data. A variogram is a measure of the half mean-squared difference between our values and the distance between them, and will help us determine the weights of our kriging model. 
+
+First we can generate our experimental variogram:
+
+```{r}
+ph_vgm <- variogram(count ~ 1, data = ph_sum)
+
+rock_vgm <- variogram(count ~ 1, data = rock_sum)
+```
+
+Plot experimental variogram:
+
+```{r}
+ggplot(data = ph_vgm) + 
+  geom_point(aes(x = dist, y = gamma)) +
+  labs(
+    title = "Phainopepla Experimental Variogram",
+    subtitle = "CAP LTER",
+    x = "Distance",
+    y = "Semivariance"
+  ) +
+  theme_minimal()
+
+ggplot(data = rock_vgm) +
+  geom_point(aes(x = dist, y = gamma)) +
+  labs(
+    title = "Rock Pigeon Experimental Variogram",
+    subtitle = "CAP LTER",
+    x = "Distance",
+    y = "Semivariance"
+  ) +
+  theme_minimal()
+```
+
+Now we can fit our theoretical variogram so that we can predict values for places where we don't have data. There are preset functions that can be used for our model:
+
+```{r}
+vgm()
+```
+
+You can use cross-validation to determine which of these models best fits your data, but we'll choose the spherical model for the Phainopepla data and the Matern model for the Rock Pigeon data:
+
+```{r}
+ph_fit <- fit.variogram(ph_vgm, vgm("Sph"))
+
+rock_fit <- fit.variogram(rock_vgm, vgm("Mat"))
+```
+
+Plot experimental and theoretical variogram:
+
+```{r}
+ph_dist <- ph_vgm %>% pull(dist) %>% max()
+line <- variogramLine(ph_fit, maxdist = ph_dist)
+ggplot(data = ph_vgm) +
+  geom_point(aes(x = dist, y = gamma)) +
+  geom_line(data = line, aes(x = dist, y = gamma)) +
+  labs(
+    title = "Experimental and Theoretical Variograms for Phainopepla",
+    subtitle = "CAP LTER",
+    x = "Distance",
+    y = "Semivariance"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+rock_dist <- rock_vgm %>% pull(dist) %>% max()
+line <- variogramLine(rock_fit, maxdist = rock_dist)
+ggplot(data = rock_vgm) +
+  geom_point(aes(x = dist, y = gamma)) +
+  geom_line(data = line, aes(x = dist, y = gamma)) +
+  labs(
+    title = "Experimental and Theoretical Variograms for Phainopepla",
+    subtitle = "CAP LTER",
+    x = "Distance",
+    y = "Semivariance"
+  ) +
+  theme_minimal()
+```
+
+Now that we have theoretical variograms, we can use it to help us in our kriging.
+
+## Kriging Calculation
+
+First, we need to create a grid so that we can map our predictions.
+
+```{r}
+cap_grid <-
+  ph_sum %>% pull(geometry) %>% st_make_grid() %>% st_as_stars()
+```
+
+Now we can generate our predictions using our data, grid, and variogram. Use `data ~ 1` for ordinary kriging:
+
+```{r}
+ph_krige <-
+  krige(count ~ 1, #ordinary kriging
+        ph_sum,
+        cap_grid,
+        ph_fit)
+
+ph_krige_df <- ph_krige %>% as.data.frame()
+
+
+rock_krige <-  krige(count ~ 1, #ordinary kriging
+                     rock_sum,
+                     cap_grid,
+                     rock_fit)
+
+rock_krige_df <- rock_krige %>% as.data.frame()
+```
+
+## Plotting Results
+
+To get a better sense of how our data relates to the terrain of the area of observation, we can use the `ggmap` package to add an online map to our plots. See the [`nwt_pikas` vignette](https://lter.github.io/lterdatasampler/articles/nwt_pikas_vignette.html) for more guidance.
+
+Get online map:
+
+```{r}
+phoenix <-
+  get_stamenmap(
+    c(
+      left = -112.68090,
+      bottom = 33.21870,
+      right = -111.57948,
+      top = 33.88142
+    ),
+    maptype = "terrain",
+    zoom = 10
+  )
+```
+
+Combine with our data plot:
+```{r}
+ggmap(phoenix) +
+  geom_raster(
+    ph_krige_df,
+    mapping = aes(x = x,
+                  y = y,
+                  fill = var1.pred),
+    alpha = 0.7,
+    interpolate = FALSE
+  ) +
+  coord_cartesian() +
+  scale_fill_viridis_c() +
+  labs(
+    title = "Interpolated Locations of Phainopeplas",
+    subtitle = "CAP LTER",
+    x = "Longitude (Degrees)",
+    y = "Latitude (Degrees)"
+  )
+```
+
+```{r}
+ggmap(phoenix) +
+  geom_raster(
+    rock_krige_df,
+    mapping = aes(x = x,
+                  y = y,
+                  fill = var1.pred),
+    alpha = 0.7,
+    interpolate = FALSE
+  ) +
+  coord_cartesian() +
+  scale_fill_viridis_c() +
+  labs(
+    title = "Interpolated Locations of Rock Pigeons",
+    subtitle = "CAP LTER",
+    x = "Longitude (Degrees)",
+    y = "Latitude (Degrees)"
+  )
+```
+
+Now can we see that the native Phainopeplas are more commonly sighted in rural environments, while the non-native Rock Pigeons are found in more urban settings. 
+
+# Citation
+
+Warren, P., S.B. Lerman, H. Bateman, M. Katti, and E. Shochat. 2020. Point-count bird censusing: long-term monitoring of bird abundance and diversity in central Arizona-Phoenix, ongoing since 2000 ver 18. Environmental Data Initiative. https://doi.org/10.6073/pasta/4fca7c8a6cd56a6abed9834aca72e764 (Accessed 2022-03-17).
+
+# How we processed the raw data
+`r knitr::spin_child(here::here("data-raw", "cap_birds_data.R"))`
