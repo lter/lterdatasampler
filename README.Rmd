@@ -16,6 +16,9 @@ knitr::opts_chunk$set(
   fig.retina = 2,
   fig.align = 'center'
 )
+
+library(gt)
+library(tidyverse)
 ```
 
 <!-- badges: start -->
@@ -100,28 +103,52 @@ site abbreviations [here](https://lternet.edu/site/)).
     Virginia Coast LTER, and NOAA’s National Estuarine Research Reserve
     System
 
-## Which dataset should I use?
+## Which data sample should I use?
 
-These datasets are selected because they have features we feel are
-commonly useful in introductory data science and statistics courses - in
-other words, a bunch of Data Science and Statistics 101 stuff can be
-taught using these data samples!
+These data samples are selected because they have features we feel are
+commonly useful in introductory environmental data science and
+statistics courses.
 
 In the table below, we list some introductory methods / skills, then
 share which data samples in this package we think are well-suited to use
 when teaching or learning them! It is not comprehensive - there are
 *many* different analyses & skills that these data samples would
-facilitate. Here we just highlight a few that we think would be commonly
-useful.
+facilitate. Here we highlight a few that we think would be commonly
+useful
 
-| Skill / method                                                        | Amenable data samples                     | We recommend...                                                                                                                                                                                                                                                   |
-|---------------|--------------------|--------------------------------------|
-| Data visualization                                                    | All of them!                              | Visualize trout and salamander length-weight relationships in `and_vertebrates`, exploring different groupings / faceting by other categorical variables in the data sample, including reach (e.g. in the old growth or clear cut forest sections of Mack Creek). |
-| Simple linear regression                                              | `hbr_maples`, `ntl_icecover` , `pie_crab` | Model the relationship between fiddler crab size and latitude using `pie_crab` , while learning about Bergmann's Rule!                                                                                                                                            |
-| Differences between groups (t-test, effect size, distributions, etc.) | `hbr_maples` , `and_vertebrates`          | Compare sugar maple seedling heights in previously calcium-treated versus untreated watersheds using `hbr_maples` , using the exercise as an opportunity to think about acid rain and soil acidification.                                                         |
-| Nonlinear relationships                                               | `knz_bison`, `and_vertebrates`            | Model the relationship between bison age and mass for male and female bison using `knz_bison`, for example estimating parameters in the Gompertz model by nonlinear least squares (as shown in the vignette).                                                     |
-| Intro to spatial data wrangling and visualization                     | `nwt_pikas`                               | Introduce basics of spatial data (e.g. CRS, projections) and tools for working with spatial data by visualizing pika locations at Niwot Ridge in the Colorado Rockies with `nwt_pikas` .                                                                          |
-| Intro to time series wrangling, visualization and analysis            | `arc_weather`                             | Explore seasonality, wrangling dates, or practice forecasting using daily meteorological records from Toolik Station, Alaska in `arc_weather` !                                                                                                                   |
+```{r, echo = FALSE}
+# Create the table contents
+table_contents <- tribble(
+  ~method, ~datasample, ~data_description, ~link,
+  "Linear relationships", "`pie_crab`", "Model the relationship between fiddler crab size and latitude using `pie_crab` , while learning about Bergmann's Rule!", "https://lter.github.io/lterdatasampler/articles/pie_crab_vignette.html",
+  "Linear relationships", "`ntl_icecover`", "Investigate the relationship between winter temperatures and ice cover duration for Wisconsin lakes using `ntl_icecover`", "https://lter.github.io/lterdatasampler/articles/ntl_icecover_vignette.html",
+  "Linear relationships", "`hbr_maples`", "Explore seedling height-mass relationships for sugar maples using `hbr_maples`", "https://lter.github.io/lterdatasampler/articles/hbr_maples_vignette.html",
+  "Non-linear relationships", "`knz_bison`", "Model the relationship between bison age and mass for male and female bison using `knz_bison`, for example estimating parameters in the Gompertz model", "https://lter.github.io/lterdatasampler/articles/knz_bison_vignette.html",
+  "Non-linear relationships", "`and_vertebrates`", "Model the length-mass relationships for cutthroat trout and salamanders in Mack Creek, Oregon", "https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html", 
+  "Time series analysis", "`arc_weather`", "Explore seasonality, wrangling dates, or practice forecasting using daily meteorological records from Toolik Station, Alaska", "https://lter.github.io/lterdatasampler/articles/arc_weather_vignette.html", 
+  "Time series analysis", "`luq_streamchem`", "Investigate the impact of a hurricane on stream water chemistry", "",
+  "Spatial data introduction", "`nwt_pikas`", "Introduce basics of spatial data (e.g. CRS, projections) and tools for working with spatial data by visualizing pika locations at Niwot Ridge in the Colorado Rockies", "https://lter.github.io/lterdatasampler/articles/nwt_pikas_vignette.html", 
+  "Comparing groups", "`hbr_maples`", "Compare sugar maple seedling heights in previously calcium-treated versus untreated watersheds using `hbr_maples`, using the exercise as an opportunity to think about acid rain and soil acidification", "https://lter.github.io/lterdatasampler/articles/hbr_maples_vignette.html", 
+  "Comparing groups", "`and_vertebrates`", "Explore differences in size and abundance of cutthroat trout and salamanders in old growth versus previously clear cut forest sections (2 groups) or in different conditions (> 2 groups, e.g. pool, cascade, riffle) of Mack Creek, Oregon", "https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html"
+) %>% 
+  mutate(full_link = sprintf('<a href = "%s">%s</a>', link, datasample),
+         full_link = map(full_link, gt::html))
+
+
+table_contents %>% 
+  select(method, full_link, data_description) %>% 
+  gt(groupname_col = "method") %>% 
+  tab_header(
+    title = "Recommended data samples for introducing selected topics",
+  ) %>% 
+  cols_label(method = "Topic", full_link = "Data sample", data_description = "For example you could:") %>%
+  tab_options(row_group.as_column = TRUE) %>% 
+  tab_style(
+    style = "vertical-align:middle",
+    locations = cells_row_groups()
+  ) 
+  
+```
 
 ## How to provide feedback
 
