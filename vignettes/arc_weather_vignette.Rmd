@@ -14,7 +14,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 ### Dataset sample used 
 
 - `arc_weather`
@@ -29,63 +28,60 @@ Attach required packages:
 ```{r setup, message = FALSE, warning = FALSE}
 library(lterdatasampler)
 library(tidyverse)
-library(lubridate)
+library(tsibble)
+library(feasts)
 ```
 
-Here, we highlight seasonality in air temperature and precipitation: 
-
-Time series of daily precipitation (millimeters) recorded at Toolik Field Station: 
-```{r}
-ggplot(arc_weather, aes(x = date, y = daily_precip)) +
-  geom_line() +
-  theme_minimal()
-```
-
-Time series of mean daily air temperature (Celsius) recorded at Toolik Field Station: 
-```{r}
-ggplot(arc_weather, aes(x = date, y = mean_airtemp)) +
-  geom_line() +
-  theme_minimal()
-```
-
-Seasonality and stationarity in `arc_weather` presents opportunities to practice summarizing patterns, for example finding the mean temperature by month (i.e., finding the mean of the daily means, grouped by month), and introducing modeling and forecasting methods. 
-
-Below are several examples of data aggregation and summary using useful tools from the [`lubridate`](https://lubridate.tidyverse.org/) package. While not shown here, instructors may want to incorporate tools from the [`tidyverts`](https://tidyverts.org/) suite of R packages containing "tidy tools for time series."
-
-## Wrangling to parse month and year 
-
-Here, we add new columns `month` and `year`, using `lubridate::month()` and `lubridate::year()` to respectively pull out the month and year from the original `date` column. Then, we use `forcats::fct_relevel()` to create an ordered factor of abbreviated month names (e.g. "Jan", "Feb", "Mar", etc.). See also: `tsibble::yearmonth()`. 
+Here, we highlight daily air temperature (the data sample also contains records for precipitation and wind speed) using functions from the [`tsibble`](https://tsibble.tidyverts.org/) and [`feasts`](https://feasts.tidyverts.org/) R packages (both part of the fantastic [`tidyverts`](https://tidyverts.org/) ecosystem of "tidy tools for time series"). 
 
 ```{r}
-parse_ym <- arc_weather %>% 
-  mutate(month = lubridate::month(date), # Add a column with the month (numeric)
-         year = as.factor(lubridate::year(date))) %>% # Add a column with the year (numeric)
-  mutate(month_abb = fct_relevel(month.abb[month], month.abb)) # Add a column with the month as an abbreviated month name
+# Calculate monthly average of daily mean air temperature and convert to tsibble: 
+arc_weather_ts <- arc_weather %>% 
+  mutate(yr_mo = yearmonth(date)) %>% # Make a column with just month and year from each date
+  group_by(yr_mo) %>% # Group by year-month
+  summarize(avg_mean_airtemp = mean(mean_airtemp, na.rm = TRUE)) %>% # Find monthly mean air temperature
+  as_tsibble(index = yr_mo) # Convert to a tsibble (time series tibble)
+
+# Check out the first 10 lines:
+head(arc_weather_ts, 10)
 ```
 
-Fine the *monthly* mean air temperature (by finding the average of daily means, by month and year):
+Once the data are converted into a `tsibble` in the last line above, we can use helpful functions in `feasts` (like `autoplot()` and `gg_season()`) to explore the time series data a bit more. 
 
 ```{r}
-monthly_airtemp <- parse_ym %>% 
-  group_by(month_abb, year) %>% 
-  summarize(mean_monthly_airtemp = mean(mean_airtemp, na.rm = TRUE))
+# Create a line graph of monthly average of mean daily air temperatures:
+arc_weather_ts %>% 
+  autoplot(avg_mean_airtemp)
 ```
 
-Then we'll create a seasonal plot: 
 ```{r}
-ggplot(data = monthly_airtemp, aes(x = month_abb, y = mean_monthly_airtemp, group = year)) +
-  geom_line(aes(color = year)) +
-  scale_color_viridis_d()
+# Create  season plot to explore seasonality: 
+arc_weather_ts %>% 
+  gg_season(avg_mean_airtemp)
 ```
 
-Enjoy teaching and learning some time series data wrangling and analysis skills with `arc_weather`!
+We might want to decompose the time series data to further explore components. See Chapter 3 *Time series decomposition* in [Forecasting: Principles and Practice](https://otexts.com/fpp3/decomposition.html) by Rob J Hyndman and George Athanasopoulos for more information on decomposing time series data.  
+```{r}
+arc_weather_ts %>% 
+  model(STL(avg_mean_airtemp)) %>% 
+  components() %>% 
+  autoplot()
+```
+
+We can also explore autocorrelation:
+```{r}
+arc_weather_ts %>% 
+  ACF(avg_mean_airtemp) %>% 
+  autoplot()
+```
+
+Then you can move on to time series forecasting and further analysis! Have fun with the `arc_weather` data sample from Arctic LTER. 
 
 # Acknowledgements
 
 # Citation
 
 Shaver, G. 2019. A multi-year DAILY weather file for the Toolik Field Station at Toolik Lake, AK starting 1988 to present. ver 4. Environmental Data Initiative. https://doi.org/10.6073/pasta/ce0f300cdf87ec002909012abefd9c5c (Accessed 2020-07-04).
-
 
 # How we processed the raw data
 
