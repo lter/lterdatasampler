@@ -57,7 +57,8 @@ Suggests:
     lubridate,
     patchwork,
     tsibble,
-    feasts
+    feasts, 
+    changepoint
 URL: https://github.com/lter/lterdatasampler
 BugReports: https://github.com/lter/lterdatasampler/issues
 VignetteBuilder: knitr
