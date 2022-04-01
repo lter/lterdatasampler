@@ -74,6 +74,9 @@
       <a href="../articles/knz_bison_vignette.html">Konza Prairie Bison Weights (KNZ)</a>
     </li>
     <li>
+      <a href="../articles/luq_streamchem_vignette.html">Luquillo Mountains of Puerto Rico (LUQ LTER)</a>
+    </li>
+    <li>
       <a href="../articles/ntl_icecover_vignette.html">North Temperate Lakes Ice Cover (NTL)</a>
     </li>
     <li>
@@ -554,8 +557,8 @@ Pancake ice formed near shore when early ice is broken by wave action, Lake Mend
     <span class="op">)</span>,
     year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>,
     ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span>,
-    ice_on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">ice_on</span><span class="op">)</span>,
-    ice_off <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">ice_off</span><span class="op">)</span>,
+    ice_on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">ice_on</span><span class="op">)</span>,
+    ice_off <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/zoo/man/yearmon.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">ice_off</span><span class="op">)</span>,
     lakeid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">lakeid</span><span class="op">)</span>,
     ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span><span class="op">(</span><span class="va">ice_duration</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">ice_duration</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span> <span class="co"># change values of -999 to NA</span>
   <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>

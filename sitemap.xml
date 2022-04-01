@@ -19,6 +19,9 @@
     <loc>https://lter.github.io/lterdatasampler/articles/knz_bison_vignette.html</loc>
   </url>
   <url>
+    <loc>https://lter.github.io/lterdatasampler/articles/luq_streamchem_vignette.html</loc>
+  </url>
+  <url>
     <loc>https://lter.github.io/lterdatasampler/articles/ntl_icecover_vignette.html</loc>
   </url>
   <url>
@@ -47,6 +50,9 @@
   </url>
   <url>
     <loc>https://lter.github.io/lterdatasampler/reference/knz_bison.html</loc>
+  </url>
+  <url>
+    <loc>https://lter.github.io/lterdatasampler/reference/luq_streamchem.html</loc>
   </url>
   <url>
     <loc>https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html</loc>
