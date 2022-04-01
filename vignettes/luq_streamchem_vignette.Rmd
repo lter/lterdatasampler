@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 The vignette highlights:
 
 - How to explore change points in time-series
-- How to use long format to create facette plots
+- How to use long format to create facet plots
 
 
 The `luq_streamchem` data contains a subset of stream flow chemistry data for the Quebrada Sonadora (QS) site within the Espiritu Santo drainage basin and the El Verde Research area of the Luquillo Experimental Forest (LEF). The Luquillo Experimental Forest (LEF) has been a center of tropical forestry research for nearly a century. In addition, the LEF is a recreation site for over a half a million people per year, a water supply for approximately 20% of Puerto Rico’s population, a regional center for electronic communication, and a refuge of Caribbean biodiversity. QS is the high elevation site.
@@ -73,7 +73,7 @@ Wow there is definitely something going on at the end of 1989!!
 
 ## Plotting all the chemicals
 
-We are note sure if all the chemicals have been monitored over the same time period and if their value will also show strong variations at the end of 1989. To llok at this we will have to transform our data frame into the long format so we can  the `ggplot2::facet_wrap()` function to quickly plot all the different chemical components observed. Note we are using the `scales = free` option since the concentrations (and units) vary greatly among the different chemicals.
+We are note sure if all the chemicals have been monitored over the same time period and if their value will also show strong variations at the end of 1989. To look at this we will have to transform our data frame into the long format so we can  the `ggplot2::facet_wrap()` function to quickly plot all the different chemical components observed. Note we are using the `scales = free` option since the concentrations (and units) vary greatly among the different chemicals.
 
 ```{r}
 # Switching to long format
@@ -137,7 +137,7 @@ It seems the signal in variance changes is more useful to discern the change poi
 ansvar
 ```
 
-See the references below if you want to know more about hurricane impact on stream chemistry and explore various algotrhms to detect change point in a time-series!
+See the references below if you want to know more about hurricane impact on stream chemistry and explore various algorithms to detect change point in a time-series!
 
 
 ## References
