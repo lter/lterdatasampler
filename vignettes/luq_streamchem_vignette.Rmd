@@ -34,7 +34,7 @@ The vignette highlights:
 The `luq_streamchem` data contains a subset of stream flow chemistry data for the Quebrada Sonadora (QS) site within the Espiritu Santo drainage basin and the El Verde Research area of the Luquillo Experimental Forest (LEF). The Luquillo Experimental Forest (LEF) has been a center of tropical forestry research for nearly a century. In addition, the LEF is a recreation site for over a half a million people per year, a water supply for approximately 20% of Puerto Rico’s population, a regional center for electronic communication, and a refuge of Caribbean biodiversity. QS is the high elevation site.
 
 <figure style="text-align:center;">
-  <img src="../man/figures/luq_streamchem_img.jpeg" width=40% style="display:block; margin-left: auto; margin-right: auto;">
+  <img src="../man/figures/luq_streamchem_img.jpeg" width=90% style="display:block; margin-left: auto; margin-right: auto;">
   <figcaption>Credit: Luquillo LTER. CC BY-SA 4.0</figcaption>
 </figure>
 
