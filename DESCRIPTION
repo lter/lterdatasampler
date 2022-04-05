@@ -42,6 +42,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 Depends: 
     R (>= 2.10)
+Imports:
+    gt
 Suggests: 
     knitr,
     rmarkdown,
@@ -58,8 +60,7 @@ Suggests:
     patchwork,
     tsibble,
     feasts, 
-    changepoint,
-    gt
+    changepoint
 URL: https://github.com/lter/lterdatasampler
 BugReports: https://github.com/lter/lterdatasampler/issues
 VignetteBuilder: knitr
