@@ -25,7 +25,18 @@ knitr::opts_chunk$set(
 
 This data sample contains length and weight for West Slope cutthroat trout and two salamander species (Coastal giant salamander, and Olympic torrent salamander) in previously clear cut (c. 1963) and old growth coniferous forest sections of Mack Creek in HJ Andrews Experimental Forest in Willamette National Forest, Oregon. For more information, [see the data package on EDI](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-and.4027.14).
 
+
+<figure style="text-align:center;">
+  <img src="../man/figures/and_salamander_img.jpeg" width=50% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Erika Zambello, LTER CC BY-SA 4.0</figcaption>
+</figure>
+
+
 The data provides opportunities to explore length-weight relationships for three species observed, to compare biomass, abundance and sizes of species in old growth versus previously clear cut forest sections of the creek, and more.
+
+
+
+
 
 # Data exploration
 
