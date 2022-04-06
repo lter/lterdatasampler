@@ -1,5 +1,5 @@
 ---
-title: "North Temperate Lakes Ice Cover (NTL)"
+title: "ntl_icecover - North Temperate Lakes Ice Cover (NTL)"
 subtitle: "Comparing Temperatures and Lake Ice Duration in Madison, WI since the 19th Century"
 output: rmarkdown::html_vignette
 vignette: >

@@ -1,5 +1,5 @@
 ---
-title: "Niwot Ridge Pika Locations (NWT)"
+title: "nwt_pikas - Niwot Ridge Pika Locations (NWT)"
 subtitle: "American Pika Locations in Summer 2018 at Niwot Ridge LTER"
 output: rmarkdown::html_vignette
 vignette: >
