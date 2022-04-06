@@ -53,29 +53,32 @@ see individual Articles for data and source details. Note: the three
 letter prefix for each dataset indicates the LTER site (see full list of
 site abbreviations [here](https://lternet.edu/site/)).
 
--   [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
+  - [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
     Records for aquatic vertebrates (cutthroat trout and salamanders) in
     Mack Creek, Andrews Experimental Forest, Oregon (1987 - present)
--   [`arc_weather`](https://lter.github.io/lterdatasampler/reference/arc_weather.html):
+  - [`arc_weather`](https://lter.github.io/lterdatasampler/reference/arc_weather.html):
     Daily meteorological (e.g. air temperature, precipitation) records
     from Toolik Field Station, Alaska (1988 - present)
--   [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
+  - [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
     Sugar maple seedlings at Hubbard Brook Experimental Forest (New
     Hampshire) in calcium-treated and reference watersheds in August
     2003 and June 2004
--   [`knz_bison`](https://lter.github.io/lterdatasampler/reference/knz_bison.html):
+  - [`knz_bison`](https://lter.github.io/lterdatasampler/reference/knz_bison.html):
     Bison masses recorded for the herd at Konza Prairie Biological
     Station LTER
--   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
+  - [`luq_streamchem`](https://lter.github.io/lterdatasampler/reference/luq_streamchem.html):
+    stream chemistry data for the Quebrada Sonadora (QS) location part
+    of the Luqillo tropical forest LTER site
+  - [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
     Ice freeze and thaw dates for Madison, Wisconsin Area lakes (1853 -
     2019), North Temperate Lakes LTER
--   [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
+  - [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
     Daily average air temperature data for Madison, Wisconsin (1869 -
     2019), North Temperate Lakes LTER
--   [`nwt_pikas`](https://lter.github.io/lterdatasampler/reference/nwt_pikas.html):
+  - [`nwt_pikas`](https://lter.github.io/lterdatasampler/reference/nwt_pikas.html):
     Pika observations for habitat and stress analysis at Niwot Ridge
     LTER, Colorado
--   [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
+  - [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
     Fiddler crab body size recorded summer 2016 in salt marshes from
     Florida to Massachusetts including Plum Island Ecosystem LTER,
     Virginia Coast LTER, and NOAA’s National Estuarine Research Reserve
@@ -89,17 +92,17 @@ statistics courses.
 
 In the table below, we list some introductory methods / skills, then
 share which data samples in this package we think are well-suited to use
-when teaching or learning them! It is not comprehensive - there are
+when teaching or learning them\! It is not comprehensive - there are
 *many* different analyses & skills that these data samples would
 facilitate. Here we highlight a few that we think would be commonly
 useful
 
-<div id="uviikepcvi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="ywpcrqmvlt" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
 
-#uviikepcvi .gt_table {
+#ywpcrqmvlt .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -124,7 +127,7 @@ useful
   border-left-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_heading {
+#ywpcrqmvlt .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -136,7 +139,7 @@ useful
   border-right-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_title {
+#ywpcrqmvlt .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -148,7 +151,7 @@ useful
   border-bottom-width: 0;
 }
 
-#uviikepcvi .gt_subtitle {
+#ywpcrqmvlt .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -160,13 +163,13 @@ useful
   border-top-width: 0;
 }
 
-#uviikepcvi .gt_bottom_border {
+#ywpcrqmvlt .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_col_headings {
+#ywpcrqmvlt .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -181,7 +184,7 @@ useful
   border-right-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_col_heading {
+#ywpcrqmvlt .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -201,7 +204,7 @@ useful
   overflow-x: hidden;
 }
 
-#uviikepcvi .gt_column_spanner_outer {
+#ywpcrqmvlt .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -213,15 +216,15 @@ useful
   padding-right: 4px;
 }
 
-#uviikepcvi .gt_column_spanner_outer:first-child {
+#ywpcrqmvlt .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#uviikepcvi .gt_column_spanner_outer:last-child {
+#ywpcrqmvlt .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#uviikepcvi .gt_column_spanner {
+#ywpcrqmvlt .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -233,7 +236,7 @@ useful
   width: 100%;
 }
 
-#uviikepcvi .gt_group_heading {
+#ywpcrqmvlt .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -258,7 +261,7 @@ useful
   vertical-align: middle;
 }
 
-#uviikepcvi .gt_empty_group_heading {
+#ywpcrqmvlt .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -273,15 +276,15 @@ useful
   vertical-align: middle;
 }
 
-#uviikepcvi .gt_from_md > :first-child {
+#ywpcrqmvlt .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#uviikepcvi .gt_from_md > :last-child {
+#ywpcrqmvlt .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#uviikepcvi .gt_row {
+#ywpcrqmvlt .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -300,7 +303,7 @@ useful
   overflow-x: hidden;
 }
 
-#uviikepcvi .gt_stub {
+#ywpcrqmvlt .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -313,7 +316,7 @@ useful
   padding-right: 5px;
 }
 
-#uviikepcvi .gt_stub_row_group {
+#ywpcrqmvlt .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -327,11 +330,11 @@ useful
   vertical-align: top;
 }
 
-#uviikepcvi .gt_row_group_first td {
+#ywpcrqmvlt .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#uviikepcvi .gt_summary_row {
+#ywpcrqmvlt .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -341,16 +344,16 @@ useful
   padding-right: 5px;
 }
 
-#uviikepcvi .gt_first_summary_row {
+#ywpcrqmvlt .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_first_summary_row.thick {
+#ywpcrqmvlt .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#uviikepcvi .gt_last_summary_row {
+#ywpcrqmvlt .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -360,7 +363,7 @@ useful
   border-bottom-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_grand_summary_row {
+#ywpcrqmvlt .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -370,7 +373,7 @@ useful
   padding-right: 5px;
 }
 
-#uviikepcvi .gt_first_grand_summary_row {
+#ywpcrqmvlt .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -380,11 +383,11 @@ useful
   border-top-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_striped {
+#ywpcrqmvlt .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#uviikepcvi .gt_table_body {
+#ywpcrqmvlt .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -393,7 +396,7 @@ useful
   border-bottom-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_footnotes {
+#ywpcrqmvlt .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -407,7 +410,7 @@ useful
   border-right-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_footnote {
+#ywpcrqmvlt .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -416,7 +419,7 @@ useful
   padding-right: 5px;
 }
 
-#uviikepcvi .gt_sourcenotes {
+#ywpcrqmvlt .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -430,7 +433,7 @@ useful
   border-right-color: #D3D3D3;
 }
 
-#uviikepcvi .gt_sourcenote {
+#ywpcrqmvlt .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -438,69 +441,60 @@ useful
   padding-right: 5px;
 }
 
-#uviikepcvi .gt_left {
+#ywpcrqmvlt .gt_left {
   text-align: left;
 }
 
-#uviikepcvi .gt_center {
+#ywpcrqmvlt .gt_center {
   text-align: center;
 }
 
-#uviikepcvi .gt_right {
+#ywpcrqmvlt .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#uviikepcvi .gt_font_normal {
+#ywpcrqmvlt .gt_font_normal {
   font-weight: normal;
 }
 
-#uviikepcvi .gt_font_bold {
+#ywpcrqmvlt .gt_font_bold {
   font-weight: bold;
 }
 
-#uviikepcvi .gt_font_italic {
+#ywpcrqmvlt .gt_font_italic {
   font-style: italic;
 }
 
-#uviikepcvi .gt_super {
+#ywpcrqmvlt .gt_super {
   font-size: 65%;
 }
 
-#uviikepcvi .gt_two_val_uncert {
-  display: inline-block;
-  line-height: 1em;
-  text-align: right;
-  font-size: 60%;
-  vertical-align: -0.25em;
-  margin-left: 0.1em;
-}
-
-#uviikepcvi .gt_footnote_marks {
+#ywpcrqmvlt .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
 
-#uviikepcvi .gt_asterisk {
+#ywpcrqmvlt .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#uviikepcvi .gt_slash_mark {
+#ywpcrqmvlt .gt_slash_mark {
   font-size: 0.7em;
   line-height: 0.7em;
   vertical-align: 0.15em;
 }
 
-#uviikepcvi .gt_fraction_numerator {
+#ywpcrqmvlt .gt_fraction_numerator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: 0.45em;
 }
 
-#uviikepcvi .gt_fraction_denominator {
+#ywpcrqmvlt .gt_fraction_denominator {
   font-size: 0.6em;
   line-height: 0.6em;
   vertical-align: -0.05em;
@@ -556,7 +550,7 @@ useful
 
 The best way to provide feedback on this package is to open an
 [issue](https://github.com/lter/lterdatasampler/issues) and assign the
-`feedback` label. Thank you!
+`feedback` label. Thank you\!
 
 ## Acknowledgements
 
@@ -568,11 +562,11 @@ Thank you also go to their Course Advisor Prof. Sang-yun Oh.
 
 People / organizations who supported this project:
 
--   LTER Network Office
--   LTER Information Managers
--   LTER Education Committee
--   All the LTER Researchers and Site PIs
--   Cyber-infrastructures:
+  - LTER Network Office
+  - LTER Information Managers
+  - LTER Education Committee
+  - All the LTER Researchers and Site PIs
+  - Cyber-infrastructures:
     [EDI](https://environmentaldatainitiative.org/) and
     [DataONE](https://www.dataone.org/)
 
