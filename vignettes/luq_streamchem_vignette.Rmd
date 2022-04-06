@@ -1,5 +1,5 @@
 ---
-title: "Luquillo Mountains of Puerto Rico (LUQ)"
+title: "luq_streamchem - Luquillo Mountains of Puerto Rico (LUQ)"
 subtitle: "Impact of hurricane Hugo on Stream chemistry for Quebrada Sonadora site"
 output: rmarkdown::html_vignette
 vignette: >

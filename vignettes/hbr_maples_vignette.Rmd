@@ -1,5 +1,5 @@
 ---
-title: "Hubbard Brook Experimental Forest Sugar Maples (HBR)"
+title: "hbr_maples - Hubbard Brook Experimental Forest Sugar Maples (HBR)"
 subtitle: "Growth of Sugar Maple (Acer saccharum) seedlings in response to calcium addition at the Hubbard Brook Experimental Forest"
 output: rmarkdown::html_vignette
 vignette: >

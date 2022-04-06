@@ -1,5 +1,5 @@
 ---
-title: "Konza Prairie Bison Weights (KNZ)"
+title: "knz_bison - Konza Prairie Bison Weights (KNZ)"
 subtitle: "Historical records of end-of-season weights for individual bison at Konza Prairie Biological Station LTER"
 output: rmarkdown::html_vignette
 vignette: >
