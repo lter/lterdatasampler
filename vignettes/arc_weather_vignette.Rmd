@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  rmarkdown.html_vignette.check_title = FALSE
 )
 ```
 
@@ -21,6 +22,11 @@ knitr::opts_chunk$set(
 # Introduction
 
 The `arc_weather` data sample contains selected meteorological records from the Toolik Field Station at Toolik Lake, Alaska, from 1988 - 2018. This data set offers opportunities to explore and wrangle time series data, visualize patterns (e.g. seasonality), and apply different forecasting methods. 
+
+<figure style="text-align:center;">
+  <img src="../man/figures/arc_weather_img.jpeg" width=80% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>LTER research station Toolik Lake, LTER CC BY-SA 4.0</figcaption>
+</figure>
 
 # Data exploration
 
