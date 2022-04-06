@@ -88,6 +88,9 @@ site abbreviations [here](https://lternet.edu/site/)).
 -   [`knz_bison`](https://lter.github.io/lterdatasampler/reference/knz_bison.html):
     Bison masses recorded for the herd at Konza Prairie Biological
     Station LTER
+-   [`luq_streamchem`](https://lter.github.io/lterdatasampler/reference/luq_streamchem.html):
+    stream chemistry data for the Quebrada Sonadora (QS) location part of the Luqillo tropical
+    forest LTER site
 -   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
     Ice freeze and thaw dates for Madison, Wisconsin Area lakes (1853 -
     2019), North Temperate Lakes LTER

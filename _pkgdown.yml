@@ -20,7 +20,7 @@ authors:
 
 home:
   title: lterdatasampler package
-  description: Samples from 3 Long Term Ecological Research (LTER) network sites
+  description: Data samples from 8 Long Term Ecological Research (LTER) network sites
 
 navbar:
   structure:
