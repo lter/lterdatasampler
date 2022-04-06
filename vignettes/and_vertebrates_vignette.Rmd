@@ -1,5 +1,6 @@
 ---
-title: "Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND)"
+title: "Andrews Forest LTER vertebrates (AND)"
+subtitle: "Andrews Forest LTER Mack Creek cutthroat trout and salamanders"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{and_vertebrates}

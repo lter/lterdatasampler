@@ -1,9 +1,9 @@
 ---
-title: "Luquillo Mountains of Puerto Rico (LUQ LTER)"
-subtitle: "Impacof hurricane Hugo on Stream chemistry for Quebrada Sonadora site"
+title: "Luquillo Mountains of Puerto Rico (LUQ)"
+subtitle: "Impact of hurricane Hugo on Stream chemistry for Quebrada Sonadora site"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{ntl_icecover_vignette}
+  %\VignetteIndexEntry{luq_streamchem_vignette}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

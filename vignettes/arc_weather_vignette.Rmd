@@ -1,5 +1,6 @@
 ---
-title: "Arctic LTER daily weather data from Toolik Field Station (ARC)"
+title: "Arctic LTER Toolik Field Station (ARC)"
+subtitle: "Arctic LTER daily weather data from Toolik Field Station"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{arc_weather}
