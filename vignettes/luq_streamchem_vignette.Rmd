@@ -104,40 +104,9 @@ ggplot(luq_streamchem, aes(x=sample_date, y=k)) +
 
 ```
 
-Now we can use `changepoint` to try to automatically detect the change points in the time series.
+### What could be next
 
-## Changes in mean potassium concentration
-
-Let's try to detect change in mean using the `PELT` algorithm:
-
-```{r message=FALSE}
-library(changepoint)
-
-k_ts <- luq_streamchem %>% 
-  select(k) %>% 
-  drop_na() # Drop rows with missing values
-
-ansmean <- cpt.mean(k_ts$k)
-plot(ansmean,cpt.col='red')
-
-```
-
-I does not seem that the algorithm can detect well the change in potassium mean.
-
-## Changes in variance of potassium concentration
-
-```{r}
-ansvar <- cpt.var(k_ts$k)
-plot(ansvar,cpt.col='blue')
-```
-
-It seems the signal in variance changes is more useful to discern the change points in the time-series. Let's have a look at the model:
-
-```{r}
-ansvar
-```
-
-See the references below to learn more about hurricane impact on stream chemistry, and to explore various algorithms to detect change point in a time-series!
+There are many R packages available to help to detect change points in a time series: [`changepoint`](https://cran.r-project.org/web/packages/changepoint/index.html), [`CPM`](https://cran.r-project.org/web/packages/cpm/index.html), [`BCP`](https://cran.r-project.org/web/packages/bcp/index.html), [`ECP`](https://cran.r-project.org/web/packages/ecp/index.html) and more! Try to use them on this data sample.
 
 
 ## References
@@ -147,7 +116,8 @@ Schaefer, D., McDowell, W., Scatena, F., & Asbury, C. (2000). Effects of hurrica
 McDowell, W. 2021. Chemistry of stream water from the Luquillo Mountains ver 4923056.
 Environmental Data Initiative. https://doi.org/10.6073/pasta/0a09f5aa2e6f11451553c92b102279a6 (Accessed 2022-03-10)
 
-Time Series Analysis tutorial and change point detection, https://www.economodel.com/time-series-analysis
+Killick, R., & Eckley, I. A. (2014). changepoint: An R Package for Changepoint Analysis. Journal of Statistical Software, 58(3), 1–19. 
+https://doi.org/10.18637/jss.v058.i03
 
 
 # How we processed the raw data
