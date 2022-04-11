@@ -1,6 +1,6 @@
 ---
-title: "luq_streamchem - Luquillo Mountains of Puerto Rico (LUQ)"
-subtitle: "Impact of hurricane Hugo on Stream chemistry for Quebrada Sonadora site"
+title: "luq_streamchem - Stream chemistry, Luquillo Mountains of Puerto Rico (LUQ)"
+subtitle: "Impact of hurricane Hugo on stream chemistry for Quebrada Sonadora site"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{luq_streamchem_vignette}
@@ -25,13 +25,13 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-The vignette highlights:
+This vignette highlights:
 
 - How to explore change points in time-series
 - How to use long format to create facet plots
 
 
-The `luq_streamchem` data contains a subset of stream flow chemistry data for the Quebrada Sonadora (QS) site within the Espiritu Santo drainage basin and the El Verde Research area of the Luquillo Experimental Forest (LEF). The Luquillo Experimental Forest (LEF) has been a center of tropical forestry research for nearly a century. In addition, the LEF is a recreation site for over a half a million people per year, a water supply for approximately 20% of Puerto Rico’s population, a regional center for electronic communication, and a refuge of Caribbean biodiversity. QS is the high elevation site.
+The `luq_streamchem` data sample contains a subset of stream flow chemistry data for the Quebrada Sonadora (QS) site within the Espiritu Santo drainage basin and the El Verde Research area of the Luquillo Experimental Forest (LEF). The Luquillo Experimental Forest (LEF) has been a center of tropical forestry research for nearly a century. In addition, the LEF is a recreation site for over a half a million people per year, a water supply for approximately 20% of Puerto Rico’s population, a regional center for electronic communication, and a refuge of Caribbean biodiversity. QS is the high elevation site.
 
 <figure style="text-align:center;">
   <img src="../man/figures/luq_streamchem_img.jpeg" width=90% style="display:block; margin-left: auto; margin-right: auto;">
@@ -58,7 +58,7 @@ glimpse(luq_streamchem)
 
 ## Plotting one chemical
 
-Let's start with looking at the time-series of Potassium
+Let's start with looking at the time-series of potassium
 
 ```{r, fig.height=5.5, fig.width=6.5}
 ggplot(data=luq_streamchem, aes(x=sample_date, y=k)) +
@@ -66,14 +66,14 @@ ggplot(data=luq_streamchem, aes(x=sample_date, y=k)) +
   xlab("") +
   theme_bw() +
   theme(axis.text.x=element_text(angle=60, hjust=1)) +
-  labs(title = "Potasium [mg/L]") 
+  labs(title = "Potassium [mg/L]") 
 ```
 
-Wow there is definitely something going on at the end of 1989!!
+Wow there is definitely something going on at the end of 1989!
 
-## Plotting all the chemicals
+## Plotting all water quality indicators
 
-We are note sure if all the chemicals have been monitored over the same time period and if their value will also show strong variations at the end of 1989. To look at this we will have to transform our data frame into the long format so we can  the `ggplot2::facet_wrap()` function to quickly plot all the different chemical components observed. Note we are using the `scales = free` option since the concentrations (and units) vary greatly among the different chemicals.
+We are not sure if all the chemicals and water quality indicators have been monitored over the same time period, or if their value will also show strong variations at the end of 1989. To explore this we will transform our data frame into long format so we can use `ggplot2::facet_wrap()` to quickly plot all observed stream chemistry variables at once. Note we are using the `scales = free` option since the concentrations (and units) vary greatly among the different variables.
 
 ```{r}
 # Switching to long format
@@ -90,7 +90,7 @@ It seems that other chemicals are also showing a jump around the end of 1989. Ac
 
 # Detecting change points in a time-series
 
-Let's first confirm that the timing of the jump in the time-series is corresponding to hurricane Hugo by adding a vertical line at the date of the landfall.
+Let's first confirm that the timing of the jump in the time-series corresponds to Hurricane Hugo by adding a vertical line at the date of hurricane landfall.
 
 ```{r}
 ggplot(luq_streamchem, aes(x=sample_date, y=k)) +
@@ -100,44 +100,13 @@ ggplot(luq_streamchem, aes(x=sample_date, y=k)) +
   xlab("") +
   theme_bw() +
   theme(axis.text.x=element_text(angle=60, hjust=1)) +
-  labs(title = "Potasium [mg/L]") 
+  labs(title = "Potassium [mg/L]") 
 
 ```
 
-Now we can use the  `changepoint` to try to automatically detect the change points in the time series
+### What could be next
 
-## Changes in mean
-
-Let's try to detect change in mean using the `PELT` algorithm:
-
-```{r message=FALSE}
-library(changepoint)
-
-k_ts <- luq_streamchem %>% 
-  select(k, no3_n) %>% 
-  drop_na() # Not allowed
-
-ansmean <- cpt.mean(k_ts$k)
-plot(ansmean,cpt.col='red')
-
-```
-
-I does not seem that the algorithm can detect well the change in mean.
-
-## Changes in variance 
-
-```{r}
-ansvar <- cpt.var(k_ts$k)
-plot(ansvar,cpt.col='blue')
-```
-It seems the signal in variance changes is more useful to discern the change points in the time-series. Let's have a look at the model:
-
-
-```{r}
-ansvar
-```
-
-See the references below if you want to know more about hurricane impact on stream chemistry and explore various algorithms to detect change point in a time-series!
+There are many R packages available to help to detect change points in a time series: [`changepoint`](https://cran.r-project.org/web/packages/changepoint/index.html), [`CPM`](https://cran.r-project.org/web/packages/cpm/index.html), [`BCP`](https://cran.r-project.org/web/packages/bcp/index.html), [`ECP`](https://cran.r-project.org/web/packages/ecp/index.html) and more! Try to use them on this data sample.
 
 
 ## References
@@ -147,9 +116,10 @@ Schaefer, D., McDowell, W., Scatena, F., & Asbury, C. (2000). Effects of hurrica
 McDowell, W. 2021. Chemistry of stream water from the Luquillo Mountains ver 4923056.
 Environmental Data Initiative. https://doi.org/10.6073/pasta/0a09f5aa2e6f11451553c92b102279a6 (Accessed 2022-03-10)
 
-Time Series Analysis tutorial and change point detection, https://www.economodel.com/time-series-analysis
+Killick, R., & Eckley, I. A. (2014). changepoint: An R Package for Changepoint Analysis. Journal of Statistical Software, 58(3), 1–19. 
+https://doi.org/10.18637/jss.v058.i03
 
 
-# How we processes the raw data
+# How we processed the raw data
 
 `r knitr::spin_child(here::here("data-raw","luq_streamchem_data.R"))`

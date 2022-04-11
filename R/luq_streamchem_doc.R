@@ -11,10 +11,10 @@
 #'   \item{pH}{a number pH (Electrometric with combination electrode)}
 #'   \item{Cond}{a number denoting the conductivity (Conductivity bridge in micro siemens/cm)}
 #'   \item{Cl}{a number denoting the concentration of Chloride (up to 1989 by automated colorimetric analysis (thiocyanate); after 1989 by liquid chromatography with conductivity detection) in mg Cl/L}
-#'   \item{NO3}{a number denoting the concentration of dissolved nitrate in the stream water in micrograms nitrogen per liter (ug N/L)}
+#'   \item{NO3}{a number denoting the concentration of dissolved nitrate in the stream water in ug N/L}
 #'   \item{SO4-S}{a number denoting the concentration of Sulfate (Liquid chromatography; conductivity detection) in mg/L}
 #'   \item{Na}{a number denoting the concentration of Sodium (up to 1994 by atomic absorption spectroscopy) in mg/L}
-#'   \item{K}{a number denoting the concentration of Potassium (up to 1994 by atomic absorption spectroscopy) in ug N/L}
+#'   \item{K}{a number denoting the concentration of Potassium (up to 1994 by atomic absorption spectroscopy) in mg/L}
 #'   \item{Mg}{a number denoting the concentration of Magnesium (up to 1994 by atomic absorption spectroscopy) in mg/L}
 #'   \item{Ca}{a number denoting the concentration of Calcium (up to 1994 by atomic absorption spectroscopy) in mg/L}
 #'   \item{NH4-N}{a number denoting the concentration of Ammonium Nitrogen (automated colorimetric analysis (phenolhypochlorite)) in ug N/L}
