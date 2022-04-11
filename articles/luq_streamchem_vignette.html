@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>luq_streamchem - Luquillo Mountains of Puerto Rico (LUQ) • lterdatasampler</title>
+<title>luq_streamchem - Stream chemistry, Luquillo Mountains of Puerto Rico (LUQ) • lterdatasampler</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -18,7 +18,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><link href="../extra.css" rel="stylesheet">
-<meta property="og:title" content="luq_streamchem - Luquillo Mountains of Puerto Rico (LUQ)">
+<meta property="og:title" content="luq_streamchem - Stream chemistry, Luquillo Mountains of Puerto Rico (LUQ)">
 <meta property="og:description" content="lterdatasampler">
 <meta property="og:image" content="https://lter.github.io/lterdatasampler/reference/figures/leaf.png">
 <meta property="og:image:alt" content="lterdatasampler package in R">
@@ -74,7 +74,7 @@
       <a href="../articles/knz_bison_vignette.html">knz_bison - Konza Prairie Bison Weights (KNZ)</a>
     </li>
     <li>
-      <a href="../articles/luq_streamchem_vignette.html">luq_streamchem - Luquillo Mountains of Puerto Rico (LUQ)</a>
+      <a href="../articles/luq_streamchem_vignette.html">luq_streamchem - Stream chemistry, Luquillo Mountains of Puerto Rico (LUQ)</a>
     </li>
     <li>
       <a href="../articles/ntl_icecover_vignette.html">ntl_icecover - North Temperate Lakes Ice Cover (NTL)</a>
@@ -108,8 +108,8 @@
       </header><script src="luq_streamchem_vignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>luq_streamchem - Luquillo Mountains of Puerto Rico (LUQ)</h1>
-            <h3 data-toc-skip class="subtitle">Impact of hurricane Hugo on Stream chemistry for Quebrada Sonadora site</h3>
+      <h1 data-toc-skip>luq_streamchem - Stream chemistry, Luquillo Mountains of Puerto Rico (LUQ)</h1>
+            <h3 data-toc-skip class="subtitle">Impact of hurricane Hugo on stream chemistry for Quebrada Sonadora site</h3>
             
       
       <small class="dont-index">Source: <a href="https://github.com/lter/lterdatasampler/blob/HEAD/vignettes/luq_streamchem_vignette.Rmd" class="external-link"><code>vignettes/luq_streamchem_vignette.Rmd</code></a></small>
@@ -129,12 +129,12 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The vignette highlights:</p>
+<p>This vignette highlights:</p>
 <ul>
 <li>How to explore change points in time-series</li>
 <li>How to use long format to create facet plots</li>
 </ul>
-<p>The <code>luq_streamchem</code> data contains a subset of stream flow chemistry data for the Quebrada Sonadora (QS) site within the Espiritu Santo drainage basin and the El Verde Research area of the Luquillo Experimental Forest (LEF). The Luquillo Experimental Forest (LEF) has been a center of tropical forestry research for nearly a century. In addition, the LEF is a recreation site for over a half a million people per year, a water supply for approximately 20% of Puerto Rico’s population, a regional center for electronic communication, and a refuge of Caribbean biodiversity. QS is the high elevation site.</p>
+<p>The <code>luq_streamchem</code> data sample contains a subset of stream flow chemistry data for the Quebrada Sonadora (QS) site within the Espiritu Santo drainage basin and the El Verde Research area of the Luquillo Experimental Forest (LEF). The Luquillo Experimental Forest (LEF) has been a center of tropical forestry research for nearly a century. In addition, the LEF is a recreation site for over a half a million people per year, a water supply for approximately 20% of Puerto Rico’s population, a regional center for electronic communication, and a refuge of Caribbean biodiversity. QS is the high elevation site.</p>
 <figure style="text-align:center;"><img src="../reference/figures/luq_streamchem_img.jpeg" width="90%" style="display:block; margin-left: auto; margin-right: auto;"><figcaption>
 Credit: Luquillo LTER. CC BY-SA 4.0
 </figcaption></figure><p><br></p>
@@ -178,21 +178,21 @@ Credit: Luquillo LTER. CC BY-SA 4.0
 <div class="section level3">
 <h3 id="plotting-one-chemical">Plotting one chemical<a class="anchor" aria-label="anchor" href="#plotting-one-chemical"></a>
 </h3>
-<p>Let’s start with looking at the time-series of Potassium</p>
+<p>Let’s start with looking at the time-series of potassium</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data<span class="op">=</span><span class="va">luq_streamchem</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">sample_date</span>, y<span class="op">=</span><span class="va">k</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"#69b3a2"</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">60</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Potasium [mg/L]"</span><span class="op">)</span> </code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Potassium [mg/L]"</span><span class="op">)</span> </code></pre></div>
 <p><img src="luq_streamchem_vignette_files/figure-html/unnamed-chunk-2-1.png" width="624"></p>
-<p>Wow there is definitely something going on at the end of 1989!!</p>
+<p>Wow there is definitely something going on at the end of 1989!</p>
 </div>
 <div class="section level3">
-<h3 id="plotting-all-the-chemicals">Plotting all the chemicals<a class="anchor" aria-label="anchor" href="#plotting-all-the-chemicals"></a>
+<h3 id="plotting-all-water-quality-indicators">Plotting all water quality indicators<a class="anchor" aria-label="anchor" href="#plotting-all-water-quality-indicators"></a>
 </h3>
-<p>We are note sure if all the chemicals have been monitored over the same time period and if their value will also show strong variations at the end of 1989. To look at this we will have to transform our data frame into the long format so we can the <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap()</a></code> function to quickly plot all the different chemical components observed. Note we are using the <code>scales = free</code> option since the concentrations (and units) vary greatly among the different chemicals.</p>
+<p>We are not sure if all the chemicals and water quality indicators have been monitored over the same time period, or if their value will also show strong variations at the end of 1989. To explore this we will transform our data frame into long format so we can use <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">ggplot2::facet_wrap()</a></code> to quickly plot all observed stream chemistry variables at once. Note we are using the <code>scales = free</code> option since the concentrations (and units) vary greatly among the different variables.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Switching to long format</span>
 <span class="va">luq_streamchem_long</span> <span class="op">&lt;-</span> <span class="va">luq_streamchem</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
@@ -208,7 +208,7 @@ Credit: Luquillo LTER. CC BY-SA 4.0
 <div class="section level2">
 <h2 id="detecting-change-points-in-a-time-series">Detecting change points in a time-series<a class="anchor" aria-label="anchor" href="#detecting-change-points-in-a-time-series"></a>
 </h2>
-<p>Let’s first confirm that the timing of the jump in the time-series is corresponding to hurricane Hugo by adding a vertical line at the date of the landfall.</p>
+<p>Let’s first confirm that the timing of the jump in the time-series corresponds to Hurricane Hugo by adding a vertical line at the date of hurricane landfall.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">luq_streamchem</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x<span class="op">=</span><span class="va">sample_date</span>, y<span class="op">=</span><span class="va">k</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>color<span class="op">=</span><span class="st">"#69b3a2"</span><span class="op">)</span> <span class="op">+</span> 
@@ -217,67 +217,28 @@ Credit: Luquillo LTER. CC BY-SA 4.0
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x<span class="op">=</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle<span class="op">=</span><span class="fl">60</span>, hjust<span class="op">=</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Potasium [mg/L]"</span><span class="op">)</span> </code></pre></div>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Potassium [mg/L]"</span><span class="op">)</span> </code></pre></div>
 <p><img src="luq_streamchem_vignette_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>Now we can use the <code>changepoint</code> to try to automatically detect the change points in the time series</p>
-<div class="section level3">
-<h3 id="changes-in-mean">Changes in mean<a class="anchor" aria-label="anchor" href="#changes-in-mean"></a>
-</h3>
-<p>Let’s try to detect change in mean using the <code>PELT</code> algorithm:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/rkillick/changepoint/" class="external-link">changepoint</a></span><span class="op">)</span>
-
-<span class="va">k_ts</span> <span class="op">&lt;-</span> <span class="va">luq_streamchem</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">k</span>, <span class="va">no3_n</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># Not allowed</span>
-
-<span class="va">ansmean</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/changepoint/man/cpt.mean.html" class="external-link">cpt.mean</a></span><span class="op">(</span><span class="va">k_ts</span><span class="op">$</span><span class="va">k</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ansmean</span>,cpt.col<span class="op">=</span><span class="st">'red'</span><span class="op">)</span></code></pre></div>
-<p><img src="luq_streamchem_vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>I does not seem that the algorithm can detect well the change in mean.</p>
-</div>
-<div class="section level3">
-<h3 id="changes-in-variance">Changes in variance<a class="anchor" aria-label="anchor" href="#changes-in-variance"></a>
-</h3>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ansvar</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/changepoint/man/cpt.var.html" class="external-link">cpt.var</a></span><span class="op">(</span><span class="va">k_ts</span><span class="op">$</span><span class="va">k</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ansvar</span>,cpt.col<span class="op">=</span><span class="st">'blue'</span><span class="op">)</span></code></pre></div>
-<p><img src="luq_streamchem_vignette_files/figure-html/unnamed-chunk-6-1.png" width="700"> It seems the signal in variance changes is more useful to discern the change points in the time-series. Let’s have a look at the model:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ansvar</span>
-<span class="co">#&gt; Class 'cpt' : Changepoint Object</span>
-<span class="co">#&gt;        ~~   : S4 class containing 12 slots with names</span>
-<span class="co">#&gt;               cpttype date version data.set method test.stat pen.type pen.value minseglen cpts ncpts.max param.est </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Created on  : Tue Mar 15 07:37:25 2022 </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; summary(.)  :</span>
-<span class="co">#&gt; ----------</span>
-<span class="co">#&gt; Created Using changepoint version 2.2.3 </span>
-<span class="co">#&gt; Changepoint type      : Change in variance </span>
-<span class="co">#&gt; Method of analysis    : AMOC </span>
-<span class="co">#&gt; Test Statistic  : Normal </span>
-<span class="co">#&gt; Type of penalty       : MBIC with value, 16.93634 </span>
-<span class="co">#&gt; Minimum Segment Length : 2 </span>
-<span class="co">#&gt; Maximum no. of cpts   : 1 </span>
-<span class="co">#&gt; Changepoint Locations : 177</span></code></pre></div>
-<p>See the references below if you want to know more about hurricane impact on stream chemistry and explore various algorithms to detect change point in a time-series!</p>
+<div class="section level4">
+<h4 id="what-could-be-next">What could be next<a class="anchor" aria-label="anchor" href="#what-could-be-next"></a>
+</h4>
+<p>There are many R packages available to help to detect change points in a time series: <a href="https://cran.r-project.org/web/packages/changepoint/index.html" class="external-link"><code>changepoint</code></a>, <a href="https://cran.r-project.org/web/packages/cpm/index.html" class="external-link"><code>CPM</code></a>, <a href="https://cran.r-project.org/web/packages/bcp/index.html" class="external-link"><code>BCP</code></a>, <a href="https://cran.r-project.org/web/packages/ecp/index.html" class="external-link"><code>ECP</code></a> and more! Try to use them on this data sample.</p>
 </div>
 <div class="section level3">
 <h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h3>
 <p>Schaefer, D., McDowell, W., Scatena, F., &amp; Asbury, C. (2000). Effects of hurricane disturbance on stream water concentrations and fluxes in eight tropical forest watersheds of the Luquillo Experimental Forest, Puerto Rico. Journal of Tropical Ecology, 16(2), 189-207. <a href="https://doi.org/10.1017/S0266467400001358" class="external-link">doi:10.1017/S0266467400001358</a></p>
 <p>McDowell, W. 2021. Chemistry of stream water from the Luquillo Mountains ver 4923056. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/0a09f5aa2e6f11451553c92b102279a6" class="external-link uri">https://doi.org/10.6073/pasta/0a09f5aa2e6f11451553c92b102279a6</a> (Accessed 2022-03-10)</p>
-<p>Time Series Analysis tutorial and change point detection, <a href="https://www.economodel.com/time-series-analysis" class="external-link uri">https://www.economodel.com/time-series-analysis</a></p>
+<p>Killick, R., &amp; Eckley, I. A. (2014). changepoint: An R Package for Changepoint Analysis. Journal of Statistical Software, 58(3), 1–19. <a href="https://doi.org/10.18637/jss.v058.i03" class="external-link uri">https://doi.org/10.18637/jss.v058.i03</a></p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="how-we-processes-the-raw-data">How we processes the raw data<a class="anchor" aria-label="anchor" href="#how-we-processes-the-raw-data"></a>
+<h2 id="how-we-processed-the-raw-data">How we processed the raw data<a class="anchor" aria-label="anchor" href="#how-we-processed-the-raw-data"></a>
 </h2>
 <div class="section level4">
 <h4 id="download-the-raw-data-from-edi-org">Download the raw data from EDI.org<a class="anchor" aria-label="anchor" href="#download-the-raw-data-from-edi-org"></a>
 </h4>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span>
@@ -295,7 +256,7 @@ Credit: Luquillo LTER. CC BY-SA 4.0
 <h4 id="filter-the-data">Filter the Data<a class="anchor" aria-label="anchor" href="#filter-the-data"></a>
 </h4>
 <p>We want to analyze the effect of hurricane Hugo which made landfall in September 1989. We are going to use the period from 1985 to 1994.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Read that data</span>
 <span class="co"># View(stream_chem$attribute_metadata)</span>
 <span class="co"># -9999 is stated a no value in the metadata</span>
