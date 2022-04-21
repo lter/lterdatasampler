@@ -197,7 +197,7 @@ Want to learn more about how iconic species, such as Pikas, help to create enthu
 
 <br>
 
-# Aknowledgement
+# Acknowledgement
 
 Thank you to Ashley Whipple and Chris Ray for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.
 

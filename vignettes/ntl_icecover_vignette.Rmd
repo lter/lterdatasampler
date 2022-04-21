@@ -391,7 +391,7 @@ Note the difference of scale on the y-axis. However in both time series, there i
 - Comparison of how those predictions change if you pick a longer or shorter dataset (e.g. how does the coefficient compare if you use all of the data, versus just data since ~1975?)
 - See the last citation below for more ideas!
 
-# Aknowledgement
+# Acknowledgement
 
 Thank you to Hilary Dugan, Corinna Gries and John Magnuson for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.
 
