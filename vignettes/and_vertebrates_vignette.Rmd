@@ -1,6 +1,5 @@
 ---
-title: "and_vertebrates - Andrews Forest LTER vertebrates (AND)"
-subtitle: "Andrews Forest LTER Mack Creek cutthroat trout and salamanders"
+title: "Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND)"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{and_vertebrates}
@@ -9,12 +8,10 @@ vignette: >
 ---
 
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  message = FALSE,
-  warning = FALSE
+  comment = "#>"
 )
 ```
 
@@ -24,37 +21,37 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-This data sample contains length and weight for West Slope cutthroat trout and two salamander species (Coastal giant salamander, and Olympic torrent salamander) in previously clear cut (c. 1963) and old growth coniferous forest sections of Mack Creek in HJ Andrews Experimental Forest in Willamette National Forest, Oregon. For more information, [see the data package on EDI](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-and.4027.14).
+The `and_vertebrates` dataset contains length and weight observations for Coastal Cutthroat Trout and two salamander species (Coastal Giant Salamander, and Cascade Torrent Salamander) in previously clear cut (c. 1963) and old growth coniferous forest sections of Mack Creek in HJ Andrews Experimental Forest, Willamette National Forest, Oregon. For more information, visit the [data package on EDI](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-and.4027.14).
 
+Forest harvesting can impact fish and vertebrate biomass, as described by Kaylor & Warren (2017). This data sample creates opportunities for learners to explore differences between vertebrate biomass and size in clear cut and old growth sections (each span 150 meters of creek) to investigate anthropogenic impacts on aquatic vertebrate populations. Further, the dataset provides opportunities to explore and model classic length-weight relationships for trout and salamanders.  
 
 <figure style="text-align:center;">
-  <img src="../man/figures/and_salamander_img.jpeg" width=50% style="display:block; margin-left: auto; margin-right: auto;">
-  <figcaption>Erika Zambello, LTER CC BY-SA 4.0</figcaption>
+  <img src="../man/figures/and_salamander.jpg" width=50% style="display:block; margin-left: auto; margin-right: auto;">
+  <figcaption>Coastal Giant Salamander at Mack Creek study site. Photo: Lina DiGregorio, from the Andrews Forest Photo Gallery (link below).</figcaption>
 </figure>
 
-
-The data provides opportunities to explore length-weight relationships for three species observed, to compare biomass, abundance and sizes of species in old growth versus previously clear cut forest sections of the creek, and more.
-
-
-
-
+See *many* more fantastic photos (Study site! Salamanders and trout being measured! and more!) from the Mack Creek vertebrates study at the HJ Andrews Experimental Forest [Photo Gallery](https://andrewsforest.oregonstate.edu/gallery/aquatic-vertebrate-population-study-mack-creek-2021)!
 
 # Data exploration
 
-```{r}
+```{r setup, message = FALSE, warning = FALSE}
 library(lterdatasampler)
 library(tidyverse)
 ```
 
+The `and_vertebrates` data sample is in tidy format, containing 16 total variables (7 character, 8 numeric, 1 Date). Learn more about the variables in the data documentation (`?and_vertebrates`) and in the original [data package metadata](https://portal.edirepository.org/nis/metadataviewer?packageid=knb-lter-and.4027.14).
+
+```{r}
+glimpse(and_vertebrates)
+```
+
 ## Exploring length-weight relationships
 
-There is opportunity to explore and model the length-weight relationships for the three species (for example, using the standard length-weight relationship for fish: $W = aL^b$). 
-
-Note: Olympic torrent salamanders are omitted throughout this vignette due to small sample size.
+There is opportunity to explore and model the length-weight relationships for the three species (for example, using the standard length-weight relationship for fish: $W = aL^b$). Note: only 15 observations in the dataset are Cascade Torrent Salamanders (compared to 11,758 Coastal Giant Salamanders and 20,433 Coastal Cutthroat Trout). We omit Cascade Torrent Salamanders throughout this vignette. The `length_1_mm` variable is the total or snout-fork length for cutthroat trout (total length from 1987 - 1994; snout-fork length since 1995), and snout-vent length for salamanders (all in millimeters). 
 
 ```{r}
 and_vertebrates %>% 
-filter(species != "Olympic torrent salamander") %>% 
+filter(species != "Cascade torrent salamander") %>% 
 ggplot(aes(x = length_1_mm, y = weight_g)) +
   geom_point(aes(color = species)) +
   theme_minimal()
@@ -62,18 +59,17 @@ ggplot(aes(x = length_1_mm, y = weight_g)) +
 
 ## Comparisons by section (clear cut or old growth)
 
-The two sections in the dataset (CC = clear cut circa 1963, OG = upstream 500 year old growth coniferous forest) provide opportunity to explore differences in vertebrate abundance and biomass in the separate sections.
+The two sections in the dataset (CC = clear cut circa 1963, OG = upstream 500 year old growth coniferous forest) provide opportunity to explore differences in vertebrate biomass and abundance in the separate sections. Again, we omit Cascade Torrent Salamanders here due to the very small sample size (n = 15) relative to the other species.
 
 ### Vertebrate abundance by year and section
 
-We can explore abundance (counts) of cutthroat trout and Coastal giant salamanders in clear cut (CC) and old growth (OG) forest sections of the creek.
+We can explore abundance (counts) of Coastal Cutthroat Trout and Coastal Giant Salamanders in clear cut (CC) and old growth (OG) forest sections of the creek.
 
 ```{r}
 vert_counts <- and_vertebrates %>% 
-  filter(species != "Olympic torrent salamander") %>% 
+  filter(species != "Cascade torrent salamander") %>% 
   drop_na(year, species, section) %>% 
   count(year, species, section)
-
 ggplot(data = vert_counts, aes(x = year, y = n)) +
   geom_line(aes(color = section)) +
   geom_point(aes(color = section)) +
@@ -81,9 +77,7 @@ ggplot(data = vert_counts, aes(x = year, y = n)) +
   facet_wrap(~species)
 ```
 
-### Abundance correlation by section
-
-We can explore the correlation in abundance (or biomass) in old growth and clear cut sections of the creek. 
+We can also explore the correlation in abundance (or biomass) in old growth and clear cut sections of the creek.
 
 ```{r}
 vert_counts_wide <- vert_counts %>% 
@@ -94,6 +88,7 @@ ggplot(data = vert_counts_wide, aes(x = CC, y = OG)) +
   theme_minimal() +
   facet_wrap(~species, scales = "free")
 ```
+
 
 ## Abundance and size by channel unit
 
@@ -112,7 +107,7 @@ and_vertebrates %>%
   theme_minimal()
 ```
 
-We can see that for cutthroat trout, fish are most abundant in cascade (C), pool (P) and side channel (SC) habitats.
+We can see that for Coastal Cutthroat Trout, fish are most abundant in cascade (C), pool (P) and side channel (SC) habitats.
 
 Then we might ask: for those three unit classifications (cascade, pool, and channel), how do cutthroat trout sizes compare? 
 
@@ -125,15 +120,22 @@ and_vertebrates %>%
   facet_wrap(~unittype, ncol = 1)
 ```
 
-Want to take your analysis further? Explore vertebrate biomass in clear cut and old growth sections, or by channel section. The [data package also contains a CSV with stream channel measurements](https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-and.4027.14) like channel width and depth, which creates opportunities to explore relationships between habitat and vertebrate populations.
 
-Have fun exploring the cutthroat trout and salamanders of Mack Creek in Andrews Forest! 
+## Other things to explore
+
+- Further explore differences in abundance, size and biomass for trout and salamanders by creek sections (previously harvested, or old growth) or channel unit classification (e.g. cascade versus pool)
+- Use tag number (variable `pitnumber`) to explore growth of unique individuals
+- Estimate parameters of the length-weight relationship for fish and salamanders
 
 # Acknowledgements
 
+Thank you to: original data collectors and researchers (see citation below), and Dr. Brooke Penaluna (Fish Biologist, HJ Andrews Experimental Forest Lead Scientist) for feedback and corrections!
+
 # Citations
 
-Gregory, S.V. and I. Arismendi. 2020. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present ver 14. Environmental Data Initiative. https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165
+Kaylor, M.J. and D.R. Warren. 2017. Linking riparian shade and the legacies of forest management to fish and vertebrate biomass in forested streams. Ecosphere *8*(6). https://doi.org/10.1002/ecs2.1845
+
+Gregory, S.V. and I. Arismendi. 2020. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present ver 14. Environmental Data Initiative. https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165 (Accessed 2020-10-09).
 
 # How we processed the raw data
 

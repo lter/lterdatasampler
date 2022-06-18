@@ -32,7 +32,7 @@ and_vertebrates <- and_data %>%
   mutate(species = case_when(
     species == "ONCL" ~ "Cutthroat trout",
     species == "DITE" ~ "Coastal giant salamander",
-    species == "RHOL" ~ "Olympic torrent salamander",
+    species == "RHOL" ~ "Cascade torrent salamander",
     TRUE ~ species
   ))
 
