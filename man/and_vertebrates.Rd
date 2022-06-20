@@ -5,7 +5,7 @@
 \alias{and_vertebrates}
 \title{Cutthroat trout and salamander length and weights in Mack Creek, Andrews Forest LTER}
 \format{
-A tibble with 32,209 rows and 6 variables:
+A tibble with 32,209 rows and 16 variables:
 \describe{
 \item{year}{a number indicating the observation year}
 \item{sitecode}{a character denoting the coded name of sample area}
