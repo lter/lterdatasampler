@@ -105,11 +105,13 @@
 
       
 
-      </header><script src="ntl_icecover_vignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>ntl_icecover - North Temperate Lakes Ice Cover (NTL)</h1>
-            <h3 data-toc-skip class="subtitle">Comparing Temperatures and Lake Ice Duration in Madison, WI since the 19th Century</h3>
+      <h1 data-toc-skip>ntl_icecover - North Temperate Lakes Ice Cover
+(NTL)</h1>
+            <h3 data-toc-skip class="subtitle">Comparing Temperatures
+and Lake Ice Duration in Madison, WI since the 19th Century</h3>
             
       
       <small class="dont-index">Source: <a href="https://github.com/lter/lterdatasampler/blob/HEAD/vignettes/ntl_icecover_vignette.Rmd" class="external-link"><code>vignettes/ntl_icecover_vignette.Rmd</code></a></small>
@@ -133,14 +135,25 @@
 <p>The vignette highlights:</p>
 <ul>
 <li>How to explore time-series trends</li>
-<li>How to combine <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise()</a></code> and <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>
+<li>How to combine <code><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by()</a></code> with <code><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise()</a></code>
+and <code><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate()</a></code>
 </li>
 <li>How to join two datasets with <code><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join()</a></code>
 </li>
-<li>An example of computing standardized anomalies on long time-series</li>
-<li>Use of the <code>patchwork</code> package to combine plots into one figure</li>
+<li>An example of computing standardized anomalies on long
+time-series</li>
+<li>Use of the <code>patchwork</code> package to combine plots into one
+figure</li>
 </ul>
-<p>According to the <a href="https://www.epa.gov/climate-indicators/climate-change-indicators-lake-ice#ref2" class="external-link">EPA</a>, lake ice duration can be an indicator of climate change. This is because lake ice is dependent on several environmental factors, so changes in these factors will influence the formation of ice on top of lakes. As a result, the study and analysis of lake ice formation can inform scientists about how quickly the climate is changing, and are critical to minimizing disruptions to lake ecosystems. We can examine the ice duration of Lake Mendota, Lake Monona, and Lake Wingra, three lakes in the Madison, WI area.</p>
+<p>According to the <a href="https://www.epa.gov/climate-indicators/climate-change-indicators-lake-ice#ref2" class="external-link">EPA</a>,
+lake ice duration can be an indicator of climate change. This is because
+lake ice is dependent on several environmental factors, so changes in
+these factors will influence the formation of ice on top of lakes. As a
+result, the study and analysis of lake ice formation can inform
+scientists about how quickly the climate is changing, and are critical
+to minimizing disruptions to lake ecosystems. We can examine the ice
+duration of Lake Mendota, Lake Monona, and Lake Wingra, three lakes in
+the Madison, WI area.</p>
 <table style="width:100%" class="table"><tr>
 <td style="width:70%">
 <figure style="text-align:center;"><img src="../reference/figures/ntl_icecover_img.jpg"><figcaption>
@@ -154,290 +167,338 @@ Ice measurement Mendota lake, Photo E. Whitaker
 </td>
 </tr></table>
 <p><strong>Fun Fact:</strong></p>
-<p>Did you know that Joni Mitchell’s album “Hejira” art is her skating on Lake Mendota in 1976 !? <a href="https://wisconsinlife.org/story/joni-mitchell-skates-on-lake-mendota-and-into-music-history/" class="external-link uri">https://wisconsinlife.org/story/joni-mitchell-skates-on-lake-mendota-and-into-music-history/</a></p>
+<p>Did you know that Joni Mitchell’s album “Hejira” art is her skating
+on Lake Mendota in 1976 !? <a href="https://wisconsinlife.org/story/joni-mitchell-skates-on-lake-mendota-and-into-music-history/" class="external-link uri">https://wisconsinlife.org/story/joni-mitchell-skates-on-lake-mendota-and-into-music-history/</a></p>
 </div>
 <div class="section level2">
 <h2 id="data-exploration">Data Exploration<a class="anchor" aria-label="anchor" href="#data-exploration"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lter/lterdatasampler" class="external-link">lterdatasampler</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lter/lterdatasampler" class="external-link">lterdatasampler</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com" class="external-link">patchwork</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="ice-cover-duration-data">Ice Cover Duration Data<a class="anchor" aria-label="anchor" href="#ice-cover-duration-data"></a>
 </h3>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ntl_icecover</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span>
-<span class="co">#&gt;   lakeid       ice_on     ice_off    ice_duration  year</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Lake Mendota <span style="color: #BB0000;">NA</span>         1853-04-05           <span style="color: #BB0000;">NA</span>  <span style="text-decoration: underline;">1</span>852</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Lake Mendota 1853-12-27 <span style="color: #BB0000;">NA</span>                   <span style="color: #BB0000;">NA</span>  <span style="text-decoration: underline;">1</span>853</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Lake Mendota 1855-12-18 1856-04-14          118  <span style="text-decoration: underline;">1</span>855</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lake Mendota 1856-12-06 1857-05-06          151  <span style="text-decoration: underline;">1</span>856</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Lake Mendota 1857-11-25 1858-03-26          121  <span style="text-decoration: underline;">1</span>857</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Lake Mendota 1858-12-08 1859-03-14           96  <span style="text-decoration: underline;">1</span>858</span></code></pre></div>
-<p>Note that the tidyverse also provides <code><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse()</a></code> for a quick view of a dataset:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ntl_icecover</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">#&gt;   lakeid       ice_on     ice_off    ice_duration  year</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> Lake Mendota <span style="color: #BB0000;">NA</span>         1853-04-05           <span style="color: #BB0000;">NA</span>  <span style="text-decoration: underline;">1</span>852</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Lake Mendota 1853-12-27 <span style="color: #BB0000;">NA</span>                   <span style="color: #BB0000;">NA</span>  <span style="text-decoration: underline;">1</span>853</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Lake Mendota 1855-12-18 1856-04-14          118  <span style="text-decoration: underline;">1</span>855</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Lake Mendota 1856-12-06 1857-05-06          151  <span style="text-decoration: underline;">1</span>856</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> Lake Mendota 1857-11-25 1858-03-26          121  <span style="text-decoration: underline;">1</span>857</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Lake Mendota 1858-12-08 1859-03-14           96  <span style="text-decoration: underline;">1</span>858</span></span></code></pre></div>
+<p>Note that the tidyverse also provides <code><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse()</a></code> for a
+quick view of a dataset:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">ntl_icecover</span><span class="op">)</span>
-<span class="co">#&gt; Rows: 334</span>
-<span class="co">#&gt; Columns: 5</span>
-<span class="co">#&gt; $ lakeid       <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> Lake Mendota, Lake Mendota, Lake Mendota, Lake Mendota, L…</span>
-<span class="co">#&gt; $ ice_on       <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> NA, 1853-12-27, 1855-12-18, 1856-12-06, 1857-11-25, 1858…</span>
-<span class="co">#&gt; $ ice_off      <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 1853-04-05, NA, 1856-04-14, 1857-05-06, 1858-03-26, 1859…</span>
-<span class="co">#&gt; $ ice_duration <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> NA, NA, 118, 151, 121, 96, 110, 117, 132, 104, 125, 118, …</span>
-<span class="co">#&gt; $ year         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1852, 1853, 1855, 1856, 1857, 1858, 1859, 1860, 1861, 186…</span></code></pre></div>
-<p>Now let’s explore the data visually. We can explore the data distribution in the different lakes using a box plot</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">ntl_icecover</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Rows: 334</span></span>
+<span><span class="co">#&gt; Columns: 5</span></span>
+<span><span class="co">#&gt; $ lakeid       <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> Lake Mendota, Lake Mendota, Lake Mendota, Lake Mendota, L…</span></span>
+<span><span class="co">#&gt; $ ice_on       <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> NA, 1853-12-27, 1855-12-18, 1856-12-06, 1857-11-25, 1858…</span></span>
+<span><span class="co">#&gt; $ ice_off      <span style="color: #949494; font-style: italic;">&lt;date&gt;</span> 1853-04-05, NA, 1856-04-14, 1857-05-06, 1858-03-26, 1859…</span></span>
+<span><span class="co">#&gt; $ ice_duration <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> NA, NA, 118, 151, 121, 96, 110, 117, 132, 104, 125, 118, …</span></span>
+<span><span class="co">#&gt; $ year         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 1852, 1853, 1855, 1856, 1857, 1858, 1859, 1860, 1861, 186…</span></span></code></pre></div>
+<p>Now let’s explore the data visually. We can explore the data
+distribution in the different lakes using a box plot</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">lake_ice</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_icecover</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lakeid</span>, y <span class="op">=</span> <span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">lakeid</span>, shape <span class="op">=</span> <span class="va">lakeid</span><span class="op">)</span>,
-               alpha <span class="op">=</span> <span class="fl">0.8</span>,
-               width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>
-    title <span class="op">=</span> <span class="st">"Ice Duration of Lakes in the Madison, WI Area"</span>,
-    y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>,
-    x <span class="op">=</span> <span class="st">"Lake"</span>,
-    subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span>
-    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">lakeid</span><span class="op">)</span>,
-    alpha <span class="op">=</span> <span class="fl">0.5</span>,
-    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,
-    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>
-  <span class="op">)</span>
-
-<span class="va">lake_ice</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">lake_ice</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_icecover</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">lakeid</span>, y <span class="op">=</span> <span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">lakeid</span>, shape <span class="op">=</span> <span class="va">lakeid</span><span class="op">)</span>,</span>
+<span>               alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>               width <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Ice Duration of Lakes in the Madison, WI Area"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Lake"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html" class="external-link">geom_jitter</a></span><span class="op">(</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">lakeid</span><span class="op">)</span>,</span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.5</span>,</span>
+<span>    show.legend <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    position <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/position_jitter.html" class="external-link">position_jitter</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">0.2</span>, seed <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
+<span></span>
+<span><span class="va">lake_ice</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/box_plot-1.png" width="672"></p>
 <p>Looking at the time-series across the different lakes:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ice_duration</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_icecover</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">ice_duration</span>, color <span class="op">=</span> <span class="va">lakeid</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>, title <span class="op">=</span> <span class="st">"Ice Duration of Lakes in the Madison, WI Area"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span>
-
-<span class="va">ice_duration</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ice_duration</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_icecover</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">ice_duration</span>, color <span class="op">=</span> <span class="va">lakeid</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"Year"</span>, y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>, title <span class="op">=</span> <span class="st">"Ice Duration of Lakes in the Madison, WI Area"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ice_duration</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/ice_duration-1.png" width="672"></p>
-<p>Box plots and time series plots reveal similarities across the 2 lakes. What does the trend look like for <em>average</em> ice cover duration in the region, based on data for the 2 lakes here?</p>
+<p>Box plots and time series plots reveal similarities across the 2
+lakes. What does the trend look like for <em>average</em> ice cover
+duration in the region, based on data for the 2 lakes here?</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ntl_icecover_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>avg_ice_duration <span class="op">=</span> <span class="va">ice_duration</span><span class="op">)</span>
-
-<span class="va">ntl_icecover_avg</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 166 × 2</span></span>
-<span class="co">#&gt;     year avg_ice_duration</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">1</span>851             103 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">1</span>855             118 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">1</span>856             151 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">1</span>857             120 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">1</span>858              95 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">1</span>859             110.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">1</span>860             123 </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">1</span>861             132.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">1</span>862             112.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">1</span>863             128 </span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 156 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ntl_icecover_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>avg_ice_duration <span class="op">=</span> <span class="va">ice_duration</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ntl_icecover_avg</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 166 × 2</span></span></span>
+<span><span class="co">#&gt;     year avg_ice_duration</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">1</span>851             103 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">1</span>855             118 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">1</span>856             151 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">1</span>857             120 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">1</span>858              95 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">1</span>859             110.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">1</span>860             123 </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">1</span>861             132.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">1</span>862             112.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">1</span>863             128 </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 156 more rows</span></span></span></code></pre></div>
 <p>Time Series Plot:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">avg_ice_duration</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_icecover_avg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">avg_ice_duration</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">avg_ice_duration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>
-    method <span class="op">=</span> <span class="va">lm</span>,
-    se <span class="op">=</span> <span class="cn">FALSE</span>,
-    color <span class="op">=</span> <span class="st">"blue"</span>,
-    linetype <span class="op">=</span> <span class="st">"dashed"</span>
-  <span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Average Ice Duration"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span>
-
-<span class="va">avg_ice_duration</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">avg_ice_duration</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_icecover_avg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">avg_ice_duration</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">avg_ice_duration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span></span>
+<span>    method <span class="op">=</span> <span class="va">lm</span>,</span>
+<span>    se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"dashed"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Average Ice Duration"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">avg_ice_duration</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/ice_avg_time-1.png" width="672"></p>
-<p>Over the 168 years of this time series, the average ice duration in North Temperate Lakes is decreasing from about 120 days to about 80 days. Let us investigate a little more what could be the environmental factors are influencing this change!</p>
+<p>Over the 168 years of this time series, the average ice duration in
+North Temperate Lakes is decreasing from about 120 days to about 80
+days. Let us investigate a little more what could be the environmental
+factors are influencing this change!</p>
 <figure style="text-align:center;"><img src="../reference/figures/ntl_icecover_img_3.png" width="60%" style="display:block; margin-left: auto; margin-right: auto;"><figcaption>
-Pancake ice formed near shore when early ice is broken by wave action, Lake Mendota, Dec. 2003; Photo: J. Magnuson
-</figcaption></figure><p><a href="http://hpkx.cnjournals.com/uploadfile/news_images/hpkx/2019-03-14/s41558-018-0393-56789.pdf" class="external-link">Research</a> suggests that mean annual temperature is one of the primary factors that alter lake ice formation. We can look at the temperature data of Madison, WI found in <code>ntl_airtemp</code> to see if there is a corresponding change in climate that may have influenced the change in ice duration.</p>
-<p><em>Note that according to the original metadata: “Daily temperature data prior to 1884 were estimated from 3 times per day sampling and biases are expected and should not be comparable with data after that time.”</em></p>
+Pancake ice formed near shore when early ice is broken by wave action,
+Lake Mendota, Dec. 2003; Photo: J. Magnuson
+</figcaption></figure><p><a href="http://hpkx.cnjournals.com/uploadfile/news_images/hpkx/2019-03-14/s41558-018-0393-56789.pdf" class="external-link">Research</a>
+suggests that mean annual temperature is one of the primary factors that
+alter lake ice formation. We can look at the temperature data of
+Madison, WI found in <code>ntl_airtemp</code> to see if there is a
+corresponding change in climate that may have influenced the change in
+ice duration.</p>
+<p><em>Note that according to the original metadata: “Daily temperature
+data prior to 1884 were estimated from 3 times per day sampling and
+biases are expected and should not be comparable with data after that
+time.”</em></p>
 </div>
 <div class="section level3">
 <h3 id="air-temperature-data">Air Temperature Data<a class="anchor" aria-label="anchor" href="#air-temperature-data"></a>
 </h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ntl_airtemp</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span>
-<span class="co">#&gt;   sampledate  year ave_air_temp_adjusted</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1870-06-05  <span style="text-decoration: underline;">1</span>870                  20  </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 1870-06-06  <span style="text-decoration: underline;">1</span>870                  18.3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 1870-06-07  <span style="text-decoration: underline;">1</span>870                  17.5</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 1870-06-09  <span style="text-decoration: underline;">1</span>870                  13.3</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 1870-06-10  <span style="text-decoration: underline;">1</span>870                  13.9</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 1870-06-11  <span style="text-decoration: underline;">1</span>870                  15</span></code></pre></div>
-<p>We can compute the mean annual air temperature using <code>group_by</code> and <code>summarise</code>:</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ntl_airtemp</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 3</span></span></span>
+<span><span class="co">#&gt;   sampledate  year ave_air_temp_adjusted</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 1870-06-05  <span style="text-decoration: underline;">1</span>870                  20  </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 1870-06-06  <span style="text-decoration: underline;">1</span>870                  18.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 1870-06-07  <span style="text-decoration: underline;">1</span>870                  17.5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 1870-06-09  <span style="text-decoration: underline;">1</span>870                  13.3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 1870-06-10  <span style="text-decoration: underline;">1</span>870                  13.9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 1870-06-11  <span style="text-decoration: underline;">1</span>870                  15</span></span></code></pre></div>
+<p>We can compute the mean annual air temperature using
+<code>group_by</code> and <code>summarise</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ntl_airtemp_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_airtemp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1884</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>   <span class="co"># filter out the known biased data</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>avg_air_temp_adjusted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">ave_air_temp_adjusted</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">ntl_airtemp_avg</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 135 × 2</span></span>
-<span class="co">#&gt;     year avg_air_temp_adjusted</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">1</span>885                  5.04</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">1</span>886                  6.65</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">1</span>887                  6.64</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">1</span>888                  5.59</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">1</span>889                  7.44</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">1</span>890                  7.25</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">1</span>891                  7.18</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">1</span>892                  6.02</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">1</span>893                  5.87</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">1</span>894                  8.21</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 125 more rows</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ntl_airtemp_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_airtemp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1884</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>   <span class="co"># filter out the known biased data</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>avg_air_temp_adjusted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">ave_air_temp_adjusted</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ntl_airtemp_avg</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 135 × 2</span></span></span>
+<span><span class="co">#&gt;     year avg_air_temp_adjusted</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">1</span>885                  5.04</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">1</span>886                  6.65</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">1</span>887                  6.64</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">1</span>888                  5.59</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">1</span>889                  7.44</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">1</span>890                  7.25</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">1</span>891                  7.18</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">1</span>892                  6.02</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">1</span>893                  5.87</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">1</span>894                  8.21</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 125 more rows</span></span></span></code></pre></div>
 <p>Time Series Plot:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">temp_plot</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_airtemp_avg</span>,
-         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">avg_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>
-    method <span class="op">=</span> <span class="va">lm</span>,
-    se <span class="op">=</span> <span class="cn">FALSE</span>,
-    color <span class="op">=</span> <span class="st">"blue"</span>,
-    linetype <span class="op">=</span> <span class="st">"dashed"</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Mean Air Temperature Nov-April (Celsius)"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Mean Annual Temperature"</span>, subtitle <span class="op">=</span> <span class="st">"Madison, WI"</span><span class="op">)</span>
-
-<span class="va">temp_plot</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">temp_plot</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_airtemp_avg</span>,</span>
+<span>         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">avg_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span></span>
+<span>    method <span class="op">=</span> <span class="va">lm</span>,</span>
+<span>    se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"dashed"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Mean Air Temperature Nov-April (Celsius)"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Mean Annual Temperature"</span>, subtitle <span class="op">=</span> <span class="st">"Madison, WI"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">temp_plot</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/temp-1.png" width="672"></p>
-<p>There is an upward trend in the mean annual air temperature. Let’s investigate potential relationships between air temperature and lake ice cover duration.</p>
+<p>There is an upward trend in the mean annual air temperature. Let’s
+investigate potential relationships between air temperature and lake ice
+cover duration.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="investigate-the-relationship-between-ice-cover-duration-and-air-temperature">Investigate the relationship between ice cover duration and air temperature<a class="anchor" aria-label="anchor" href="#investigate-the-relationship-between-ice-cover-duration-and-air-temperature"></a>
+<h2 id="investigate-the-relationship-between-ice-cover-duration-and-air-temperature">Investigate the relationship between ice cover duration and air
+temperature<a class="anchor" aria-label="anchor" href="#investigate-the-relationship-between-ice-cover-duration-and-air-temperature"></a>
 </h2>
-<p>To compare the ice cover duration and temperature data directly, the <code>ntl_airtemp</code> and <code>ntl_icecover</code> datasets can be joined. Since lake freezing is mostly impacted by Fall and Spring air temperatures, we will first compute the mean temperature from Nov to April (next year) to best capture the potential relationship:</p>
+<p>To compare the ice cover duration and temperature data directly, the
+<code>ntl_airtemp</code> and <code>ntl_icecover</code> datasets can be
+joined. Since lake freezing is mostly impacted by Fall and Spring air
+temperatures, we will first compute the mean temperature from Nov to
+April (next year) to best capture the potential relationship:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Add a column to group the Fall and Spring season into a same year, similarly to what is done when defining hydrological year</span>
-<span class="va">ntl_airtemp_hydro</span> <span class="op">&lt;-</span> <span class="va">ntl_airtemp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>hydroyear <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">sampledate</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">10</span>, <span class="va">year</span><span class="op">-</span><span class="fl">1</span>, <span class="va">year</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># Compute the average air temperature from Nov to April</span>
-<span class="va">ntl_airtemp_avg_winter</span> <span class="op">&lt;-</span>  <span class="va">ntl_airtemp_hydro</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">sampledate</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span><span class="op">:</span><span class="fl">12</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># filter the months from Nov to April</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">hydroyear</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>avg_air_temp_adjusted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">ave_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p>Let us plot the average air temperature time-series computed from the cold season:</p>
+<code class="sourceCode R"><span><span class="co"># Add a column to group the Fall and Spring season into a same year, similarly to what is done when defining hydrological year</span></span>
+<span><span class="va">ntl_airtemp_hydro</span> <span class="op">&lt;-</span> <span class="va">ntl_airtemp</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>hydroyear <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/if_else.html" class="external-link">if_else</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">sampledate</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">10</span>, <span class="va">year</span><span class="op">-</span><span class="fl">1</span>, <span class="va">year</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Compute the average air temperature from Nov to April</span></span>
+<span><span class="va">ntl_airtemp_avg_winter</span> <span class="op">&lt;-</span>  <span class="va">ntl_airtemp_hydro</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html" class="external-link">month</a></span><span class="op">(</span><span class="va">sampledate</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">11</span><span class="op">:</span><span class="fl">12</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># filter the months from Nov to April</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">hydroyear</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>avg_air_temp_adjusted <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">ave_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Let us plot the average air temperature time-series computed from the
+cold season:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">temp_plot</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_airtemp_avg_winter</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">avg_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span>,
-         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hydroyear</span>, y <span class="op">=</span> <span class="va">avg_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>
-    method <span class="op">=</span> <span class="va">lm</span>,
-    se <span class="op">=</span> <span class="cn">FALSE</span>,
-    color <span class="op">=</span> <span class="st">"blue"</span>,
-    linetype <span class="op">=</span> <span class="st">"dashed"</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Mean Air Temperature Nov-April (Celsius)"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Cold Season (Nov to Apr) Mean Annual Temperature"</span>, subtitle <span class="op">=</span> <span class="st">"Madison, WI"</span><span class="op">)</span>
-
-<span class="va">temp_plot</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">temp_plot</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_airtemp_avg_winter</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">avg_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hydroyear</span>, y <span class="op">=</span> <span class="va">avg_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.7</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span></span>
+<span>    method <span class="op">=</span> <span class="va">lm</span>,</span>
+<span>    se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"dashed"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Mean Air Temperature Nov-April (Celsius)"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Cold Season (Nov to Apr) Mean Annual Temperature"</span>, subtitle <span class="op">=</span> <span class="st">"Madison, WI"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">temp_plot</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/temp%20nov-april%20plot-1.png" width="672"></p>
-<p>To further investigate the relationship between the air temperature during the cold season and the ice cover duration, we can join the two datasets together using <code>left_join</code>:</p>
+<p>To further investigate the relationship between the air temperature
+during the cold season and the ice cover duration, we can join the two
+datasets together using <code>left_join</code>:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ntl_joined_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover_avg</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"year"</span> <span class="op">=</span> <span class="st">"hydroyear"</span><span class="op">)</span>, <span class="va">ntl_airtemp_avg_winter</span><span class="op">)</span>
-
-<span class="va">ntl_joined_avg</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 166 × 3</span></span>
-<span class="co">#&gt;     year avg_ice_duration avg_air_temp_adjusted</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">1</span>851             103                     <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">1</span>855             118                     <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">1</span>856             151                     <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">1</span>857             120                     <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">1</span>858              95                     <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">1</span>859             110.                    <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">1</span>860             123                     <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">1</span>861             132.                    <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">1</span>862             112.                    <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">1</span>863             128                     <span style="color: #BB0000;">NA</span></span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 156 more rows</span></span></code></pre></div>
-<p>Plot the average air temperature against the average ice cover duration:</p>
+<code class="sourceCode R"><span><span class="va">ntl_joined_avg</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover_avg</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span>by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"year"</span> <span class="op">=</span> <span class="st">"hydroyear"</span><span class="op">)</span>, <span class="va">ntl_airtemp_avg_winter</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">ntl_joined_avg</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 166 × 3</span></span></span>
+<span><span class="co">#&gt;     year avg_ice_duration avg_air_temp_adjusted</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>  <span style="text-decoration: underline;">1</span>851             103                     <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>  <span style="text-decoration: underline;">1</span>855             118                     <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>  <span style="text-decoration: underline;">1</span>856             151                     <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>  <span style="text-decoration: underline;">1</span>857             120                     <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>  <span style="text-decoration: underline;">1</span>858              95                     <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>  <span style="text-decoration: underline;">1</span>859             110.                    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>  <span style="text-decoration: underline;">1</span>860             123                     <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>  <span style="text-decoration: underline;">1</span>861             132.                    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>  <span style="text-decoration: underline;">1</span>862             112.                    <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span>  <span style="text-decoration: underline;">1</span>863             128                     <span style="color: #BB0000;">NA</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 156 more rows</span></span></span></code></pre></div>
+<p>Plot the average air temperature against the average ice cover
+duration:</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">scatter</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_joined_avg</span> ,
-       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">avg_ice_duration</span>, x <span class="op">=</span> <span class="va">avg_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>
-    title <span class="op">=</span> <span class="st">"Cold Season Mean Air Temperature and Ice Duration of Lakes"</span>,
-    y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>,
-    x <span class="op">=</span> <span class="st">"Mean Air Temperature Nov-April (Celsius)"</span>,
-    subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>
-    method <span class="op">=</span> <span class="st">"lm"</span>,
-    color <span class="op">=</span> <span class="st">"black"</span>,
-    se <span class="op">=</span> <span class="cn">FALSE</span>,
-    size <span class="op">=</span> <span class="fl">0.3</span>
-  <span class="op">)</span>
-<span class="va">scatter</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">scatter</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_joined_avg</span> ,</span>
+<span>       <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">avg_ice_duration</span>, x <span class="op">=</span> <span class="va">avg_air_temp_adjusted</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.8</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
+<span>    title <span class="op">=</span> <span class="st">"Cold Season Mean Air Temperature and Ice Duration of Lakes"</span>,</span>
+<span>    y <span class="op">=</span> <span class="st">"Ice Duration (Days)"</span>,</span>
+<span>    x <span class="op">=</span> <span class="st">"Mean Air Temperature Nov-April (Celsius)"</span>,</span>
+<span>    subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span></span>
+<span>    method <span class="op">=</span> <span class="st">"lm"</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    size <span class="op">=</span> <span class="fl">0.3</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="va">scatter</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/scatter-1.png" width="672"></p>
-<p>There is a negative correlation between the mean air temperature from November to April and the amount of time that each lake was frozen. This means that as temperature increases, the ice duration decreases.</p>
+<p>There is a negative correlation between the mean air temperature from
+November to April and the amount of time that each lake was frozen. This
+means that as temperature increases, the ice duration decreases.</p>
 <div class="section level3">
 <h3 id="standardized-anomalies">Standardized Anomalies<a class="anchor" aria-label="anchor" href="#standardized-anomalies"></a>
 </h3>
-<p>Now let’s investigate how this relationship evolves over time. To compare the temperature with the ice duration on a time-series plot on a similar scale we are going to compute standardized anomalies for both parameters. We are going to split the time-series in two parts. The first 30 years will be used to compute the climatological reference (mean and standard deviation), that we will use to compare the other years against. Since the earliest year of observation for ice duration was 1851, and the earliest year of observation for temperature was 1869, we opted to compute the climatological references from 1870 to 1900.</p>
-<p>In this example, the standardized anomalies for the temperature (and ice cover duration) are computed as follow:</p>
-<p><span class="math inline">\(A_{y_{stand}} = (T_{y} - \overline{T}_{clim}) / T_{SD_{clim}}\)</span></p>
+<p>Now let’s investigate how this relationship evolves over time. To
+compare the temperature with the ice duration on a time-series plot on a
+similar scale we are going to compute standardized anomalies for both
+parameters. We are going to split the time-series in two parts. The
+first 30 years will be used to compute the climatological reference
+(mean and standard deviation), that we will use to compare the other
+years against. Since the earliest year of observation for ice duration
+was 1851, and the earliest year of observation for temperature was 1869,
+we opted to compute the climatological references from 1870 to 1900.</p>
+<p>In this example, the standardized anomalies for the temperature (and
+ice cover duration) are computed as follow:</p>
+<p><span class="math inline">\(A_{y_{stand}} = (T_{y} -
+\overline{T}_{clim}) / T_{SD_{clim}}\)</span></p>
 <p>Where:</p>
 <ul>
 <li>
-<span class="math inline">\(A_{y_{stand}}\)</span> = Standardized anomalies</li>
+<span class="math inline">\(A_{y_{stand}}\)</span> = Standardized
+anomalies</li>
 <li>
-<span class="math inline">\(T_{y}\)</span> = mean temperature for a specific cold season</li>
-<li>$overline{T}_{clim}) $ = Mean temperature from 1870 to 1900</li>
-<li>$T_{SD_{clim}} $ = Standard deviation for temperature from 1870 to 1900</li>
+<span class="math inline">\(T_{y}\)</span> = mean temperature for a
+specific cold season</li>
+<li>
+<span class="math inline">\(\overline{T}_{clim}\)</span> = Mean
+temperature from 1870 to 1900</li>
+<li>
+<span class="math inline">\(T_{SD_{clim}}\)</span> = Standard
+deviation for temperature from 1870 to 1900</li>
 </ul>
 <div class="section level4">
 <h4 id="air-temperature-climatologies">Air Temperature Climatologies<a class="anchor" aria-label="anchor" href="#air-temperature-climatologies"></a>
 </h4>
-<p>Let us start with computing the climatologies and standardized anomalies for the air temperature:</p>
+<p>Let us start with computing the climatologies and standardized
+anomalies for the air temperature:</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Using the first 30 years to compute the yearly climatologies</span>
-<span class="va">ntl_airtemp_clim</span> <span class="op">&lt;-</span> <span class="va">ntl_airtemp_avg_winter</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">hydroyear</span> <span class="op">&gt;</span> <span class="fl">1869</span> <span class="op">&amp;</span> <span class="va">hydroyear</span> <span class="op">&lt;</span> <span class="fl">1901</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>   <span class="co"># taking the first 30 years of common data</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>clim_winter_mean_airtemp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">avg_air_temp_adjusted</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,  <span class="co"># computing the climatologies</span>
-            clim_winter_sd_airtemp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">avg_air_temp_adjusted</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ntl_airtemp_avg_winter</span>,<span class="va">hydroyear</span> <span class="op">&gt;</span> <span class="fl">1900</span><span class="op">)</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="co"># Adding the climatology columns to the second part of the time-series</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>standardized_anomalies_airtemp <span class="op">=</span> <span class="op">(</span><span class="va">avg_air_temp_adjusted</span> <span class="op">-</span> <span class="va">clim_winter_mean_airtemp</span><span class="op">)</span> <span class="op">/</span> <span class="va">clim_winter_sd_airtemp</span><span class="op">)</span>  <span class="co"># computing the standardized anomalies</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Using the first 30 years to compute the yearly climatologies</span></span>
+<span><span class="va">ntl_airtemp_clim</span> <span class="op">&lt;-</span> <span class="va">ntl_airtemp_avg_winter</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">hydroyear</span> <span class="op">&gt;</span> <span class="fl">1869</span> <span class="op">&amp;</span> <span class="va">hydroyear</span> <span class="op">&lt;</span> <span class="fl">1901</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>   <span class="co"># taking the first 30 years of common data</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>clim_winter_mean_airtemp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">avg_air_temp_adjusted</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,  <span class="co"># computing the climatologies</span></span>
+<span>            clim_winter_sd_airtemp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">avg_air_temp_adjusted</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">ntl_airtemp_avg_winter</span>,<span class="va">hydroyear</span> <span class="op">&gt;</span> <span class="fl">1900</span><span class="op">)</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="co"># Adding the climatology columns to the second part of the time-series</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>standardized_anomalies_airtemp <span class="op">=</span> <span class="op">(</span><span class="va">avg_air_temp_adjusted</span> <span class="op">-</span> <span class="va">clim_winter_mean_airtemp</span><span class="op">)</span> <span class="op">/</span> <span class="va">clim_winter_sd_airtemp</span><span class="op">)</span>  <span class="co"># computing the standardized anomalies</span></span></code></pre></div>
 <p>Let’s plot the standardized anomalies time-series:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">temp_plot_airtemp_anomalies</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_airtemp_clim</span>,
-         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hydroyear</span>, y <span class="op">=</span> <span class="va">standardized_anomalies_airtemp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="co"># scale_x_date(date_breaks = "year", date_labels = "%b") +</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>
-    method <span class="op">=</span> <span class="va">lm</span>,
-    se <span class="op">=</span> <span class="cn">FALSE</span>,
-    color <span class="op">=</span> <span class="st">"blue"</span>,
-    linetype <span class="op">=</span> <span class="st">"dashed"</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Standaradized Anomalies"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Air temperature standaradized anomalies"</span>, subtitle <span class="op">=</span> <span class="st">"Madison, WI"</span><span class="op">)</span>
-
-<span class="va">temp_plot_airtemp_anomalies</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">temp_plot_airtemp_anomalies</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_airtemp_clim</span>,</span>
+<span>         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hydroyear</span>, y <span class="op">=</span> <span class="va">standardized_anomalies_airtemp</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># scale_x_date(date_breaks = "year", date_labels = "%b") +</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span></span>
+<span>    method <span class="op">=</span> <span class="va">lm</span>,</span>
+<span>    se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"dashed"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Standaradized Anomalies"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Air temperature standaradized anomalies"</span>, subtitle <span class="op">=</span> <span class="st">"Madison, WI"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">temp_plot_airtemp_anomalies</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/air%20temp%20standardized%20plot-1.png" width="672"></p>
 </div>
 <div class="section level4">
@@ -445,46 +506,50 @@ Pancake ice formed near shore when early ice is broken by wave action, Lake Mend
 </h4>
 <p>Now doing the same computations for the ice cover duration:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Using the first 30 years to compute the yearly climatologies</span>
-<span class="va">ntl_iceduration_clim_30first</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover_avg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1869</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">1901</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="co"># taking the first 30 years of common data</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>clim_mean_iceduration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">avg_ice_duration</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,  <span class="co"># computing the climatologies</span>
-         clim_sd_iceduration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">avg_ice_duration</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> 
-
-<span class="co"># compute the yearly standardized anomalies</span>
-<span class="va">ntl_iceduration_clim</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1900</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>   <span class="co"># using the following years of the time series</span>
-  <span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html" class="external-link">add_column</a></span><span class="op">(</span>clim_mean_iceduration <span class="op">=</span> <span class="va">ntl_iceduration_clim_30first</span><span class="op">$</span><span class="va">clim_mean_iceduration</span>,
-             clim_sd_iceduration <span class="op">=</span> <span class="va">ntl_iceduration_clim_30first</span><span class="op">$</span><span class="va">clim_sd_iceduration</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>standardized_anomalies_iceduration <span class="op">=</span> <span class="op">(</span><span class="va">ice_duration</span> <span class="op">-</span> <span class="va">clim_mean_iceduration</span><span class="op">)</span> <span class="op">/</span> <span class="va">clim_sd_iceduration</span><span class="op">)</span> <span class="co"># computing the standardized anomalies</span>
-  </code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Using the first 30 years to compute the yearly climatologies</span></span>
+<span><span class="va">ntl_iceduration_clim_30first</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover_avg</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1869</span> <span class="op">&amp;</span> <span class="va">year</span> <span class="op">&lt;</span> <span class="fl">1901</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>  <span class="co"># taking the first 30 years of common data</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>clim_mean_iceduration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">avg_ice_duration</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span>,  <span class="co"># computing the climatologies</span></span>
+<span>         clim_sd_iceduration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/sd.html" class="external-link">sd</a></span><span class="op">(</span><span class="va">avg_ice_duration</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># compute the yearly standardized anomalies</span></span>
+<span><span class="va">ntl_iceduration_clim</span> <span class="op">&lt;-</span> <span class="va">ntl_icecover</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">&gt;</span> <span class="fl">1900</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span>   <span class="co"># using the following years of the time series</span></span>
+<span>  <span class="fu"><a href="https://tibble.tidyverse.org/reference/add_column.html" class="external-link">add_column</a></span><span class="op">(</span>clim_mean_iceduration <span class="op">=</span> <span class="va">ntl_iceduration_clim_30first</span><span class="op">$</span><span class="va">clim_mean_iceduration</span>,</span>
+<span>             clim_sd_iceduration <span class="op">=</span> <span class="va">ntl_iceduration_clim_30first</span><span class="op">$</span><span class="va">clim_sd_iceduration</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>standardized_anomalies_iceduration <span class="op">=</span> <span class="op">(</span><span class="va">ice_duration</span> <span class="op">-</span> <span class="va">clim_mean_iceduration</span><span class="op">)</span> <span class="op">/</span> <span class="va">clim_sd_iceduration</span><span class="op">)</span> <span class="co"># computing the standardized anomalies</span></span>
+<span>  </span></code></pre></div>
 <p>Let’s plot the standardized anomalies time-series:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">temp_plot_iceduration_anomalies</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_iceduration_clim</span>,
-         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">standardized_anomalies_iceduration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="co"># scale_x_date(date_breaks = "year", date_labels = "%b") +</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>
-    method <span class="op">=</span> <span class="va">lm</span>,
-    se <span class="op">=</span> <span class="cn">FALSE</span>,
-    color <span class="op">=</span> <span class="st">"blue"</span>,
-    linetype <span class="op">=</span> <span class="st">"dashed"</span>
-  <span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Standaradized Anomalies"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Ice cover duration standaradized anomalies"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span>
-
-<span class="va">temp_plot_iceduration_anomalies</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">temp_plot_iceduration_anomalies</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">ntl_iceduration_clim</span>,</span>
+<span>         <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">year</span>, y <span class="op">=</span> <span class="va">standardized_anomalies_iceduration</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html" class="external-link">geom_bar</a></span><span class="op">(</span>stat <span class="op">=</span> <span class="st">"identity"</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="co"># scale_x_date(date_breaks = "year", date_labels = "%b") +</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span></span>
+<span>    method <span class="op">=</span> <span class="va">lm</span>,</span>
+<span>    se <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>    color <span class="op">=</span> <span class="st">"blue"</span>,</span>
+<span>    linetype <span class="op">=</span> <span class="st">"dashed"</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>y <span class="op">=</span> <span class="st">"Standaradized Anomalies"</span>, x <span class="op">=</span> <span class="st">"Year"</span>, title <span class="op">=</span> <span class="st">"Ice cover duration standaradized anomalies"</span>, subtitle <span class="op">=</span> <span class="st">"North Temperate Lakes LTER"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">temp_plot_iceduration_anomalies</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/ice%20duration%20standardized%20plot-1.png" width="672"></p>
-<p>Using the <a href="https://patchwork.data-imaginist.com/" class="external-link"><code>patchwork</code></a> package, it is very easy to combine graphs together: just add them!!</p>
+<p>Using the <a href="https://patchwork.data-imaginist.com/" class="external-link"><code>patchwork</code></a>
+package, it is very easy to combine graphs together: just add them!!</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">temp_plot_airtemp_anomalies</span> <span class="op">+</span> <span class="va">temp_plot_iceduration_anomalies</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">temp_plot_airtemp_anomalies</span> <span class="op">+</span> <span class="va">temp_plot_iceduration_anomalies</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
 <p>or try vertically:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">temp_plot_airtemp_anomalies</span> <span class="op">/</span> <span class="va">temp_plot_iceduration_anomalies</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">temp_plot_airtemp_anomalies</span> <span class="op">/</span> <span class="va">temp_plot_iceduration_anomalies</span></span></code></pre></div>
 <p><img src="ntl_icecover_vignette_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
-<p>Note the difference of scale on the y-axis. However in both time series, there is an increase in anomalies (both in frequency and intensity) over time, suggesting the recent year are more consistently warmer and with shorter period with frozen lakes</p>
+<p>Note the difference of scale on the y-axis. However in both time
+series, there is an increase in anomalies (both in frequency and
+intensity) over time, suggesting the recent year are more consistently
+warmer and with shorter period with frozen lakes</p>
 </div>
 </div>
 </div>
@@ -492,24 +557,41 @@ Pancake ice formed near shore when early ice is broken by wave action, Lake Mend
 <h2 id="other-things-to-explore">Other things to explore:<a class="anchor" aria-label="anchor" href="#other-things-to-explore"></a>
 </h2>
 <ul>
-<li>How are the freezing starting date and melting date changing over time?</li>
-<li>How does interpretation change with different methods / visualizations of smoothing (e.g. moving average)</li>
+<li>How are the freezing starting date and melting date changing over
+time?</li>
+<li>How does interpretation change with different methods /
+visualizations of smoothing (e.g. moving average)</li>
 <li>Predictions of ice cover duration in the future</li>
-<li>Comparison of how those predictions change if you pick a longer or shorter dataset (e.g. how does the coefficient compare if you use all of the data, versus just data since ~1975?)</li>
+<li>Comparison of how those predictions change if you pick a longer or
+shorter dataset (e.g. how does the coefficient compare if you use all of
+the data, versus just data since ~1975?)</li>
 <li>See the last citation below for more ideas!</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="aknowledgement">Aknowledgement<a class="anchor" aria-label="anchor" href="#aknowledgement"></a>
 </h2>
-<p>Thank you to Hilary Dugan, Corinna Gries and John Magnuson for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.</p>
+<p>Thank you to Hilary Dugan, Corinna Gries and John Magnuson for their
+inputs while developing this vignette. Thank you also go to Adhitya
+Logan for his extra work on this vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Anderson, L. and D. Robertson. 2020. Madison Wisconsin Daily Meteorological Data 1869 - current ver 32. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/e3ff85971d817e9898bb8a83fb4c3a8b" class="external-link uri">https://doi.org/10.6073/pasta/e3ff85971d817e9898bb8a83fb4c3a8b</a> (Accessed 2021-03-08).</p>
-<p>Magnuson, J.J., S.R. Carpenter, and E.H. Stanley. 2021. North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current ver 35. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97" class="external-link uri">https://doi.org/10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97</a> (Accessed 2021-03-08).</p>
-<p>Magnuson, J.J. 2021. Seeing the invisible present and place: from years to centuries with lake ice from Wisconsin to the Northern Hemisphere. Chapter 9 (243- 277) in R. B. Waide and S. E. Kingsland [eds]. The Challenges of Long Term Ecological Research: A Historical Analysis. Springer, Archimedes Series #59. <a href="https://doi.org/10.1007/978-3-030-66933-1_9" class="external-link uri">https://doi.org/10.1007/978-3-030-66933-1_9</a> (Accessed 2022-02-14).</p>
+<p>Anderson, L. and D. Robertson. 2020. Madison Wisconsin Daily
+Meteorological Data 1869 - current ver 32. Environmental Data
+Initiative. <a href="https://doi.org/10.6073/pasta/e3ff85971d817e9898bb8a83fb4c3a8b" class="external-link uri">https://doi.org/10.6073/pasta/e3ff85971d817e9898bb8a83fb4c3a8b</a>
+(Accessed 2021-03-08).</p>
+<p>Magnuson, J.J., S.R. Carpenter, and E.H. Stanley. 2021. North
+Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current
+ver 35. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97" class="external-link uri">https://doi.org/10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97</a>
+(Accessed 2021-03-08).</p>
+<p>Magnuson, J.J. 2021. Seeing the invisible present and place: from
+years to centuries with lake ice from Wisconsin to the Northern
+Hemisphere. Chapter 9 (243- 277) in R. B. Waide and S. E. Kingsland
+[eds]. The Challenges of Long Term Ecological Research: A Historical
+Analysis. Springer, Archimedes Series #59. <a href="https://doi.org/10.1007/978-3-030-66933-1_9" class="external-link uri">https://doi.org/10.1007/978-3-030-66933-1_9</a> (Accessed
+2022-02-14).</p>
 </div>
 <div class="section level2">
 <h2 id="how-we-processed-the-raw-data">How we processed the raw data<a class="anchor" aria-label="anchor" href="#how-we-processed-the-raw-data"></a>
@@ -521,49 +603,49 @@ Pancake ice formed near shore when early ice is broken by wave action, Lake Mend
 <h4 id="download-the-raw-data-from-edi-org">Download the raw data from EDI.org<a class="anchor" aria-label="anchor" href="#download-the-raw-data-from-edi-org"></a>
 </h4>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam" class="external-link">metajam</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor" class="external-link">janitor</a></span><span class="op">)</span>
-
-<span class="co"># North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current</span>
-<span class="co"># Main URL: https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&amp;identifier=33&amp;revision=35</span>
-<span class="co"># Save link location for the data package:</span>
-<span class="va">ntl_url</span> <span class="op">&lt;-</span>
-  <span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-ntl.33.35&amp;entityid=f5bc02452cafcd461c49bd7429d8b40c"</span>
-
-<span class="co"># Download the data package with metajam</span>
-<span class="va">ntl_download</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/download_d1_data.html" class="external-link">download_d1_data</a></span><span class="op">(</span>data_url <span class="op">=</span> <span class="va">ntl_url</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam" class="external-link">metajam</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor" class="external-link">janitor</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># North Temperate Lakes LTER: Ice Duration - Madison Lakes Area 1853 - current</span></span>
+<span><span class="co"># Main URL: https://portal.edirepository.org/nis/mapbrowse?scope=knb-lter-ntl&amp;identifier=33&amp;revision=35</span></span>
+<span><span class="co"># Save link location for the data package:</span></span>
+<span><span class="va">ntl_url</span> <span class="op">&lt;-</span></span>
+<span>  <span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-ntl.33.35&amp;entityid=f5bc02452cafcd461c49bd7429d8b40c"</span></span>
+<span></span>
+<span><span class="co"># Download the data package with metajam</span></span>
+<span><span class="va">ntl_download</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/download_d1_data.html" class="external-link">download_d1_data</a></span><span class="op">(</span>data_url <span class="op">=</span> <span class="va">ntl_url</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="data-cleaning">Data Cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"></a>
 </h4>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Read in data</span>
-<span class="va">ntl_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">ntl_download</span><span class="op">)</span>
-<span class="va">ntl_ice_raw</span> <span class="op">&lt;-</span> <span class="va">ntl_files</span><span class="op">$</span><span class="va">data</span>
-
-<span class="co"># Basic cleaning</span>
-<span class="va">ntl_icecover</span> <span class="op">&lt;-</span> <span class="va">ntl_ice_raw</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">iceon</span>, <span class="op">-</span><span class="va">iceoff</span>, <span class="op">-</span><span class="va">season</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">year4</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    lakeid <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span>
-      <span class="va">lakeid</span>,
-      <span class="st">"ME"</span> <span class="op">=</span> <span class="st">"Lake Mendota"</span>,
-      <span class="st">"MO"</span> <span class="op">=</span> <span class="st">"Lake Monona"</span>,
-      <span class="st">"WI"</span> <span class="op">=</span> <span class="st">"Lake Wingra"</span>
-    <span class="op">)</span>,
-    year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>,
-    ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span>,
-    ice_on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">ice_on</span><span class="op">)</span>,
-    ice_off <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">ice_off</span><span class="op">)</span>,
-    lakeid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">lakeid</span><span class="op">)</span>,
-    ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span><span class="op">(</span><span class="va">ice_duration</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">ice_duration</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span> <span class="co"># change values of -999 to NA</span>
-  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">lakeid</span> <span class="op">!=</span> <span class="st">"Lake Wingra"</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># too many missing data and longer ice cover duration</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># makes headers formatting more consistent</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Read in data</span></span>
+<span><span class="va">ntl_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">ntl_download</span><span class="op">)</span></span>
+<span><span class="va">ntl_ice_raw</span> <span class="op">&lt;-</span> <span class="va">ntl_files</span><span class="op">$</span><span class="va">data</span></span>
+<span></span>
+<span><span class="co"># Basic cleaning</span></span>
+<span><span class="va">ntl_icecover</span> <span class="op">&lt;-</span> <span class="va">ntl_ice_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">iceon</span>, <span class="op">-</span><span class="va">iceoff</span>, <span class="op">-</span><span class="va">season</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">year4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    lakeid <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span></span>
+<span>      <span class="va">lakeid</span>,</span>
+<span>      <span class="st">"ME"</span> <span class="op">=</span> <span class="st">"Lake Mendota"</span>,</span>
+<span>      <span class="st">"MO"</span> <span class="op">=</span> <span class="st">"Lake Monona"</span>,</span>
+<span>      <span class="st">"WI"</span> <span class="op">=</span> <span class="st">"Lake Wingra"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span>,</span>
+<span>    ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html" class="external-link">as.numeric</a></span><span class="op">(</span><span class="va">ice_duration</span><span class="op">)</span>,</span>
+<span>    ice_on <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">ice_on</span><span class="op">)</span>,</span>
+<span>    ice_off <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">ice_off</span><span class="op">)</span>,</span>
+<span>    lakeid <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">lakeid</span><span class="op">)</span>,</span>
+<span>    ice_duration <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span><span class="op">(</span><span class="va">ice_duration</span>, <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">ice_duration</span> <span class="op">&lt;</span> <span class="fl">0</span><span class="op">)</span>, <span class="cn">NA</span><span class="op">)</span> <span class="co"># change values of -999 to NA</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">lakeid</span> <span class="op">!=</span> <span class="st">"Lake Wingra"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="co"># too many missing data and longer ice cover duration</span></span>
+<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span> <span class="co"># makes headers formatting more consistent</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level3">
@@ -573,33 +655,33 @@ Pancake ice formed near shore when early ice is broken by wave action, Lake Mend
 <h4 id="download-the-raw-data-from-edi-org-1">Download the raw data from EDI.org<a class="anchor" aria-label="anchor" href="#download-the-raw-data-from-edi-org-1"></a>
 </h4>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam" class="external-link">metajam</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor" class="external-link">janitor</a></span><span class="op">)</span>
-
-<span class="co"># Madison Wisconsin Daily Meteorological Data 1869 - current</span>
-<span class="co"># Main URL: https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-ntl.20.32</span>
-<span class="va">ntl_temps_url</span> <span class="op">&lt;-</span>
-  <span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-ntl.20.32&amp;entityid=3c7ddd692d3ac8e90bf2954a16b39e89"</span>
-
-<span class="co"># Download the data package with metajam</span>
-<span class="va">ntl_temps_download</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/download_d1_data.html" class="external-link">download_d1_data</a></span><span class="op">(</span>data_url <span class="op">=</span> <span class="va">ntl_temps_url</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam" class="external-link">metajam</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor" class="external-link">janitor</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Madison Wisconsin Daily Meteorological Data 1869 - current</span></span>
+<span><span class="co"># Main URL: https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-ntl.20.32</span></span>
+<span><span class="va">ntl_temps_url</span> <span class="op">&lt;-</span></span>
+<span>  <span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-ntl.20.32&amp;entityid=3c7ddd692d3ac8e90bf2954a16b39e89"</span></span>
+<span></span>
+<span><span class="co"># Download the data package with metajam</span></span>
+<span><span class="va">ntl_temps_download</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/download_d1_data.html" class="external-link">download_d1_data</a></span><span class="op">(</span>data_url <span class="op">=</span> <span class="va">ntl_temps_url</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="data-cleaning-1">Data Cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning-1"></a>
 </h4>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Read in data</span>
-<span class="va">ntl_temps_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">ntl_temps_download</span><span class="op">)</span>
-<span class="va">ntl_temps_raw</span> <span class="op">&lt;-</span> <span class="va">ntl_temps_files</span><span class="op">$</span><span class="va">data</span>
-
-<span class="co"># Basic cleaning</span>
-<span class="va">ntl_airtemp</span> <span class="op">&lt;-</span> <span class="va">ntl_temps_raw</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sampledate</span>, <span class="va">year4</span>, <span class="va">ave_air_temp_adjusted</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">year4</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># Read in data</span></span>
+<span><span class="va">ntl_temps_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">ntl_temps_download</span><span class="op">)</span></span>
+<span><span class="va">ntl_temps_raw</span> <span class="op">&lt;-</span> <span class="va">ntl_temps_files</span><span class="op">$</span><span class="va">data</span></span>
+<span></span>
+<span><span class="co"># Basic cleaning</span></span>
+<span><span class="va">ntl_airtemp</span> <span class="op">&lt;-</span> <span class="va">ntl_temps_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">sampledate</span>, <span class="va">year4</span>, <span class="va">ave_air_temp_adjusted</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>year <span class="op">=</span> <span class="va">year4</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -622,7 +704,7 @@ Pancake ice formed near shore when early ice is broken by wave action, Lake Mend
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

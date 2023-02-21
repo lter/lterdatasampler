@@ -105,14 +105,16 @@
 
       
 
-      </header><script src="nwt_pikas_vignette_files/accessible-code-block-0.0.1/empty-anchor.js"></script><script src="nwt_pikas_vignette_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><link href="nwt_pikas_vignette_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
+      </header><script src="nwt_pikas_vignette_files/htmlwidgets-1.6.1/htmlwidgets.js"></script><link href="nwt_pikas_vignette_files/leaflet-1.3.1/leaflet.css" rel="stylesheet">
 <script src="nwt_pikas_vignette_files/leaflet-1.3.1/leaflet.js"></script><link href="nwt_pikas_vignette_files/leafletfix-1.0.0/leafletfix.css" rel="stylesheet">
 <script src="nwt_pikas_vignette_files/proj4-2.6.2/proj4.min.js"></script><script src="nwt_pikas_vignette_files/Proj4Leaflet-1.0.1/proj4leaflet.js"></script><link href="nwt_pikas_vignette_files/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet">
 <script src="nwt_pikas_vignette_files/leaflet-binding-2.1.1/leaflet.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>nwt_pikas - Niwot Ridge Pika Locations (NWT)</h1>
-            <h3 data-toc-skip class="subtitle">American Pika Locations in Summer 2018 at Niwot Ridge LTER</h3>
+      <h1 data-toc-skip>nwt_pikas - Niwot Ridge Pika Locations
+(NWT)</h1>
+            <h3 data-toc-skip class="subtitle">American Pika Locations
+in Summer 2018 at Niwot Ridge LTER</h3>
             
       
       <small class="dont-index">Source: <a href="https://github.com/lter/lterdatasampler/blob/HEAD/vignettes/nwt_pikas_vignette.Rmd" class="external-link"><code>vignettes/nwt_pikas_vignette.Rmd</code></a></small>
@@ -132,158 +134,242 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>Researchers at the Niwot Ridge Long Term Ecological Research Site (NWT LTER) seek to study and monitor the health of the Colorado Rockies over time. Because of external factors like climate change, it’s more important than ever for scientists to understand how and why the Rockies are changing. Additionally, the well-being of the Rockies is crucial to local communities like Boulder, Colorado.</p>
+<p>Researchers at the Niwot Ridge Long Term Ecological Research Site
+(NWT LTER) seek to study and monitor the health of the Colorado Rockies
+over time. Because of external factors like climate change, it’s more
+important than ever for scientists to understand how and why the Rockies
+are changing. Additionally, the well-being of the Rockies is crucial to
+local communities like Boulder, Colorado.</p>
 <figure style="text-align:center;"><img src="../reference/figures/nwt_pikas_img.jpg" width="40%" style="display:block; margin-left: auto; margin-right: auto;"><figcaption>
 LTER researcher releasing a pika at the Niwot site, LTER CC BY-SA 4.0
 </figcaption></figure><p><br></p>
-<p>The American pika (Ochotona princeps) is a key species present at the NWT LTER. Despite their small size, pikas can be very informative about the health of the ecosystem. If pikas are more stressed, it can suggest that their habitat has declined in quality. As a result, the study of pikas is critical to the Colorado Rockies ecosystem.</p>
+<p>The American pika (Ochotona princeps) is a key species present at the
+NWT LTER. Despite their small size, pikas can be very informative about
+the health of the ecosystem. If pikas are more stressed, it can suggest
+that their habitat has declined in quality. As a result, the study of
+pikas is critical to the Colorado Rockies ecosystem.</p>
 <p><strong>Fun Facts:</strong></p>
 <ol style="list-style-type: decimal">
-<li>Pikas redigest their poop to help fully break down plant material and extract as many nutrients from it as possible. The first poop is very soft, the second is a hard pellet about the size of a black peppercorn. Only pellets were collected in this study.</li>
-<li>Pikas stay active through the winter and eat grass and flowering plants that they cached during the summer. If you find a pikas food cache you are very likely to find poop nearby.</li>
+<li>Pikas redigest their poop to help fully break down plant material
+and extract as many nutrients from it as possible. The first poop is
+very soft, the second is a hard pellet about the size of a black
+peppercorn. Only pellets were collected in this study.</li>
+<li>Pikas stay active through the winter and eat grass and flowering
+plants that they cached during the summer. If you find a pikas food
+cache you are very likely to find poop nearby.</li>
 </ol>
 </div>
 <div class="section level2">
 <h2 id="data-exploration">Data Exploration<a class="anchor" aria-label="anchor" href="#data-exploration"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lter/lterdatasampler" class="external-link">lterdatasampler</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap" class="external-link">ggmap</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lter/lterdatasampler" class="external-link">lterdatasampler</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/dkahle/ggmap" class="external-link">ggmap</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://r-spatial.github.io/sf/" class="external-link">sf</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/leaflet/" class="external-link">leaflet</a></span><span class="op">)</span></span></code></pre></div>
 <p>Let’s explore some stress data about pikas:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nwt_pikas</span><span class="op">)</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span>
-<span class="co">#&gt;   date       site       station  utm_easting utm_northing sex   concentration_p…</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 2018-06-08 Cable Gate Cable G…      <span style="text-decoration: underline;">451</span>373      4<span style="text-decoration: underline;">432</span>963 male            <span style="text-decoration: underline;">11</span>563.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2018-06-08 Cable Gate Cable G…      <span style="text-decoration: underline;">451</span>411      4<span style="text-decoration: underline;">432</span>985 male            <span style="text-decoration: underline;">10</span>629.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 2018-06-08 Cable Gate Cable G…      <span style="text-decoration: underline;">451</span>462      4<span style="text-decoration: underline;">432</span>991 male            <span style="text-decoration: underline;">10</span>924.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 2018-06-13 West Knoll West Kn…      <span style="text-decoration: underline;">449</span>317      4<span style="text-decoration: underline;">434</span>093 male            <span style="text-decoration: underline;">10</span>414.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 2018-06-13 West Knoll West Kn…      <span style="text-decoration: underline;">449</span>342      4<span style="text-decoration: underline;">434</span>141 male            <span style="text-decoration: underline;">13</span>531.</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 2018-06-13 West Knoll West Kn…      <span style="text-decoration: underline;">449</span>323      4<span style="text-decoration: underline;">434</span>273 <span style="color: #BB0000;">NA</span>               <span style="text-decoration: underline;">7</span>799.</span>
-<span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: elev_m &lt;dbl&gt;</span></span></code></pre></div>
-<p>Not only do we have stress measurements, but the <code>utm_easting</code> and <code>utm_northing</code> columns also provide the geographic coordinates of the sampling stations where fecal pellets were collected by researchers. It was from these fecal pellets that stress measurements were taken.</p>
-<p>Geographical plotting can be helpful in our analyses. Generally speaking, it can offer a different perspective on our data and can also be easily understood by others. This is key; communicating results is an important part of data science.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">nwt_pikas</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 8</span></span></span>
+<span><span class="co">#&gt;   date       site       station      utm_easting utm_nort…¹ sex   conce…² elev_m</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> 2018-06-08 Cable Gate Cable Gate 1      <span style="text-decoration: underline;">451</span>373    4<span style="text-decoration: underline;">432</span>963 male   <span style="text-decoration: underline;">11</span>563.  <span style="text-decoration: underline;">3</span>343.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> 2018-06-08 Cable Gate Cable Gate 2      <span style="text-decoration: underline;">451</span>411    4<span style="text-decoration: underline;">432</span>985 male   <span style="text-decoration: underline;">10</span>629.  <span style="text-decoration: underline;">3</span>353.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> 2018-06-08 Cable Gate Cable Gate 3      <span style="text-decoration: underline;">451</span>462    4<span style="text-decoration: underline;">432</span>991 male   <span style="text-decoration: underline;">10</span>924.  <span style="text-decoration: underline;">3</span>358.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> 2018-06-13 West Knoll West Knoll 3      <span style="text-decoration: underline;">449</span>317    4<span style="text-decoration: underline;">434</span>093 male   <span style="text-decoration: underline;">10</span>414.  <span style="text-decoration: underline;">3</span>578.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> 2018-06-13 West Knoll West Knoll 4      <span style="text-decoration: underline;">449</span>342    4<span style="text-decoration: underline;">434</span>141 male   <span style="text-decoration: underline;">13</span>531.  <span style="text-decoration: underline;">3</span>584.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> 2018-06-13 West Knoll West Knoll 5      <span style="text-decoration: underline;">449</span>323    4<span style="text-decoration: underline;">434</span>273 <span style="color: #BB0000;">NA</span>      <span style="text-decoration: underline;">7</span>799.  <span style="text-decoration: underline;">3</span>595.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​utm_northing, ²​concentration_pg_g</span></span></span></code></pre></div>
+<p>Not only do we have stress measurements, but the
+<code>utm_easting</code> and <code>utm_northing</code> columns also
+provide the geographic coordinates of the sampling stations where fecal
+pellets were collected by researchers. It was from these fecal pellets
+that stress measurements were taken.</p>
+<p>Geographical plotting can be helpful in our analyses. Generally
+speaking, it can offer a different perspective on our data and can also
+be easily understood by others. This is key; communicating results is an
+important part of data science.</p>
 </div>
 <div class="section level2">
 <h2 id="converting-to-simple-features">Converting to Simple Features<a class="anchor" aria-label="anchor" href="#converting-to-simple-features"></a>
 </h2>
-<p>To leverage the geospatial features of our data, we can use the <a href="https://r-spatial.github.io/sf/index.html" class="external-link"><code>sf</code></a> package to transform the location information, currently stored in two columns, into information we can leverage for mapping and geospatial analysis. Using <code>sf</code>, we can represent our data as simple feature objects in R. As described in the <code>sf</code> package <a href="https://r-spatial.github.io/sf/articles/sf1.html" class="external-link">documentation</a>, simple features is a set of standards for describing how geographical data should be expressed digitally. This will allow us to use our data with various other geographical frameworks and standards, like mapping packages, GIS software, and GDAL, all of which use the simple features standard. You can work with simple features like lines and polygons, but we’ll be working with point data.</p>
-<p>First, we need to convert our current coordinates into an <code>sf</code> object. We can use the <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf()</a></code> function to do this:</p>
+<p>To leverage the geospatial features of our data, we can use the <a href="https://r-spatial.github.io/sf/index.html" class="external-link"><code>sf</code></a>
+package to transform the location information, currently stored in two
+columns, into information we can leverage for mapping and geospatial
+analysis. Using <code>sf</code>, we can represent our data as simple
+feature objects in R. As described in the <code>sf</code> package <a href="https://r-spatial.github.io/sf/articles/sf1.html" class="external-link">documentation</a>,
+simple features is a set of standards for describing how geographical
+data should be expressed digitally. This will allow us to use our data
+with various other geographical frameworks and standards, like mapping
+packages, GIS software, and GDAL, all of which use the simple features
+standard. You can work with simple features like lines and polygons, but
+we’ll be working with point data.</p>
+<p>First, we need to convert our current coordinates into an
+<code>sf</code> object. We can use the <code><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf()</a></code> function
+to do this:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pikas_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nwt_pikas</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"utm_easting"</span>, <span class="st">"utm_northing"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pikas_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; Simple feature collection with 6 features and 0 fields</span>
-<span class="co">#&gt; Geometry type: POINT</span>
-<span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: 449317 ymin: 4432963 xmax: 451462 ymax: 4434273</span>
-<span class="co">#&gt; CRS:           NA</span>
-<span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 1</span></span>
-<span class="co">#&gt;           geometry</span>
-<span class="co">#&gt;            <span style="color: #949494; font-style: italic;">&lt;POINT&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (451373 4432963)</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> (451411 4432985)</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> (451462 4432991)</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> (449317 4434093)</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> (449342 4434141)</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> (449323 4434273)</span>
-<span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="va">pikas_sf</span><span class="op">)</span>
-<span class="co">#&gt; Coordinate Reference System: NA</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pikas_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_as_sf.html" class="external-link">st_as_sf</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">nwt_pikas</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"utm_easting"</span>, <span class="st">"utm_northing"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">pikas_sf</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">geometry</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Simple feature collection with 6 features and 0 fields</span></span>
+<span><span class="co">#&gt; Geometry type: POINT</span></span>
+<span><span class="co">#&gt; Dimension:     XY</span></span>
+<span><span class="co">#&gt; Bounding box:  xmin: 449317 ymin: 4432963 xmax: 451462 ymax: 4434273</span></span>
+<span><span class="co">#&gt; CRS:           NA</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 1</span></span></span>
+<span><span class="co">#&gt;           geometry</span></span>
+<span><span class="co">#&gt;            <span style="color: #949494; font-style: italic;">&lt;POINT&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> (451373 4432963)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> (451411 4432985)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> (451462 4432991)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> (449317 4434093)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> (449342 4434141)</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> (449323 4434273)</span></span>
+<span><span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_crs</a></span><span class="op">(</span><span class="va">pikas_sf</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Coordinate Reference System: NA</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="coordinate-reference-systems">Coordinate Reference Systems<a class="anchor" aria-label="anchor" href="#coordinate-reference-systems"></a>
 </h3>
-<p>We now have a geometry column consisting of points instead of two separate columns for our coordinates. However, there is still no Coordinate Reference System (CRS) associated with our points. A Coordinate Reference System describes several things about your data: how the Earth’s 3D surface is represented in a 2D form (spatial projection), how the Earth’s shape is modeled (datum), the units, and the axes (<a href="https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/intro-to-coordinate-reference-systems/" class="external-link">here</a> for more).</p>
-<p>From the data documentation (also known as metadata), which can be viewed by running <code><a href="../reference/nwt_pikas.html">?nwt_pikas</a></code>, we can see that our measurements use the Universal Transverse Mercator (UTM) system, are in Zone 13, and use the NAD83 datum. These all describe the CRS that our data uses.</p>
-<p>We can set the coordinate reference system of the geometry column using <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_set_crs()</a></code>. This can be done in two ways. You can either use a string to describe the coordinate system using PROJ4 syntax:</p>
+<p>We now have a geometry column consisting of points instead of two
+separate columns for our coordinates. However, there is still no
+Coordinate Reference System (CRS) associated with our points. A
+Coordinate Reference System describes several things about your data:
+how the Earth’s 3D surface is represented in a 2D form (spatial
+projection), how the Earth’s shape is modeled (datum), the units, and
+the axes (<a href="https://www.earthdatascience.org/courses/earth-analytics/spatial-data-r/intro-to-coordinate-reference-systems/" class="external-link">here</a>
+for more).</p>
+<p>From the data documentation (also known as metadata), which can be
+viewed by running <code><a href="../reference/nwt_pikas.html">?nwt_pikas</a></code>, we can see that our
+measurements use the Universal Transverse Mercator (UTM) system, are in
+Zone 13, and use the NAD83 datum. These all describe the CRS that our
+data uses.</p>
+<p>We can set the coordinate reference system of the geometry column
+using <code><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_set_crs()</a></code>. This can be done in two ways. You can
+either use a string to describe the coordinate system using PROJ4
+syntax:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pikas_sf</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_set_crs</a></span><span class="op">(</span><span class="va">pikas_sf</span>, <span class="st">"+proj=utm +zone=13 +datum=NAD83 +units=m"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pikas_sf</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_set_crs</a></span><span class="op">(</span><span class="va">pikas_sf</span>, <span class="st">"+proj=utm +zone=13 +datum=NAD83 +units=m"</span><span class="op">)</span></span></code></pre></div>
 <p>Or you can use the equivalent EPSG code:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pikas_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_set_crs</a></span><span class="op">(</span><span class="va">pikas_sf</span>, <span class="fl">26913</span><span class="op">)</span></code></pre></div>
-<p><a href="https://epsg.io" class="external-link">epsg.io</a> can help you find the appropriate PROJ4 syntax and EPSG code for the appropriate coordinate system.</p>
+<code class="sourceCode R"><span><span class="va">pikas_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_crs.html" class="external-link">st_set_crs</a></span><span class="op">(</span><span class="va">pikas_sf</span>, <span class="fl">26913</span><span class="op">)</span></span></code></pre></div>
+<p><a href="https://epsg.io" class="external-link">epsg.io</a> can help you find the
+appropriate PROJ4 syntax and EPSG code for the appropriate coordinate
+system.</p>
 </div>
 <div class="section level3">
 <h3 id="reprojecting-coordinates">Reprojecting Coordinates<a class="anchor" aria-label="anchor" href="#reprojecting-coordinates"></a>
 </h3>
-<p>Online map tiles used as map background often use the WGS84 Web Mercator coordinate system (also used by the <a href="https://en.wikipedia.org/wiki/Global_Positioning_System" class="external-link">GPS system</a>), which uses a geographic coordinate system (latitude and longitude). After setting our CRS, we can reproject our data to the WGS84 CRS using <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform()</a></code> so that it’s more compatible with third-party maps, which will give us more ways to represent our data:</p>
+<p>Online map tiles used as map background often use the WGS84 Web
+Mercator coordinate system (also used by the <a href="https://en.wikipedia.org/wiki/Global_Positioning_System" class="external-link">GPS
+system</a>), which uses a geographic coordinate system (latitude and
+longitude). After setting our CRS, we can reproject our data to the
+WGS84 CRS using <code><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform()</a></code> so that it’s more compatible
+with third-party maps, which will give us more ways to represent our
+data:</p>
 <p>PROJ4 Syntax:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pikas_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">pikas_sf</span>, <span class="st">"+proj=longlat +datum=WGS84"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pikas_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">pikas_sf</span>, <span class="st">"+proj=longlat +datum=WGS84"</span><span class="op">)</span></span></code></pre></div>
 <p>EPSG Code:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pikas_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">pikas_sf</span>, <span class="fl">4326</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pikas_sf</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-spatial.github.io/sf/reference/st_transform.html" class="external-link">st_transform</a></span><span class="op">(</span><span class="va">pikas_sf</span>, <span class="fl">4326</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="plotting-points">Plotting Points<a class="anchor" aria-label="anchor" href="#plotting-points"></a>
 </h2>
-<p>Now, we can plot our new data using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf()</a></code>.</p>
+<p>Now, we can plot our new data using <code><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot()</a></code> and
+<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf()</a></code>.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pika_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pikas_sf</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">site</span>, shape <span class="op">=</span> <span class="va">site</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Location of Pika Sampling Stations"</span>, subtitle <span class="op">=</span> <span class="st">"Niwot Ridge LTER"</span>, x <span class="op">=</span> <span class="st">"Latitude (Degrees)"</span>, y <span class="op">=</span> <span class="st">"Longitude (Degrees)"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="co"># Tilts x-axis text so that the labels don't overlap</span>
-
-<span class="va">pika_points</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pika_points</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pikas_sf</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">site</span>, shape <span class="op">=</span> <span class="va">site</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.6</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Location of Pika Sampling Stations"</span>, subtitle <span class="op">=</span> <span class="st">"Niwot Ridge LTER"</span>, x <span class="op">=</span> <span class="st">"Latitude (Degrees)"</span>, y <span class="op">=</span> <span class="st">"Longitude (Degrees)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>axis.text.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text</a></span><span class="op">(</span>angle <span class="op">=</span> <span class="fl">30</span><span class="op">)</span><span class="op">)</span> <span class="co"># Tilts x-axis text so that the labels don't overlap</span></span>
+<span></span>
+<span><span class="va">pika_points</span></span></code></pre></div>
 <p><img src="nwt_pikas_vignette_files/figure-html/geom_sf-1.png" width="672"></p>
-<p>Because we reprojected our data, we can now plot our data onto geographic maps.</p>
+<p>Because we reprojected our data, we can now plot our data onto
+geographic maps.</p>
 </div>
 <div class="section level2">
 <h2 id="incorporating-online-basemaps">Incorporating Online Basemaps<a class="anchor" aria-label="anchor" href="#incorporating-online-basemaps"></a>
 </h2>
-<p>Although it’s cool to see these plots, we still don’t have much geographical context for our data points, as we don’t know the finer details of the area. One way we can add this to our plots is through the use of the <a href="https://github.com/dkahle/ggmap" class="external-link"><code>ggmap</code></a> package. <code>ggmap</code> allows us to plot static maps from places like <a href="https://www.google.com/maps/" class="external-link">Google Maps</a> and <a href="http://maps.stamen.com/#terrain/12/37.7706/-122.3782" class="external-link">Stamen Maps</a>. <code>ggmap</code> is also easy to use in conjunction with <code>ggplot2</code>, making it possible to combine our plots from earlier with any maps produced with <code>ggmap</code>. Dr. Melanie Frazier at NCEAS has produced a <a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/ggmapCheatsheet.pdf" class="external-link">quick start guide</a> for <code>ggmap</code> that can help you begin.</p>
+<p>Although it’s cool to see these plots, we still don’t have much
+geographical context for our data points, as we don’t know the finer
+details of the area. One way we can add this to our plots is through the
+use of the <a href="https://github.com/dkahle/ggmap" class="external-link"><code>ggmap</code></a> package.
+<code>ggmap</code> allows us to plot static maps from places like <a href="https://www.google.com/maps/" class="external-link">Google Maps</a> and <a href="http://maps.stamen.com/#terrain/12/37.7706/-122.3782" class="external-link">Stamen
+Maps</a>. <code>ggmap</code> is also easy to use in conjunction with
+<code>ggplot2</code>, making it possible to combine our plots from
+earlier with any maps produced with <code>ggmap</code>. Dr. Melanie
+Frazier at NCEAS has produced a <a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/ggmapCheatsheet.pdf" class="external-link">quick
+start guide</a> for <code>ggmap</code> that can help you begin.</p>
 <div class="section level3">
 <h3 id="ggmap-terrain-maps">
 <code>ggmap</code> Terrain Maps<a class="anchor" aria-label="anchor" href="#ggmap-terrain-maps"></a>
 </h3>
-<p>First, let’s try to plot the general area surrounding the Niwot Ridge LTER. We’ll use Stamen Maps since Google Maps requires users to register with Google to use their API. We need to create a bounding box consisting of the coordinates of the region that we would like to plot. This takes some trial and error, but <a href="https://www.openstreetmap.org/export" class="external-link">OpenStreetMap</a> can help you obtain the coordinates that you need.</p>
+<p>First, let’s try to plot the general area surrounding the Niwot Ridge
+LTER. We’ll use Stamen Maps since Google Maps requires users to register
+with Google to use their API. We need to create a bounding box
+consisting of the coordinates of the region that we would like to plot.
+This takes some trial and error, but <a href="https://www.openstreetmap.org/export" class="external-link">OpenStreetMap</a> can help
+you obtain the coordinates that you need.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">nwt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="op">-</span><span class="fl">106</span>, bottom <span class="op">=</span> <span class="fl">39.8433</span>, right <span class="op">=</span> <span class="op">-</span><span class="fl">105</span>, top <span class="op">=</span> <span class="fl">40.2339</span><span class="op">)</span></code></pre></div>
-<p>Next, we can use <code><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap()</a></code> and <code><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap()</a></code> to plot our map. <code><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap()</a></code> creates a ggmap raster object and is similar to the <code>get_map(source = "stamen")</code> function in the NCEAS quick start guide above. <code><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap()</a></code> will plot this ggmap raster object. We can specify the <code>bbox</code> argument as the <code>nwt</code> variable we defined earlier. The <code>zoom</code> argument determines the scale of the map, and will also take some trial and error to get right.</p>
-<p>Now we can combine our <code><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap()</a></code> and our <code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf()</a></code> plots:</p>
+<code class="sourceCode R"><span><span class="va">nwt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="op">-</span><span class="fl">106</span>, bottom <span class="op">=</span> <span class="fl">39.8433</span>, right <span class="op">=</span> <span class="op">-</span><span class="fl">105</span>, top <span class="op">=</span> <span class="fl">40.2339</span><span class="op">)</span></span></code></pre></div>
+<p>Next, we can use <code><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap()</a></code> and
+<code><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap()</a></code> to plot our map.
+<code><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap()</a></code> creates a ggmap raster object and is
+similar to the <code>get_map(source = "stamen")</code> function in the
+NCEAS quick start guide above. <code><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap()</a></code> will plot this ggmap
+raster object. We can specify the <code>bbox</code> argument as the
+<code>nwt</code> variable we defined earlier. The <code>zoom</code>
+argument determines the scale of the map, and will also take some trial
+and error to get right.</p>
+<p>Now we can combine our <code><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap()</a></code> and our
+<code><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf()</a></code> plots:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">combined_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap</a></span><span class="op">(</span><span class="va">nwt</span>, zoom <span class="op">=</span> <span class="fl">10</span>, maptype <span class="op">=</span> <span class="st">"terrain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
- <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pikas_sf</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">site</span>, shape <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Location of Pika Sampling Stations"</span>, subtitle <span class="op">=</span> <span class="st">"Niwot Ridge LTER"</span>, x <span class="op">=</span> <span class="st">"Longitude (Degrees)"</span>, y <span class="op">=</span> <span class="st">"Latitude (Degrees)"</span><span class="op">)</span> <span class="op">+</span>
-   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Choosing colors to make sure points are visible</span>
-
-<span class="va">combined_map</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">combined_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap</a></span><span class="op">(</span><span class="va">nwt</span>, zoom <span class="op">=</span> <span class="fl">10</span>, maptype <span class="op">=</span> <span class="st">"terrain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pikas_sf</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">site</span>, shape <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Location of Pika Sampling Stations"</span>, subtitle <span class="op">=</span> <span class="st">"Niwot Ridge LTER"</span>, x <span class="op">=</span> <span class="st">"Longitude (Degrees)"</span>, y <span class="op">=</span> <span class="st">"Latitude (Degrees)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>   <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Choosing colors to make sure points are visible</span></span>
+<span></span>
+<span><span class="va">combined_map</span></span></code></pre></div>
 <p><img src="nwt_pikas_vignette_files/figure-html/combined_map-1.png" width="672"></p>
 <p>Finally, adjust the bounding box and zoom to get a better look:</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">pikas_location</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="op">-</span><span class="fl">105.65</span>, bottom <span class="op">=</span> <span class="fl">40.04</span>, right <span class="op">=</span> <span class="op">-</span><span class="fl">105.55</span>, top <span class="op">=</span> <span class="fl">40.1</span><span class="op">)</span>
-<span class="va">pikas_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap</a></span><span class="op">(</span><span class="va">pikas_location</span>, zoom <span class="op">=</span> <span class="fl">13</span>, maptype <span class="op">=</span> <span class="st">"terrain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
- <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pikas_sf</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">site</span>, shape <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Location of Pika Sampling Stations"</span>, subtitle <span class="op">=</span> <span class="st">"Niwot Ridge LTER"</span>, x <span class="op">=</span> <span class="st">"Longitude (Degrees)"</span>, y <span class="op">=</span> <span class="st">"Latitude (Degrees)"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Choosing colors to make sure points are visible</span>
-
-<span class="va">pikas_map</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">pikas_location</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>left <span class="op">=</span> <span class="op">-</span><span class="fl">105.65</span>, bottom <span class="op">=</span> <span class="fl">40.04</span>, right <span class="op">=</span> <span class="op">-</span><span class="fl">105.55</span>, top <span class="op">=</span> <span class="fl">40.1</span><span class="op">)</span></span>
+<span><span class="va">pikas_map</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/ggmap.html" class="external-link">ggmap</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggmap/man/get_stamenmap.html" class="external-link">get_stamenmap</a></span><span class="op">(</span><span class="va">pikas_location</span>, zoom <span class="op">=</span> <span class="fl">13</span>, maptype <span class="op">=</span> <span class="st">"terrain"</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsf.html" class="external-link">geom_sf</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pikas_sf</span>, inherit.aes <span class="op">=</span> <span class="cn">FALSE</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">site</span>, shape <span class="op">=</span> <span class="va">site</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Location of Pika Sampling Stations"</span>, subtitle <span class="op">=</span> <span class="st">"Niwot Ridge LTER"</span>, x <span class="op">=</span> <span class="st">"Longitude (Degrees)"</span>, y <span class="op">=</span> <span class="st">"Latitude (Degrees)"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_manual.html" class="external-link">scale_color_manual</a></span><span class="op">(</span>values <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"black"</span>,<span class="st">"red"</span>,<span class="st">"purple"</span><span class="op">)</span><span class="op">)</span> <span class="co"># Choosing colors to make sure points are visible</span></span>
+<span></span>
+<span><span class="va">pikas_map</span></span></code></pre></div>
 <p><img src="nwt_pikas_vignette_files/figure-html/zoom-1.png" width="672"></p>
-<p>Now we have a unified plot consisting of our data and a terrain map!</p>
+<p>Now we have a unified plot consisting of our data and a terrain
+map!</p>
 </div>
 <div class="section level3">
 <h3 id="interactive-maps">Interactive maps<a class="anchor" aria-label="anchor" href="#interactive-maps"></a>
 </h3>
-<p>You can also use the <code>leaflet</code> package to produce interactive maps:</p>
+<p>You can also use the <code>leaflet</code> package to produce
+interactive maps:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pikas_sf</span>, label <span class="op">=</span> <span class="op">~</span><span class="va">station</span><span class="op">)</span></code></pre></div>
-<div id="htmlwidget-b69ae475a79a4eff0630" style="width:672px;height:384px;" class="leaflet html-widget"></div>
-<script type="application/json" data-for="htmlwidget-b69ae475a79a4eff0630">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[40.0455005946612,40.0457009896597,40.0457579828779,40.0555599523312,40.0559938983516,40.0571819744062,40.0561230806813,40.0568155865201,40.0573483958231,40.0565402167651,40.058671686916,40.0595218148983,40.0688580016368,40.0684234185393,40.0693147960073,40.0561142521124,40.058208286621,40.0480370024965,40.0455276225162,40.0457489160232,40.0553447313224,40.0559311304211,40.0555328645062,40.0571819744062,40.0561142521124,40.0573664142759,40.0567661666364,40.058172189238,40.0586718077615,40.0595307637568,40.0553356008104,40.055931069968,40.0571640762052,40.0561320899096,40.0568335447263,40.0573485162668,40.0567751758648,40.0565673044498,40.0581543522949,40.059539893701,40.0455730726236,40.0457099989451,40.0480372320608,40.0553357220997,40.0559490884176,40.05554193387,40.0560296347386,40.0571817940141,40.056114131674,40.0568156467663,40.0573753030538,40.0567841249372,40.0565582952184,40.0581632405179,40.0586716264914,40.0595128660386,40.0455730726236,40.0457099989451,40.0457399643054,40.0689473805207,40.0684142308771,40.069279116053,40.0553357220997,40.0559490884176,40.05554193387,40.0560296347386,40.0571817940141,40.056114131674,40.0568156467663,40.0573753030538,40.0567841249372,40.0565582952184,40.0581632405179,40.0586716264914,40.0595128660386,40.0553357220997,40.0559490884176,40.05554193387,40.0571817940141,40.056114131674,40.0568156467663,40.0573753030538,40.0567841249372,40.0565582952184,40.0581632405179,40.0586716264914,40.0595128660386,40.0455730726236,40.0457099989451,40.0457399643054,40.0480372320608,40.0689473805207,40.0684142308771,40.069279116053,40.0455730726236,40.0457099989451,40.0457399643054,40.0480372320608,40.0553357220997,40.0559490884176,40.05554193387,40.0571817940141,40.056114131674,40.0568156467663,40.0573753030538,40.0567841249372,40.0565582952184,40.0581632405179,40.0586716264914],[-105.570048542407,-105.569604743325,-105.569007351908,-105.594237990193,-105.593948644335,-105.594181730514,-105.595110503738,-105.595351022643,-105.595109437936,-105.592827816481,-105.597079035002,-105.596453294179,-105.587200179199,-105.587618609989,-105.587731811756,-105.595075253071,-105.597837114132,-105.567256090415,-105.570048767529,-105.569018999382,-105.599289376353,-105.597395129354,-105.594249479437,-105.594181730514,-105.595075253071,-105.59510959468,-105.594447787967,-105.597848523643,-105.597055585934,-105.596465097416,-105.59931274535,-105.597406853417,-105.594158125452,-105.595110582107,-105.595362903671,-105.595085989314,-105.594447866251,-105.592816326508,-105.597813192843,-105.596441726606,-105.569967086312,-105.569604818308,-105.567209199321,-105.599289297436,-105.597407010759,-105.594237833688,-105.594007577634,-105.594216903367,-105.595098701269,-105.595339298424,-105.595133121683,-105.59445966875,-105.592816248439,-105.597836720463,-105.597090759535,-105.596441490944,-105.569967086312,-105.569604818308,-105.5690072021,-105.587341668614,-105.587653711244,-105.587661143792,-105.599289297436,-105.597407010759,-105.594237833688,-105.594007577634,-105.594216903367,-105.595098701269,-105.595339298424,-105.595133121683,-105.59445966875,-105.592816248439,-105.597836720463,-105.597090759535,-105.596441490944,-105.599289297436,-105.597407010759,-105.594237833688,-105.594216903367,-105.595098701269,-105.595339298424,-105.595133121683,-105.59445966875,-105.592816248439,-105.597836720463,-105.597090759535,-105.596441490944,-105.569967086312,-105.569604818308,-105.5690072021,-105.567209199321,-105.587341668614,-105.587653711244,-105.587661143792,-105.569967086312,-105.569604818308,-105.5690072021,-105.567209199321,-105.599289297436,-105.597407010759,-105.594237833688,-105.594216903367,-105.595098701269,-105.595339298424,-105.595133121683,-105.59445966875,-105.592816248439,-105.597836720463,-105.597090759535],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,["Cable Gate 1","Cable Gate 2","Cable Gate 3","West Knoll 3","West Knoll 4","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 10","West Knoll 12","West Knoll 13","Long Lake 1","Long Lake 2","Long Lake 3","West Knoll 6","West Knoll 11","Cable Gate 4","Cable Gate 1","Cable Gate 3","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 5","West Knoll 6","West Knoll 8","West Knoll 9","West Knoll 11","West Knoll 12","West Knoll 13","West Knoll 1","West Knoll 2","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 13","Cable Gate 1","Cable Gate 2","Cable Gate 4","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 4","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 12","West Knoll 13","Cable Gate 1","Cable Gate 2","Cable Gate 3","Long Lake 1","Long Lake 2","Long Lake 3","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 4","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 12","West Knoll 13","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 12","West Knoll 13","Cable Gate 1","Cable Gate 2","Cable Gate 3","Cable Gate 4","Long Lake 1","Long Lake 2","Long Lake 3","Cable Gate 1","Cable Gate 2","Cable Gate 3","Cable Gate 4","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 12"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":{"lat":[40.0455005946612,40.0693147960073],"lng":[-105.59931274535,-105.567209199321]}},"evals":[],"jsHooks":[]}</script><p>You can learn more about the <code>leaflet</code> package <a href="https://rstudio.github.io/leaflet/" class="external-link">here</a>. There is also a cheat sheet available <a href="https://github.com/rstudio/cheatsheets/blob/master/leaflet.pdf" class="external-link">here</a>.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/leaflet.html" class="external-link">leaflet</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addTiles</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/leaflet/man/map-layers.html" class="external-link">addCircles</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pikas_sf</span>, label <span class="op">=</span> <span class="op">~</span><span class="va">station</span><span class="op">)</span></span></code></pre></div>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-7736b5d388bad5fbf1fd" style="width:672px;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-7736b5d388bad5fbf1fd">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addCircles","args":[[40.0455005946612,40.0457009896597,40.0457579828779,40.0555599523313,40.0559938983516,40.0571819744062,40.0561230806813,40.0568155865201,40.0573483958231,40.0565402167651,40.058671686916,40.0595218148983,40.0688580016368,40.0684234185393,40.0693147960073,40.0561142521124,40.058208286621,40.0480370024965,40.0455276225162,40.0457489160232,40.0553447313224,40.0559311304211,40.0555328645062,40.0571819744062,40.0561142521124,40.0573664142759,40.0567661666364,40.058172189238,40.0586718077615,40.0595307637568,40.0553356008104,40.055931069968,40.0571640762052,40.0561320899096,40.0568335447263,40.0573485162668,40.0567751758648,40.0565673044498,40.0581543522949,40.059539893701,40.0455730726236,40.0457099989451,40.0480372320608,40.0553357220997,40.0559490884176,40.05554193387,40.0560296347386,40.0571817940141,40.056114131674,40.0568156467663,40.0573753030538,40.0567841249372,40.0565582952184,40.0581632405179,40.0586716264914,40.0595128660386,40.0455730726236,40.0457099989451,40.0457399643054,40.0689473805207,40.0684142308771,40.069279116053,40.0553357220997,40.0559490884176,40.05554193387,40.0560296347386,40.0571817940141,40.056114131674,40.0568156467663,40.0573753030538,40.0567841249372,40.0565582952184,40.0581632405179,40.0586716264914,40.0595128660386,40.0553357220997,40.0559490884176,40.05554193387,40.0571817940141,40.056114131674,40.0568156467663,40.0573753030538,40.0567841249372,40.0565582952184,40.0581632405179,40.0586716264914,40.0595128660386,40.0455730726236,40.0457099989451,40.0457399643054,40.0480372320608,40.0689473805207,40.0684142308771,40.069279116053,40.0455730726236,40.0457099989451,40.0457399643054,40.0480372320608,40.0553357220997,40.0559490884176,40.05554193387,40.0571817940141,40.056114131674,40.0568156467663,40.0573753030538,40.0567841249372,40.0565582952184,40.0581632405179,40.0586716264914],[-105.570048542407,-105.569604743325,-105.569007351908,-105.594237990193,-105.593948644335,-105.594181730514,-105.595110503738,-105.595351022643,-105.595109437936,-105.592827816481,-105.597079035002,-105.596453294179,-105.587200179199,-105.587618609989,-105.587731811756,-105.595075253071,-105.597837114132,-105.567256090415,-105.570048767529,-105.569018999382,-105.599289376353,-105.597395129354,-105.594249479437,-105.594181730514,-105.595075253071,-105.59510959468,-105.594447787967,-105.597848523643,-105.597055585934,-105.596465097416,-105.59931274535,-105.597406853417,-105.594158125452,-105.595110582107,-105.595362903671,-105.595085989314,-105.594447866251,-105.592816326508,-105.597813192843,-105.596441726606,-105.569967086312,-105.569604818308,-105.567209199321,-105.599289297436,-105.597407010759,-105.594237833688,-105.594007577634,-105.594216903367,-105.595098701269,-105.595339298424,-105.595133121683,-105.59445966875,-105.592816248439,-105.597836720463,-105.597090759535,-105.596441490944,-105.569967086312,-105.569604818308,-105.5690072021,-105.587341668614,-105.587653711244,-105.587661143792,-105.599289297436,-105.597407010759,-105.594237833688,-105.594007577634,-105.594216903367,-105.595098701269,-105.595339298424,-105.595133121683,-105.59445966875,-105.592816248439,-105.597836720463,-105.597090759535,-105.596441490944,-105.599289297436,-105.597407010759,-105.594237833688,-105.594216903367,-105.595098701269,-105.595339298424,-105.595133121683,-105.59445966875,-105.592816248439,-105.597836720463,-105.597090759535,-105.596441490944,-105.569967086312,-105.569604818308,-105.5690072021,-105.567209199321,-105.587341668614,-105.587653711244,-105.587661143792,-105.569967086312,-105.569604818308,-105.5690072021,-105.567209199321,-105.599289297436,-105.597407010759,-105.594237833688,-105.594216903367,-105.595098701269,-105.595339298424,-105.595133121683,-105.59445966875,-105.592816248439,-105.597836720463,-105.597090759535],10,null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,["Cable Gate 1","Cable Gate 2","Cable Gate 3","West Knoll 3","West Knoll 4","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 10","West Knoll 12","West Knoll 13","Long Lake 1","Long Lake 2","Long Lake 3","West Knoll 6","West Knoll 11","Cable Gate 4","Cable Gate 1","Cable Gate 3","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 5","West Knoll 6","West Knoll 8","West Knoll 9","West Knoll 11","West Knoll 12","West Knoll 13","West Knoll 1","West Knoll 2","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 13","Cable Gate 1","Cable Gate 2","Cable Gate 4","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 4","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 12","West Knoll 13","Cable Gate 1","Cable Gate 2","Cable Gate 3","Long Lake 1","Long Lake 2","Long Lake 3","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 4","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 12","West Knoll 13","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 12","West Knoll 13","Cable Gate 1","Cable Gate 2","Cable Gate 3","Cable Gate 4","Long Lake 1","Long Lake 2","Long Lake 3","Cable Gate 1","Cable Gate 2","Cable Gate 3","Cable Gate 4","West Knoll 1","West Knoll 2","West Knoll 3","West Knoll 5","West Knoll 6","West Knoll 7","West Knoll 8","West Knoll 9","West Knoll 10","West Knoll 11","West Knoll 12"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null,null]}],"limits":{"lat":[40.0455005946612,40.0693147960073],"lng":[-105.59931274535,-105.567209199321]}},"evals":[],"jsHooks":[]}</script><p>You can learn more about the <code>leaflet</code> package <a href="https://rstudio.github.io/leaflet/" class="external-link">here</a>. There is also a
+cheat sheet available <a href="https://github.com/rstudio/cheatsheets/blob/master/leaflet.pdf" class="external-link">here</a>.</p>
 </div>
 </div>
 <div class="section level2">
 <h2 id="learn-more">Learn more<a class="anchor" aria-label="anchor" href="#learn-more"></a>
 </h2>
-<p>Want to learn more about how iconic species, such as Pikas, help to create enthusiasm around citizen science? Read this story: <a href="https://lternet.edu/stories/pika-enthusiasts-unite-under-a-common-theme/" class="external-link uri">https://lternet.edu/stories/pika-enthusiasts-unite-under-a-common-theme/</a></p>
+<p>Want to learn more about how iconic species, such as Pikas, help to
+create enthusiasm around citizen science? Read this story: <a href="https://lternet.edu/stories/pika-enthusiasts-unite-under-a-common-theme/" class="external-link uri">https://lternet.edu/stories/pika-enthusiasts-unite-under-a-common-theme/</a></p>
 <p><br></p>
 <figure style="text-align:center;"><img src="../reference/figures/adultPikaNiwotRidge_SaraMcLaughlin.jpeg" width="60%" style="display:block; margin-left: auto; margin-right: auto;"><figcaption>
 Adult pika at the Niwot site, Sara McLaughlin
@@ -292,12 +378,17 @@ Adult pika at the Niwot site, Sara McLaughlin
 <div class="section level2">
 <h2 id="aknowledgement">Aknowledgement<a class="anchor" aria-label="anchor" href="#aknowledgement"></a>
 </h2>
-<p>Thank you to Ashley Whipple and Chris Ray for their inputs while developing this vignette. Thank you also go to Adhitya Logan for his extra work on this vignette.</p>
+<p>Thank you to Ashley Whipple and Chris Ray for their inputs while
+developing this vignette. Thank you also go to Adhitya Logan for his
+extra work on this vignette.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
-<p>Whipple, A. and Niwot Ridge LTER. 2020. Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019 ver 1. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d" class="external-link uri">https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d</a> (Accessed 2021-05-06).</p>
+<p>Whipple, A. and Niwot Ridge LTER. 2020. Physiological stress of
+American pika (Ochotona princeps) and associated habitat characteristics
+for Niwot Ridge, 2018 - 2019 ver 1. Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d" class="external-link uri">https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d</a>
+(Accessed 2021-05-06).</p>
 </div>
 <div class="section level2">
 <h2 id="how-we-processed-the-raw-data">How we processed the raw data<a class="anchor" aria-label="anchor" href="#how-we-processed-the-raw-data"></a>
@@ -306,121 +397,121 @@ Adult pika at the Niwot site, Sara McLaughlin
 <h4 id="download-the-raw-data-from-edi-org">Download the raw data from EDI.org<a class="anchor" aria-label="anchor" href="#download-the-raw-data-from-edi-org"></a>
 </h4>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam" class="external-link">metajam</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor" class="external-link">janitor</a></span><span class="op">)</span>
-
-<span class="co"># Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019</span>
-<span class="co"># Main URL: https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d</span>
-
-<span class="co"># Stress and coordinate data</span>
-<span class="va">nwt_url</span> <span class="op">&lt;-</span>
-  <span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&amp;entityid=43270add3532c7f3716404576cfb3f2c"</span>
-
-<span class="co"># Elevation Data</span>
-<span class="va">elevation_url</span> <span class="op">&lt;-</span>
-  <span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&amp;entityid=6a10b35988119d0462837f9bfa31dd2f"</span>
-
-<span class="co"># Download the data packages with metajam</span>
-<span class="va">nwt_download</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/download_d1_data.html" class="external-link">download_d1_data</a></span><span class="op">(</span>data_url <span class="op">=</span> <span class="va">nwt_url</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
-
-<span class="va">elevation_download</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/download_d1_data.html" class="external-link">download_d1_data</a></span><span class="op">(</span>data_url <span class="op">=</span> <span class="va">elevation_url</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam" class="external-link">metajam</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor" class="external-link">janitor</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019</span></span>
+<span><span class="co"># Main URL: https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d</span></span>
+<span></span>
+<span><span class="co"># Stress and coordinate data</span></span>
+<span><span class="va">nwt_url</span> <span class="op">&lt;-</span></span>
+<span>  <span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&amp;entityid=43270add3532c7f3716404576cfb3f2c"</span></span>
+<span></span>
+<span><span class="co"># Elevation Data</span></span>
+<span><span class="va">elevation_url</span> <span class="op">&lt;-</span></span>
+<span>  <span class="st">"https://portal.edirepository.org/nis/dataviewer?packageid=knb-lter-nwt.268.1&amp;entityid=6a10b35988119d0462837f9bfa31dd2f"</span></span>
+<span></span>
+<span><span class="co"># Download the data packages with metajam</span></span>
+<span><span class="va">nwt_download</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/download_d1_data.html" class="external-link">download_d1_data</a></span><span class="op">(</span>data_url <span class="op">=</span> <span class="va">nwt_url</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">elevation_download</span> <span class="op">&lt;-</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/download_d1_data.html" class="external-link">download_d1_data</a></span><span class="op">(</span>data_url <span class="op">=</span> <span class="va">elevation_url</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="data-cleaning">Data cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"></a>
 </h4>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="co"># Read in stress and coordinate data</span>
-<span class="va">nwt_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">nwt_download</span><span class="op">)</span>
-<span class="va">nwt_pikas_raw</span> <span class="op">&lt;-</span> <span class="va">nwt_files</span><span class="op">$</span><span class="va">data</span>
-
-<span class="co"># Drop unneeded variables, convert data types, spell out abbreviations, and reorder variables</span>
-<span class="va">nwt_pikas</span> <span class="op">&lt;-</span> <span class="va">nwt_pikas_raw</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Notes</span>,<span class="op">-</span><span class="va">Vial</span>,<span class="op">-</span><span class="va">Plate</span>,<span class="op">-</span><span class="va">Biweek</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    Station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Station</span><span class="op">)</span>,
-    Site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Site</span><span class="op">)</span>,
-    Sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Sex</span><span class="op">)</span>,
-    Date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span>,
-    Site <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span>
-      <span class="va">Site</span>,
-      <span class="st">"WK"</span> <span class="op">=</span> <span class="st">"West Knoll"</span>,
-      <span class="st">"LL"</span> <span class="op">=</span> <span class="st">"Long Lake"</span>,
-      <span class="st">"ML"</span> <span class="op">=</span> <span class="st">"Mitchell Lake"</span>,
-      <span class="st">"CG"</span> <span class="op">=</span> <span class="st">"Cable Gate"</span>
-    <span class="op">)</span>,
-    Sex <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span><span class="va">Sex</span>,
-                 <span class="st">"U"</span> <span class="op">=</span> <span class="cn">NA_character_</span>,
-                 <span class="st">"M"</span> <span class="op">=</span> <span class="st">"male"</span><span class="op">)</span>,
-    Station <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span>
-      <span class="va">Station</span>,
-      <span class="st">"CG1"</span> <span class="op">=</span> <span class="st">"Cable Gate 1"</span>,
-      <span class="st">"CG2"</span> <span class="op">=</span> <span class="st">"Cable Gate 2"</span>,
-      <span class="st">"CG3"</span> <span class="op">=</span> <span class="st">"Cable Gate 3"</span>,
-      <span class="st">"CG4"</span> <span class="op">=</span> <span class="st">"Cable Gate 4"</span>,
-      <span class="st">"LL1"</span> <span class="op">=</span> <span class="st">"Long Lake 1"</span>,
-      <span class="st">"LL2"</span> <span class="op">=</span> <span class="st">"Long Lake 2"</span>,
-      <span class="st">"LL3"</span> <span class="op">=</span> <span class="st">"Long Lake 3"</span>,
-      <span class="st">"WK1"</span> <span class="op">=</span> <span class="st">"West Knoll 1"</span>,
-      <span class="st">"WK2"</span> <span class="op">=</span> <span class="st">"West Knoll 2"</span>,
-      <span class="st">"WK3"</span> <span class="op">=</span> <span class="st">"West Knoll 3"</span>,
-      <span class="st">"WK4"</span> <span class="op">=</span> <span class="st">"West Knoll 4"</span>,
-      <span class="st">"WK5"</span> <span class="op">=</span> <span class="st">"West Knoll 5"</span>,
-      <span class="st">"WK6"</span> <span class="op">=</span> <span class="st">"West Knoll 6"</span>,
-      <span class="st">"WK7"</span> <span class="op">=</span> <span class="st">"West Knoll 7"</span>,
-      <span class="st">"WK8"</span> <span class="op">=</span> <span class="st">"West Knoll 8"</span>,
-      <span class="st">"WK9"</span> <span class="op">=</span> <span class="st">"West Knoll 9"</span>,
-      <span class="st">"WK10"</span> <span class="op">=</span> <span class="st">"West Knoll 10"</span>,
-      <span class="st">"WK11"</span> <span class="op">=</span> <span class="st">"West Knoll 11"</span>,
-      <span class="st">"WK12"</span> <span class="op">=</span> <span class="st">"West Knoll 12"</span>,
-      <span class="st">"WK13"</span> <span class="op">=</span> <span class="st">"West Knoll 13"</span>
-    <span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html" class="external-link">relocate</a></span><span class="op">(</span><span class="va">Site</span>, .before <span class="op">=</span> <span class="va">Station</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html" class="external-link">relocate</a></span><span class="op">(</span><span class="va">Sex</span>, .before <span class="op">=</span> <span class="va">Concentration_pg_g</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Read in elevation data</span>
-<span class="va">elevation_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">elevation_download</span><span class="op">)</span>
-<span class="va">elevation_raw</span> <span class="op">&lt;-</span> <span class="va">elevation_files</span><span class="op">$</span><span class="va">data</span>
-
-<span class="co"># Select needed variables, spell out abbreviations, and convert Station to factor</span>
-<span class="va">elevation</span> <span class="op">&lt;-</span> <span class="va">elevation_raw</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Station</span>, <span class="va">Elev_M</span><span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>
-    Station <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span>
-      <span class="va">Station</span>,
-      <span class="st">"CG1"</span> <span class="op">=</span> <span class="st">"Cable Gate 1"</span>,
-      <span class="st">"CG2"</span> <span class="op">=</span> <span class="st">"Cable Gate 2"</span>,
-      <span class="st">"CG3"</span> <span class="op">=</span> <span class="st">"Cable Gate 3"</span>,
-      <span class="st">"CG4"</span> <span class="op">=</span> <span class="st">"Cable Gate 4"</span>,
-      <span class="st">"LL1"</span> <span class="op">=</span> <span class="st">"Long Lake 1"</span>,
-      <span class="st">"LL2"</span> <span class="op">=</span> <span class="st">"Long Lake 2"</span>,
-      <span class="st">"LL3"</span> <span class="op">=</span> <span class="st">"Long Lake 3"</span>,
-      <span class="st">"WK1"</span> <span class="op">=</span> <span class="st">"West Knoll 1"</span>,
-      <span class="st">"WK2"</span> <span class="op">=</span> <span class="st">"West Knoll 2"</span>,
-      <span class="st">"WK3"</span> <span class="op">=</span> <span class="st">"West Knoll 3"</span>,
-      <span class="st">"WK4"</span> <span class="op">=</span> <span class="st">"West Knoll 4"</span>,
-      <span class="st">"WK5"</span> <span class="op">=</span> <span class="st">"West Knoll 5"</span>,
-      <span class="st">"WK6"</span> <span class="op">=</span> <span class="st">"West Knoll 6"</span>,
-      <span class="st">"WK7"</span> <span class="op">=</span> <span class="st">"West Knoll 7"</span>,
-      <span class="st">"WK8"</span> <span class="op">=</span> <span class="st">"West Knoll 8"</span>,
-      <span class="st">"WK9"</span> <span class="op">=</span> <span class="st">"West Knoll 9"</span>,
-      <span class="st">"WK10"</span> <span class="op">=</span> <span class="st">"West Knoll 10"</span>,
-      <span class="st">"WK11"</span> <span class="op">=</span> <span class="st">"West Knoll 11"</span>,
-      <span class="st">"WK12"</span> <span class="op">=</span> <span class="st">"West Knoll 12"</span>,
-      <span class="st">"WK13"</span> <span class="op">=</span> <span class="st">"West Knoll 13"</span>
-    <span class="op">)</span>,
-    Station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Station</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span>
-  <span class="fu"><a href="https://rdrr.io/pkg/janitor/man/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span>
-
-<span class="co"># Combine elevation data with stress and coordinate data</span>
-<span class="va">nwt_pikas</span> <span class="op">&lt;-</span> <span class="va">nwt_pikas</span> <span class="op"><a href="https://rdrr.io/pkg/janitor/man/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">full_join</a></span><span class="op">(</span><span class="va">elevation</span>, by <span class="op">=</span> <span class="st">"station"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Read in stress and coordinate data</span></span>
+<span><span class="va">nwt_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">nwt_download</span><span class="op">)</span></span>
+<span><span class="va">nwt_pikas_raw</span> <span class="op">&lt;-</span> <span class="va">nwt_files</span><span class="op">$</span><span class="va">data</span></span>
+<span></span>
+<span><span class="co"># Drop unneeded variables, convert data types, spell out abbreviations, and reorder variables</span></span>
+<span><span class="va">nwt_pikas</span> <span class="op">&lt;-</span> <span class="va">nwt_pikas_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">Notes</span>,<span class="op">-</span><span class="va">Vial</span>,<span class="op">-</span><span class="va">Plate</span>,<span class="op">-</span><span class="va">Biweek</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    Station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Station</span><span class="op">)</span>,</span>
+<span>    Site <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Site</span><span class="op">)</span>,</span>
+<span>    Sex <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Sex</span><span class="op">)</span>,</span>
+<span>    Date <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html" class="external-link">as.Date</a></span><span class="op">(</span><span class="va">Date</span><span class="op">)</span>,</span>
+<span>    Site <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span></span>
+<span>      <span class="va">Site</span>,</span>
+<span>      <span class="st">"WK"</span> <span class="op">=</span> <span class="st">"West Knoll"</span>,</span>
+<span>      <span class="st">"LL"</span> <span class="op">=</span> <span class="st">"Long Lake"</span>,</span>
+<span>      <span class="st">"ML"</span> <span class="op">=</span> <span class="st">"Mitchell Lake"</span>,</span>
+<span>      <span class="st">"CG"</span> <span class="op">=</span> <span class="st">"Cable Gate"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    Sex <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span><span class="va">Sex</span>,</span>
+<span>                 <span class="st">"U"</span> <span class="op">=</span> <span class="cn">NA_character_</span>,</span>
+<span>                 <span class="st">"M"</span> <span class="op">=</span> <span class="st">"male"</span><span class="op">)</span>,</span>
+<span>    Station <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span></span>
+<span>      <span class="va">Station</span>,</span>
+<span>      <span class="st">"CG1"</span> <span class="op">=</span> <span class="st">"Cable Gate 1"</span>,</span>
+<span>      <span class="st">"CG2"</span> <span class="op">=</span> <span class="st">"Cable Gate 2"</span>,</span>
+<span>      <span class="st">"CG3"</span> <span class="op">=</span> <span class="st">"Cable Gate 3"</span>,</span>
+<span>      <span class="st">"CG4"</span> <span class="op">=</span> <span class="st">"Cable Gate 4"</span>,</span>
+<span>      <span class="st">"LL1"</span> <span class="op">=</span> <span class="st">"Long Lake 1"</span>,</span>
+<span>      <span class="st">"LL2"</span> <span class="op">=</span> <span class="st">"Long Lake 2"</span>,</span>
+<span>      <span class="st">"LL3"</span> <span class="op">=</span> <span class="st">"Long Lake 3"</span>,</span>
+<span>      <span class="st">"WK1"</span> <span class="op">=</span> <span class="st">"West Knoll 1"</span>,</span>
+<span>      <span class="st">"WK2"</span> <span class="op">=</span> <span class="st">"West Knoll 2"</span>,</span>
+<span>      <span class="st">"WK3"</span> <span class="op">=</span> <span class="st">"West Knoll 3"</span>,</span>
+<span>      <span class="st">"WK4"</span> <span class="op">=</span> <span class="st">"West Knoll 4"</span>,</span>
+<span>      <span class="st">"WK5"</span> <span class="op">=</span> <span class="st">"West Knoll 5"</span>,</span>
+<span>      <span class="st">"WK6"</span> <span class="op">=</span> <span class="st">"West Knoll 6"</span>,</span>
+<span>      <span class="st">"WK7"</span> <span class="op">=</span> <span class="st">"West Knoll 7"</span>,</span>
+<span>      <span class="st">"WK8"</span> <span class="op">=</span> <span class="st">"West Knoll 8"</span>,</span>
+<span>      <span class="st">"WK9"</span> <span class="op">=</span> <span class="st">"West Knoll 9"</span>,</span>
+<span>      <span class="st">"WK10"</span> <span class="op">=</span> <span class="st">"West Knoll 10"</span>,</span>
+<span>      <span class="st">"WK11"</span> <span class="op">=</span> <span class="st">"West Knoll 11"</span>,</span>
+<span>      <span class="st">"WK12"</span> <span class="op">=</span> <span class="st">"West Knoll 12"</span>,</span>
+<span>      <span class="st">"WK13"</span> <span class="op">=</span> <span class="st">"West Knoll 13"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html" class="external-link">relocate</a></span><span class="op">(</span><span class="va">Site</span>, .before <span class="op">=</span> <span class="va">Station</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/relocate.html" class="external-link">relocate</a></span><span class="op">(</span><span class="va">Sex</span>, .before <span class="op">=</span> <span class="va">Concentration_pg_g</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Read in elevation data</span></span>
+<span><span class="va">elevation_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">elevation_download</span><span class="op">)</span></span>
+<span><span class="va">elevation_raw</span> <span class="op">&lt;-</span> <span class="va">elevation_files</span><span class="op">$</span><span class="va">data</span></span>
+<span></span>
+<span><span class="co"># Select needed variables, spell out abbreviations, and convert Station to factor</span></span>
+<span><span class="va">elevation</span> <span class="op">&lt;-</span> <span class="va">elevation_raw</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">Station</span>, <span class="va">Elev_M</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
+<span>    Station <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/recode.html" class="external-link">recode</a></span><span class="op">(</span></span>
+<span>      <span class="va">Station</span>,</span>
+<span>      <span class="st">"CG1"</span> <span class="op">=</span> <span class="st">"Cable Gate 1"</span>,</span>
+<span>      <span class="st">"CG2"</span> <span class="op">=</span> <span class="st">"Cable Gate 2"</span>,</span>
+<span>      <span class="st">"CG3"</span> <span class="op">=</span> <span class="st">"Cable Gate 3"</span>,</span>
+<span>      <span class="st">"CG4"</span> <span class="op">=</span> <span class="st">"Cable Gate 4"</span>,</span>
+<span>      <span class="st">"LL1"</span> <span class="op">=</span> <span class="st">"Long Lake 1"</span>,</span>
+<span>      <span class="st">"LL2"</span> <span class="op">=</span> <span class="st">"Long Lake 2"</span>,</span>
+<span>      <span class="st">"LL3"</span> <span class="op">=</span> <span class="st">"Long Lake 3"</span>,</span>
+<span>      <span class="st">"WK1"</span> <span class="op">=</span> <span class="st">"West Knoll 1"</span>,</span>
+<span>      <span class="st">"WK2"</span> <span class="op">=</span> <span class="st">"West Knoll 2"</span>,</span>
+<span>      <span class="st">"WK3"</span> <span class="op">=</span> <span class="st">"West Knoll 3"</span>,</span>
+<span>      <span class="st">"WK4"</span> <span class="op">=</span> <span class="st">"West Knoll 4"</span>,</span>
+<span>      <span class="st">"WK5"</span> <span class="op">=</span> <span class="st">"West Knoll 5"</span>,</span>
+<span>      <span class="st">"WK6"</span> <span class="op">=</span> <span class="st">"West Knoll 6"</span>,</span>
+<span>      <span class="st">"WK7"</span> <span class="op">=</span> <span class="st">"West Knoll 7"</span>,</span>
+<span>      <span class="st">"WK8"</span> <span class="op">=</span> <span class="st">"West Knoll 8"</span>,</span>
+<span>      <span class="st">"WK9"</span> <span class="op">=</span> <span class="st">"West Knoll 9"</span>,</span>
+<span>      <span class="st">"WK10"</span> <span class="op">=</span> <span class="st">"West Knoll 10"</span>,</span>
+<span>      <span class="st">"WK11"</span> <span class="op">=</span> <span class="st">"West Knoll 11"</span>,</span>
+<span>      <span class="st">"WK12"</span> <span class="op">=</span> <span class="st">"West Knoll 12"</span>,</span>
+<span>      <span class="st">"WK13"</span> <span class="op">=</span> <span class="st">"West Knoll 13"</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    Station <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">as.factor</a></span><span class="op">(</span><span class="va">Station</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
+<span>  <span class="fu"><a href="https://sfirke.github.io/janitor/reference/clean_names.html" class="external-link">clean_names</a></span><span class="op">(</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Combine elevation data with stress and coordinate data</span></span>
+<span><span class="va">nwt_pikas</span> <span class="op">&lt;-</span> <span class="va">nwt_pikas</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">full_join</a></span><span class="op">(</span><span class="va">elevation</span>, by <span class="op">=</span> <span class="st">"station"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -442,7 +533,7 @@ Adult pika at the Niwot site, Sara McLaughlin
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
