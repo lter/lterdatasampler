@@ -2,7 +2,7 @@
 #'
 #' Includes count and size data for cutthroat trout and salamanders in clear cut or old growth sections of Mack Creek, Andrews Forest LTER.
 #'
-#' @format A tibble with 32,209 rows and 6 variables:
+#' @format A tibble with 32,209 rows and 16 variables:
 #' \describe{
 #'   \item{year}{a number indicating the observation year}
 #'   \item{sitecode}{a character denoting the coded name of sample area}
