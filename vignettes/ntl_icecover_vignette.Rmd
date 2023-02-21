@@ -289,8 +289,8 @@ Where:
 
 - $A_{y_{stand}}$ = Standardized anomalies
 - $T_{y}$ = mean temperature for a specific cold season
-- $overline{T}_{clim}) $ = Mean temperature from 1870 to 1900
-- $T_{SD_{clim}} $ = Standard deviation for temperature from 1870 to 1900
+- $\overline{T}_{clim}$ = Mean temperature from 1870 to 1900
+- $T_{SD_{clim}}$ = Standard deviation for temperature from 1870 to 1900
 
 
 ### Air Temperature Climatologies
