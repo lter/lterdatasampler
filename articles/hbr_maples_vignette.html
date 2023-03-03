@@ -115,7 +115,7 @@ Sugar Maples (HBR)</h1>
 Hubbard Brook Experimental Forest</h3>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/lter/lterdatasampler/blob/HEAD/vignettes/hbr_maples_vignette.Rmd" class="external-link"><code>vignettes/hbr_maples_vignette.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/lter/lterdatasampler/blob/HEAD/vignettes/articles/hbr_maples_vignette.Rmd" class="external-link"><code>vignettes/articles/hbr_maples_vignette.Rmd</code></a></small>
       <div class="hidden name"><code>hbr_maples_vignette.Rmd</code></div>
 
     </div>
@@ -191,25 +191,25 @@ by Natalie Cleavitt.</p>
 contains both numeric and factor variables. Learn more about the
 variables in the dataset documentation (<code><a href="../reference/hbr_maples.html">?hbr_maples</a></code>).</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Rows: 359</span></span>
-<span><span class="co">#&gt; Columns: 11</span></span>
-<span><span class="co">#&gt; $ year                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 20…</span></span>
-<span><span class="co">#&gt; $ watershed           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> Reference, Reference, Reference, Reference, Refere…</span></span>
-<span><span class="co">#&gt; $ elevation           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> Low, Low, Low, Low, Low, Low, Low, Low, Low, Low, …</span></span>
-<span><span class="co">#&gt; $ transect            <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> R1, R1, R1, R1, R1, R1, R1, R1, R1, R1, R1, R1, R1…</span></span>
-<span><span class="co">#&gt; $ sample              <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,…</span></span>
-<span><span class="co">#&gt; $ stem_length         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 86.9, 114.0, 83.5, 68.1, 72.1, 77.7, 85.5, 81.6, 9…</span></span>
-<span><span class="co">#&gt; $ leaf1area           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 13.837, 14.572, 12.451, 9.974, 6.838, 9.660, 8.823…</span></span>
-<span><span class="co">#&gt; $ leaf2area           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 12.130, 15.267, 9.731, 10.068, 5.480, 7.643, 9.233…</span></span>
-<span><span class="co">#&gt; $ leaf_dry_mass       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.0453, 0.0476, 0.0423, 0.0397, 0.0204, 0.0317, 0.…</span></span>
-<span><span class="co">#&gt; $ stem_dry_mass       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.0300, 0.0338, 0.0248, 0.0194, 0.0180, 0.0246, 0.…</span></span>
-<span><span class="co">#&gt; $ corrected_leaf_area <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 29.104, 32.976, 25.319, 23.179, 15.455, 20.440, 21…</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://pillar.r-lib.org/reference/glimpse.html" class="external-link">glimpse</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Rows: 359</span></span>
+<span><span class="co">## Columns: 11</span></span>
+<span><span class="co">## $ year                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 2003, 2003, 2003, 2003, 2003, 2003, 2003, 2003, 20…</span></span>
+<span><span class="co">## $ watershed           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> Reference, Reference, Reference, Reference, Refere…</span></span>
+<span><span class="co">## $ elevation           <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> Low, Low, Low, Low, Low, Low, Low, Low, Low, Low, …</span></span>
+<span><span class="co">## $ transect            <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> R1, R1, R1, R1, R1, R1, R1, R1, R1, R1, R1, R1, R1…</span></span>
+<span><span class="co">## $ sample              <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,…</span></span>
+<span><span class="co">## $ stem_length         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 86.9, 114.0, 83.5, 68.1, 72.1, 77.7, 85.5, 81.6, 9…</span></span>
+<span><span class="co">## $ leaf1area           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 13.837, 14.572, 12.451, 9.974, 6.838, 9.660, 8.823…</span></span>
+<span><span class="co">## $ leaf2area           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 12.130, 15.267, 9.731, 10.068, 5.480, 7.643, 9.233…</span></span>
+<span><span class="co">## $ leaf_dry_mass       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.0453, 0.0476, 0.0423, 0.0397, 0.0204, 0.0317, 0.…</span></span>
+<span><span class="co">## $ stem_dry_mass       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 0.0300, 0.0338, 0.0248, 0.0194, 0.0180, 0.0246, 0.…</span></span>
+<span><span class="co">## $ corrected_leaf_area <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> 29.104, 32.976, 25.319, 23.179, 15.455, 20.440, 21…</span></span></code></pre>
 <p>First, let’s create an exploratory visualization of the data using
 <code>ggplot</code>. Is there evidence for differences in maple seedling
 height (millimeters) between the calcium-treated (W1) and untreated
 (reference) watersheds?</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">watershed</span>, y <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_boxplot.html" class="external-link">geom_boxplot</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">watershed</span>, shape <span class="op">=</span> <span class="va">watershed</span><span class="op">)</span>,</span>
 <span>               alpha <span class="op">=</span> <span class="fl">0.8</span>,</span>
@@ -238,7 +238,7 @@ watershed (W1), compared to the untreated watershed.</p>
 <p>Taking our exploration a bit further, we can find basic summary
 statistics (mean, median, standard deviation, and sample size) for
 seedling heights in the two watersheds:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">maple_summary</span> <span class="op">&lt;-</span> <span class="va">hbr_maples</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">stem_length</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">year</span>, <span class="va">watershed</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -249,15 +249,15 @@ seedling heights in the two watersheds:</p>
 <span>    n <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
-<span><span class="va">maple_summary</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   year [2]</span></span></span>
-<span><span class="co">#&gt;    year watershed mean_length median_length sd_length     n</span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>003 Reference        81.0          79.8      13.9   120</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>003 W1               87.9          86.2      14.3   120</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>004 Reference        85.9          85        15.6    59</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>004 W1               97.5          95.5      13.8    60</span></span></code></pre></div>
+<span><span class="va">maple_summary</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
+<span><span class="co">## <span style="color: #949494;"># Groups:   year [2]</span></span></span>
+<span><span class="co">##    year watershed mean_length median_length sd_length     n</span></span>
+<span><span class="co">##   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>  <span style="text-decoration: underline;">2</span>003 Reference        81.0          79.8      13.9   120</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>  <span style="text-decoration: underline;">2</span>003 W1               87.9          86.2      14.3   120</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>  <span style="text-decoration: underline;">2</span>004 Reference        85.9          85        15.6    59</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>  <span style="text-decoration: underline;">2</span>004 W1               97.5          95.5      13.8    60</span></span></code></pre>
 <p>In both years, the mean and median seedling height (stem_length) are
 higher in the W1 (calcium-treated) watershed, compared to the Reference
 (untreated) watershed.</p>
@@ -268,7 +268,7 @@ higher in the W1 (calcium-treated) watershed, compared to the Reference
 <p>We can also explore the distribution of stem lengths in each of the
 watersheds, using <code><a href="https://ggplot2.tidyverse.org/reference/facet_grid.html" class="external-link">facet_grid()</a></code> to split up the histograms
 by year and watershed:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">hbr_maples</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_histogram.html" class="external-link">geom_histogram</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -329,21 +329,21 @@ equal to 1 (equal variances)</p></li>
 <li><p><span class="math inline">\(H_A:\)</span> Ratio of variances is
 not equal to 1 (unequal variances)</p></li>
 </ul>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hbr_maples</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2004</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/var.test.html" class="external-link">var.test</a></span><span class="op">(</span><span class="va">stem_length</span> <span class="op">~</span> <span class="va">watershed</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  F test to compare two variances</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; data:  stem_length by watershed</span></span>
-<span><span class="co">#&gt; F = 1.2701, num df = 58, denom df = 59, p-value = 0.3626</span></span>
-<span><span class="co">#&gt; alternative hypothesis: true ratio of variances is not equal to 1</span></span>
-<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  0.7573898 2.1323658</span></span>
-<span><span class="co">#&gt; sample estimates:</span></span>
-<span><span class="co">#&gt; ratio of variances </span></span>
-<span><span class="co">#&gt;           1.270104</span></span></code></pre></div>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/var.test.html" class="external-link">var.test</a></span><span class="op">(</span><span class="va">stem_length</span> <span class="op">~</span> <span class="va">watershed</span>, data <span class="op">=</span> <span class="va">.</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">##  F test to compare two variances</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  stem_length by watershed</span></span>
+<span><span class="co">## F = 1.2701, num df = 58, denom df = 59, p-value = 0.3626</span></span>
+<span><span class="co">## alternative hypothesis: true ratio of variances is not equal to 1</span></span>
+<span><span class="co">## 95 percent confidence interval:</span></span>
+<span><span class="co">##  0.7573898 2.1323658</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## ratio of variances </span></span>
+<span><span class="co">##           1.270104</span></span></code></pre>
 <p>With a p-value &gt; 0.05, we fail to reject the null hypothesis that
 the ratio of the variances of the two watersheds is equal, and continue
 with the assumption of equal variances.</p>
@@ -366,23 +366,23 @@ only 2004 observations).</p>
 <em>not</em> assume equal variances (default argument is
 <code>var.equal = FALSE</code>). We set <code>var.equal = TRUE</code>
 based on the outcome of our F-test above:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">hbr_maples</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">year</span> <span class="op">==</span> <span class="fl">2004</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html" class="external-link">t.test</a></span><span class="op">(</span><span class="va">stem_length</span> <span class="op">~</span> <span class="va">watershed</span>,</span>
 <span>         var.equal <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>         data <span class="op">=</span> <span class="va">.</span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;  Two Sample t-test</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; data:  stem_length by watershed</span></span>
-<span><span class="co">#&gt; t = -4.3092, df = 117, p-value = 3.432e-05</span></span>
-<span><span class="co">#&gt; alternative hypothesis: true difference in means between group Reference and group W1 is not equal to 0</span></span>
-<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  -16.982759  -6.287862</span></span>
-<span><span class="co">#&gt; sample estimates:</span></span>
-<span><span class="co">#&gt; mean in group Reference        mean in group W1 </span></span>
-<span><span class="co">#&gt;                85.88136                97.51667</span></span></code></pre></div>
+<span>         data <span class="op">=</span> <span class="va">.</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## </span></span>
+<span><span class="co">##  Two Sample t-test</span></span>
+<span><span class="co">## </span></span>
+<span><span class="co">## data:  stem_length by watershed</span></span>
+<span><span class="co">## t = -4.3092, df = 117, p-value = 3.432e-05</span></span>
+<span><span class="co">## alternative hypothesis: true difference in means between group Reference and group W1 is not equal to 0</span></span>
+<span><span class="co">## 95 percent confidence interval:</span></span>
+<span><span class="co">##  -16.982759  -6.287862</span></span>
+<span><span class="co">## sample estimates:</span></span>
+<span><span class="co">## mean in group Reference        mean in group W1 </span></span>
+<span><span class="co">##                85.88136                97.51667</span></span></code></pre>
 <p>Based on the outcome of this t-test, we determine that mean seedling
 heights in the reference watershed (no calcium treatment) differ
 significantly from those in the calcium-treated watershed (W1).
@@ -397,7 +397,7 @@ between the two watersheds.</p>
 <p>The <code>hbr_maples</code> data sample provides additional
 opportunity for analysis and data science skill-building. For example,
 stem length versus seedling mass provides regression opportunities:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
@@ -409,7 +409,7 @@ stem length versus seedling mass provides regression opportunities:</p>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html" class="external-link">theme_minimal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="hbr_maples_vignette_files/figure-html/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;"></p>
 <p>Which is clarified when separated by study year and watershed:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">hbr_maples</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">stem_length</span>, y <span class="op">=</span> <span class="va">stem_dry_mass</span>, color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span></span>
@@ -496,7 +496,7 @@ Hubbard Brook Watershed 1. Biogeochemistry 67: 309–329.</p>
 <div class="section level4">
 <h4 id="download-the-raw-data-from-edi-org">Download the raw data from EDI.org<a class="anchor" aria-label="anchor" href="#download-the-raw-data-from-edi-org"></a>
 </h4>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://usethis.r-lib.org" class="external-link">usethis</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/nceas/metajam" class="external-link">metajam</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
@@ -515,7 +515,7 @@ Hubbard Brook Watershed 1. Biogeochemistry 67: 309–329.</p>
 <div class="section level4">
 <h4 id="data-cleaning">Data cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"></a>
 </h4>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read in data</span></span>
 <span><span class="va">hbr_files</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">hbr_download</span><span class="op">)</span></span>
 <span><span class="va">hbr_maples_raw</span> <span class="op">&lt;-</span> <span class="va">hbr_files</span><span class="op">$</span><span class="va">data</span></span>

@@ -114,7 +114,7 @@
 data from Toolik Field Station</h3>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/lter/lterdatasampler/blob/HEAD/vignettes/arc_weather_vignette.Rmd" class="external-link"><code>vignettes/arc_weather_vignette.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/lter/lterdatasampler/blob/HEAD/vignettes/articles/arc_weather_vignette.Rmd" class="external-link"><code>vignettes/articles/arc_weather_vignette.Rmd</code></a></small>
       <div class="hidden name"><code>arc_weather_vignette.Rmd</code></div>
 
     </div>
@@ -164,50 +164,50 @@ packages (both part of the fantastic <a href="https://tidyverts.org/" class="ext
 <span>  <span class="fu"><a href="https://tsibble.tidyverts.org/reference/as-tsibble.html" class="external-link">as_tsibble</a></span><span class="op">(</span>index <span class="op">=</span> <span class="va">yr_mo</span><span class="op">)</span> <span class="co"># Convert to a tsibble (time series tibble)</span></span>
 <span></span>
 <span><span class="co"># Check out the first 10 lines:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">arc_weather_ts</span>, <span class="fl">10</span><span class="op">)</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># A tsibble: 10 x 2 [1M]</span></span></span>
-<span><span class="co">#&gt;       yr_mo avg_mean_airtemp</span></span>
-<span><span class="co">#&gt;       <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 1988 Jun             9.61</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 1988 Jul            12.0 </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 1988 Aug             6.96</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 1988 Sep            -<span style="color: #BB0000;">0.26</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 1988 Oct           -<span style="color: #BB0000;">16.4</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 1988 Nov           -<span style="color: #BB0000;">29.2</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 1988 Dec           -<span style="color: #BB0000;">17.1</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1989 Jan           -<span style="color: #BB0000;">29.9</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1989 Feb            -<span style="color: #BB0000;">8.06</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1989 Mar           -<span style="color: #BB0000;">19.4</span></span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">arc_weather_ts</span>, <span class="fl">10</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tsibble: 10 x 2 [1M]</span></span></span>
+<span><span class="co">##       yr_mo avg_mean_airtemp</span></span>
+<span><span class="co">##       <span style="color: #949494; font-style: italic;">&lt;mth&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 1</span> 1988 Jun             9.61</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 2</span> 1988 Jul            12.0 </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 3</span> 1988 Aug             6.96</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 4</span> 1988 Sep            -<span style="color: #BB0000;">0.26</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 5</span> 1988 Oct           -<span style="color: #BB0000;">16.4</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 6</span> 1988 Nov           -<span style="color: #BB0000;">29.2</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 7</span> 1988 Dec           -<span style="color: #BB0000;">17.1</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 8</span> 1989 Jan           -<span style="color: #BB0000;">29.9</span> </span></span>
+<span><span class="co">## <span style="color: #BCBCBC;"> 9</span> 1989 Feb            -<span style="color: #BB0000;">8.06</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">10</span> 1989 Mar           -<span style="color: #BB0000;">19.4</span></span></span></code></pre>
 <p>Once the data are converted into a <code>tsibble</code> in the last
 line above, we can use helpful functions in <code>feasts</code> (like
 <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot()</a></code> and <code><a href="https://feasts.tidyverts.org/reference/gg_season.html" class="external-link">gg_season()</a></code>) to explore the
 time series data a bit more.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create a line graph of monthly average of mean daily air temperatures:</span></span>
 <span><span class="va">arc_weather_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="va">avg_mean_airtemp</span><span class="op">)</span></span></code></pre></div>
-<p><img src="arc_weather_vignette_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<p><img src="arc_weather_vignette_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Create  season plot to explore seasonality: </span></span>
 <span><span class="va">arc_weather_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://feasts.tidyverts.org/reference/gg_season.html" class="external-link">gg_season</a></span><span class="op">(</span><span class="va">avg_mean_airtemp</span><span class="op">)</span></span></code></pre></div>
-<p><img src="arc_weather_vignette_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
+<p><img src="arc_weather_vignette_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>We might want to decompose the time series data to further explore
 components. See Chapter 3 <em>Time series decomposition</em> in <a href="https://otexts.com/fpp3/decomposition.html" class="external-link">Forecasting:
 Principles and Practice</a> by Rob J Hyndman and George Athanasopoulos
 for more information on decomposing time series data.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arc_weather_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://fabletools.tidyverts.org/reference/model.html" class="external-link">model</a></span><span class="op">(</span><span class="fu"><a href="https://feasts.tidyverts.org/reference/STL.html" class="external-link">STL</a></span><span class="op">(</span><span class="va">avg_mean_airtemp</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://generics.r-lib.org/reference/components.html" class="external-link">components</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="arc_weather_vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
+<p><img src="arc_weather_vignette_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>We can also explore autocorrelation:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">arc_weather_ts</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://feasts.tidyverts.org/reference/ACF.html" class="external-link">ACF</a></span><span class="op">(</span><span class="va">avg_mean_airtemp</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html" class="external-link">autoplot</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="arc_weather_vignette_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="arc_weather_vignette_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>Then you can move on to time series forecasting and further analysis!
 Have fun with the <code>arc_weather</code> data sample from Arctic
 LTER.</p>
@@ -230,7 +230,7 @@ Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/ce0f300cdf
 <div class="section level4">
 <h4 id="download-the-raw-data-from-edi-org">Download the raw data from EDI.org<a class="anchor" aria-label="anchor" href="#download-the-raw-data-from-edi-org"></a>
 </h4>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://lubridate.tidyverse.org" class="external-link">lubridate</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/sfirke/janitor" class="external-link">janitor</a></span><span class="op">)</span></span>
@@ -243,7 +243,7 @@ Environmental Data Initiative. <a href="https://doi.org/10.6073/pasta/ce0f300cdf
 <div class="section level4">
 <h4 id="data-cleaning">Data cleaning<a class="anchor" aria-label="anchor" href="#data-cleaning"></a>
 </h4>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Read that data</span></span>
 <span><span class="co"># View(stream_chem$attribute_metadata)</span></span>
 <span><span class="va">arc_weather</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/metajam/man/read_d1_files.html" class="external-link">read_d1_files</a></span><span class="op">(</span><span class="va">arc_weather_path</span>, na <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">""</span>, <span class="st">"#N/A"</span><span class="op">)</span><span class="op">)</span></span>
