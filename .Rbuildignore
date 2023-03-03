@@ -2,8 +2,9 @@
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^_pkgdown\.yml$
+^data-raw$
 ^docs$
-^vignettes
+^vignettes$
 ^pkgdown$
 ^\.github$
 ^doc$
