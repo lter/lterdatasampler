@@ -1,17 +1,10 @@
 ---
 title: "ntl_icecover - North Temperate Lakes Ice Cover (NTL)"
 subtitle: "Comparing Temperatures and Lake Ice Duration in Madison, WI since the 19th Century"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{ntl_icecover_vignette}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include=FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
   message = FALSE, warning = FALSE,
   fig.width = 7,
   fig.height = 4
@@ -156,7 +149,7 @@ Over the 168 years of this time series, the average ice duration in North Temper
 
 
 <figure style="text-align:center;">
-  <img src="../man/figures/ntl_icecover_img_3.png" width=60% style="display:block; margin-left: auto; margin-right: auto;">
+  <img src="../man/figures/ntl_icecover_img_3.png" width=90% style="display:block; margin-left: auto; margin-right: auto;">
   <figcaption>Pancake ice formed near shore when early ice is broken by wave action, Lake Mendota, Dec. 2003; Photo: J. Magnuson</figcaption>
 </figure>
 

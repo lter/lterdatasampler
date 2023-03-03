@@ -4,8 +4,8 @@
 ^_pkgdown\.yml$
 ^data-raw$
 ^docs$
-^vignettes$
 ^pkgdown$
 ^\.github$
 ^doc$
 ^Meta$
+^vignettes/articles$

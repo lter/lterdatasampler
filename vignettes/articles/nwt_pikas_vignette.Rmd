@@ -1,17 +1,10 @@
 ---
 title: "nwt_pikas - Niwot Ridge Pika Locations (NWT)"
 subtitle: "American Pika Locations in Summer 2018 at Niwot Ridge LTER"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{nwt_pikas_vignette}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
   fig.width = 7,
   fig.height = 4,
   message = FALSE, warning = FALSE

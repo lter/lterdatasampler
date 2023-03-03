@@ -1,20 +1,8 @@
 ---
 title: "arc_weather - Arctic LTER Toolik Field Station (ARC)"
 subtitle: "Arctic LTER daily weather data from Toolik Field Station"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{arc_weather}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  rmarkdown.html_vignette.check_title = FALSE
-)
-```
 
 ### Dataset sample used 
 

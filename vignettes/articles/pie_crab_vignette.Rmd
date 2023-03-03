@@ -1,20 +1,8 @@
 ---
 title: "pie_crab - Plum Island Ecosystem LTER fiddler crabs (PIE)"
 subtitle: "Fiddler crab body size in salt marshes from Florida to Massachusetts, USA during summer 2016 at Plum Island Ecosystem LTER"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{pie_crab_vignette}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  message = FALSE, warning = FALSE
-)
-```
 
 ### Dataset sample used
 

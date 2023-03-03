@@ -1,19 +1,7 @@
 ---
 title: "and_vertebrates - Andrews Forest LTER Mack Creek cutthroat trout and salamanders (AND)"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{and_vertebrates}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
-
-```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>"
-)
-```
 
 ### Dataset sample used
 
@@ -26,7 +14,7 @@ The `and_vertebrates` dataset contains length and weight observations for Coasta
 Forest harvesting can impact fish and vertebrate biomass, as described by Kaylor & Warren (2017). This data sample creates opportunities for learners to explore differences between vertebrate biomass and size in clear cut and old growth sections (each span 150 meters of creek) to investigate anthropogenic impacts on aquatic vertebrate populations. Further, the dataset provides opportunities to explore and model classic length-weight relationships for trout and salamanders.  
 
 <figure style="text-align:center;">
-  <img src="../man/figures/and_salamander.jpg" width=50% style="display:block; margin-left: auto; margin-right: auto;">
+  <img src="../man/figures/and_salamander.jpg" width=60% style="display:block; margin-left: auto; margin-right: auto;">
   <figcaption>Coastal Giant Salamander at Mack Creek study site. Photo: Lina DiGregorio, from the Andrews Forest Photo Gallery (link below).</figcaption>
 </figure>
 

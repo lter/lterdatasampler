@@ -1,17 +1,10 @@
 ---
 title: "hbr_maples - Hubbard Brook Experimental Forest Sugar Maples (HBR)"
 subtitle: "Growth of Sugar Maple (Acer saccharum) seedlings in response to calcium addition at the Hubbard Brook Experimental Forest"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{hbr_maples}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
   fig.align = 'center',
   fig.width=7, 
   fig.height=4,
