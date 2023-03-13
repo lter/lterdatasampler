@@ -34,7 +34,7 @@ Authors@R: c(
            role = c("ctb"),
            comment = c("https://github.com/karenezhao"))
            )
-Description: Selected datasets, one from each LTER site. 
+Description: Curated datasets from US Long Term Ecological Research sites.
 License: CC0
 Encoding: UTF-8
 LazyData: true
