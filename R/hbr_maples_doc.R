@@ -17,6 +17,6 @@
 #'   \item{corrected_leaf_area}{a number denoting the area of both leaves in addition to the area removed for chlorophyll measurements in square centimeters}
 #' }
 #' @source {Juice, S. and T. Fahey. 2019. Health and mycorrhizal colonization response of sugar maple (Acer saccharum) seedlings to calcium addition in Watershed 1 at the Hubbard Brook Experimental Forest ver 3. Environmental Data Initiative.}
-#' \url{https://doi.org/10.6073/pasta/0ade53ede9a916a36962799b2407097e}
+#' \doi{10.6073/pasta/0ade53ede9a916a36962799b2407097e}
 
 "hbr_maples"

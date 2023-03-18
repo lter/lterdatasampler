@@ -15,7 +15,7 @@ A tibble with 11,171 rows and 5 variables:
 }
 }
 \source{
-{Shaver, G. 2019. A multi-year DAILY weather file for the Toolik Field Station at Toolik Lake, AK starting 1988 to present. ver 4. Environmental Data Initiative.} \url{https://doi.org/10.6073/pasta/ce0f300cdf87ec002909012abefd9c5c}
+{Shaver, G. 2019. A multi-year DAILY weather file for the Toolik Field Station at Toolik Lake, AK starting 1988 to present. ver 4. Environmental Data Initiative.} \doi{10.6073/pasta/ce0f300cdf87ec002909012abefd9c5c}
 
 {Arctic LTER website:} \url{https://arc-lter.ecosystems.mbl.edu/}
 }

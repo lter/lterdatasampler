@@ -14,6 +14,6 @@
 #'   \item{animal_yob}{a number denoting the year animal was born}
 #'   }
 #' @source {EBlair, J. 2021. CBH01 Konza Prairie bison herd information ver 12. Environmental Data Initiative. https://doi.org/10.6073/pasta/9c641b35695abc5889edd64c3950517f (Accessed 2021-05-10).}
-#' \url{https://portal.edirepository.org/nis/mapbrowse?packageid=knb-lter-knz.78.12}
+#' \doi{10.6073/pasta/9c641b35695abc5889edd64c3950517f}
 
 "knz_bison"

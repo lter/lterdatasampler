@@ -29,7 +29,7 @@ Site](https://github.com/lter/lterdatasampler/workflows/pkgdown/badge.svg)](http
 
 <!-- badges: end -->
 
-# lterdatasampler <a href='https://lter.github.io/lterdatasampler'><img src="man/figures/logo.png" id="home_logo" align="right" height="180"/></a>
+# lterdatasampler <a href='https://lter.github.io/lterdatasampler/'><img src="man/figures/logo.png" id="home_logo" align="right" height="180"/></a>
 
 The mission of the [Long Term Ecological Research program (LTER)
 Network](https://lternet.edu/) is to “*provide the scientific community,
@@ -54,7 +54,7 @@ We encourage you to explore existing LTER [teaching and training
 initiatives](https://lternet.edu/education-and-training/), and the
 **many** other available LTER datasets which can be accessed via the
 [Environmental Data
-Initiative](https://environmentaldatainitiative.org/). Please contact
+Initiative](https://edirepository.org). Please contact
 cited researchers directly to discuss using data for research purposes
 or in publication.
 
@@ -73,7 +73,7 @@ remotes::install_github("lter/lterdatasampler")
 Dataset samples currently included in the package are summarized below;
 see individual Articles for data and source details. Note: the three
 letter prefix for each dataset indicates the LTER site (see full list of
-site abbreviations [here](https://lternet.edu/site/)).
+[site abbreviations](https://lternet.edu/site/)).
 
 -   [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
     Records for aquatic vertebrates (cutthroat trout and salamanders) in
@@ -174,7 +174,7 @@ People / organizations who supported this project:
 -   LTER Education Committee
 -   All the LTER Researchers and Site PIs
 -   Cyber-infrastructures:
-    [EDI](https://environmentaldatainitiative.org/) and
+    [EDI](https://edirepository.org/) and
     [DataONE](https://www.dataone.org/)
 
 We gratefully acknowledge all authors and contributors of the

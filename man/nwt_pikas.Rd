@@ -19,7 +19,7 @@ A tibble with 109 rows and 7 variables
 }
 \source{
 {Whipple, A. and Niwot Ridge LTER. 2020. Physiological stress of American pika (Ochotona princeps) and associated habitat characteristics for Niwot Ridge, 2018 - 2019 ver 1. Environmental Data Initiative.}
-\url{https://doi.org/10.6073/pasta/9f95baf55f98732f47a8844821ff690d}
+\doi{10.6073/pasta/9f95baf55f98732f47a8844821ff690d}
 }
 \usage{
 nwt_pikas

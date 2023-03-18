@@ -29,7 +29,7 @@ A tibble with 597 rows and 18 variables:
 }
 \source{
 {McDowell, W. 2021. Chemistry of stream water from the Luquillo Mountains ver 4923056. Environmental Data Initiative.}
-\url{https://doi.org/10.6073/pasta/0a09f5aa2e6f11451553c92b102279a6}
+\doi{10.6073/pasta/0a09f5aa2e6f11451553c92b102279a6}
 }
 \usage{
 luq_streamchem

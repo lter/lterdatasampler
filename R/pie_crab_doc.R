@@ -15,5 +15,5 @@
 #'   \item{name}{full name of research site;  LTER, Long-Term Ecological Research site; NERR, National Estuarine Research Reserve}
 #'   }
 #' @source {Johnson, D. 2019. Fiddler crab body size in salt marshes from Florida to Massachusetts, USA at PIE and VCR LTER and NOAA NERR sites during summer 2016. ver 1. Environmental Data Initiative.}
-#' \url{https://doi.org/10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb}
+#' \doi{10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb}
 "pie_crab"
