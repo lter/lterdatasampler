@@ -20,14 +20,14 @@ A tibble with 32,209 rows and 16 variables:
 \item{length_1_mm}{a number denoting vertebrate length in millimeters; total or snout-fork length for trout, and snout-vent length for salamanders}
 \item{length_2_mm}{a number denoting snout-tail length in millimeters (for Coastal giant salamander only)}
 \item{weight_g}{a number denoting vertebrate mass in grams}
-\item{clip}{a character denoting the fin clip type for cutthroat trout, ended in 2006 (LV = left ventrical fin; LVRV = left and right ventrical fins; RV = right ventrical fin; NONE = no ventral fin clip)}
+\item{clip}{a character denoting the fin clip type for cutthroat trout, ended in 2006 (LV = left ventral fin; LVRV = left and right ventral fins; RV = right ventral fin; NONE = no ventral fin clip)}
 \item{sampledate}{a date denoting the date of observation}
 \item{notes}{a character denoting additional comments}
 }
 }
 \source{
 {Gregory, S.V. and I. Arismendi. 2020. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present ver 14. Environmental Data Initiative.}
-\url{https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165}
+\doi{10.6073/pasta/7c78d662e847cdbe33584add8f809165}
 }
 \usage{
 and_vertebrates

@@ -10,5 +10,5 @@
 #'   }
 
 #' @source {Anderson, L. and D. Robertson. 2020. Madison Wisconsin Daily Meteorological Data 1869 - current ver 32. Environmental Data Initiative.}
-#' \url{https://doi.org/10.6073/pasta/e3ff85971d817e9898bb8a83fb4c3a8b}
+#' \doi{10.6073/pasta/e3ff85971d817e9898bb8a83fb4c3a8b}
 "ntl_airtemp"
