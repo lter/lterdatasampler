@@ -31,14 +31,14 @@ research and should only be used for teaching purposes**.
 We encourage you to explore existing LTER [teaching and training
 initiatives](https://lternet.edu/education-and-training/), and the
 **many** other available LTER datasets which can be accessed via the
-[Environmental Data Initiative](https://edirepository.org). Please
+[Environmental Data Initiative](https://edirepository.org/). Please
 contact cited researchers directly to discuss using data for research
 purposes or in publication.
 
 ## Installation
 
-You can install the development version of `lterdatasampler` from
-[GitHub](https://github.com/) with:
+You can install the development version of `lterdatasampler` from GitHub
+with:
 
 ``` r
 # install.packages("remotes")
@@ -52,36 +52,36 @@ see individual Articles for data and source details. Note: the three
 letter prefix for each dataset indicates the LTER site (see full list of
 [site abbreviations](https://lternet.edu/site/)).
 
--   [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
-    Records for aquatic vertebrates (cutthroat trout and salamanders) in
-    Mack Creek, Andrews Experimental Forest, Oregon (1987 - present)
--   [`arc_weather`](https://lter.github.io/lterdatasampler/reference/arc_weather.html):
-    Daily meteorological (e.g. air temperature, precipitation) records
-    from Toolik Field Station, Alaska (1988 - present)
--   [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
-    Sugar maple seedlings at Hubbard Brook Experimental Forest (New
-    Hampshire) in calcium-treated and reference watersheds in August
-    2003 and June 2004
--   [`knz_bison`](https://lter.github.io/lterdatasampler/reference/knz_bison.html):
-    Bison masses recorded for the herd at Konza Prairie Biological
-    Station LTER
--   [`luq_streamchem`](https://lter.github.io/lterdatasampler/reference/luq_streamchem.html):
-    stream chemistry data for the Quebrada Sonadora (QS) location part
-    of the Luqillo tropical forest LTER site
--   [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
-    Ice freeze and thaw dates for Madison, Wisconsin Area lakes (1853 -
-    2019), North Temperate Lakes LTER
--   [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
-    Daily average air temperature data for Madison, Wisconsin (1869 -
-    2019), North Temperate Lakes LTER
--   [`nwt_pikas`](https://lter.github.io/lterdatasampler/reference/nwt_pikas.html):
-    Pika observations for habitat and stress analysis at Niwot Ridge
-    LTER, Colorado
--   [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
-    Fiddler crab body size recorded summer 2016 in salt marshes from
-    Florida to Massachusetts including Plum Island Ecosystem LTER,
-    Virginia Coast LTER, and NOAA’s National Estuarine Research Reserve
-    System
+- [`and_vertebrates`](https://lter.github.io/lterdatasampler/reference/and_vertebrates.html):
+  Records for aquatic vertebrates (cutthroat trout and salamanders) in
+  Mack Creek, Andrews Experimental Forest, Oregon (1987 - present)
+- [`arc_weather`](https://lter.github.io/lterdatasampler/reference/arc_weather.html):
+  Daily meteorological (e.g. air temperature, precipitation) records
+  from Toolik Field Station, Alaska (1988 - present)
+- [`hbr_maples`](https://lter.github.io/lterdatasampler/reference/hbr_maples.html):
+  Sugar maple seedlings at Hubbard Brook Experimental Forest (New
+  Hampshire) in calcium-treated and reference watersheds in August 2003
+  and June 2004
+- [`knz_bison`](https://lter.github.io/lterdatasampler/reference/knz_bison.html):
+  Bison masses recorded for the herd at Konza Prairie Biological Station
+  LTER
+- [`luq_streamchem`](https://lter.github.io/lterdatasampler/reference/luq_streamchem.html):
+  stream chemistry data for the Quebrada Sonadora (QS) location part of
+  the Luqillo tropical forest LTER site
+- [`ntl_icecover`](https://lter.github.io/lterdatasampler/reference/ntl_icecover.html):
+  Ice freeze and thaw dates for Madison, Wisconsin Area lakes (1853 -
+  2019), North Temperate Lakes LTER
+- [`ntl_airtemp`](https://lter.github.io/lterdatasampler/reference/ntl_airtemp.html):
+  Daily average air temperature data for Madison, Wisconsin (1869 -
+  2019), North Temperate Lakes LTER
+- [`nwt_pikas`](https://lter.github.io/lterdatasampler/reference/nwt_pikas.html):
+  Pika observations for habitat and stress analysis at Niwot Ridge LTER,
+  Colorado
+- [`pie_crab`](https://lter.github.io/lterdatasampler/reference/pie_crab.html):
+  Fiddler crab body size recorded summer 2016 in salt marshes from
+  Florida to Massachusetts including Plum Island Ecosystem LTER,
+  Virginia Coast LTER, and NOAA’s National Estuarine Research Reserve
+  System
 
 ## Which data sample should I use?
 
@@ -96,12 +96,11 @@ when teaching or learning them! It is not comprehensive - there are
 facilitate. Here we highlight a few that we think would be commonly
 useful
 
-<div id="tibgesomlz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<div id="egeuswuvcc" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
 <style>html {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
 }
-
-#tibgesomlz .gt_table {
+&#10;#egeuswuvcc .gt_table {
   display: table;
   border-collapse: collapse;
   margin-left: auto;
@@ -125,8 +124,7 @@ useful
   border-left-width: 2px;
   border-left-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_heading {
+&#10;#egeuswuvcc .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -137,13 +135,11 @@ useful
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_caption {
+&#10;#egeuswuvcc .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
-
-#tibgesomlz .gt_title {
+&#10;#egeuswuvcc .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -154,8 +150,7 @@ useful
   border-bottom-color: #FFFFFF;
   border-bottom-width: 0;
 }
-
-#tibgesomlz .gt_subtitle {
+&#10;#egeuswuvcc .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -166,14 +161,12 @@ useful
   border-top-color: #FFFFFF;
   border-top-width: 0;
 }
-
-#tibgesomlz .gt_bottom_border {
+&#10;#egeuswuvcc .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_col_headings {
+&#10;#egeuswuvcc .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -187,8 +180,7 @@ useful
   border-right-width: 1px;
   border-right-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_col_heading {
+&#10;#egeuswuvcc .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -207,8 +199,7 @@ useful
   padding-right: 5px;
   overflow-x: hidden;
 }
-
-#tibgesomlz .gt_column_spanner_outer {
+&#10;#egeuswuvcc .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -219,16 +210,13 @@ useful
   padding-left: 4px;
   padding-right: 4px;
 }
-
-#tibgesomlz .gt_column_spanner_outer:first-child {
+&#10;#egeuswuvcc .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
-
-#tibgesomlz .gt_column_spanner_outer:last-child {
+&#10;#egeuswuvcc .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
-
-#tibgesomlz .gt_column_spanner {
+&#10;#egeuswuvcc .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -239,8 +227,7 @@ useful
   display: inline-block;
   width: 100%;
 }
-
-#tibgesomlz .gt_group_heading {
+&#10;#egeuswuvcc .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -265,8 +252,7 @@ useful
   vertical-align: middle;
   text-align: left;
 }
-
-#tibgesomlz .gt_empty_group_heading {
+&#10;#egeuswuvcc .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -280,16 +266,13 @@ useful
   border-bottom-color: #D3D3D3;
   vertical-align: middle;
 }
-
-#tibgesomlz .gt_from_md > :first-child {
+&#10;#egeuswuvcc .gt_from_md > :first-child {
   margin-top: 0;
 }
-
-#tibgesomlz .gt_from_md > :last-child {
+&#10;#egeuswuvcc .gt_from_md > :last-child {
   margin-bottom: 0;
 }
-
-#tibgesomlz .gt_row {
+&#10;#egeuswuvcc .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -307,8 +290,7 @@ useful
   vertical-align: middle;
   overflow-x: hidden;
 }
-
-#tibgesomlz .gt_stub {
+&#10;#egeuswuvcc .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -320,8 +302,7 @@ useful
   padding-left: 5px;
   padding-right: 5px;
 }
-
-#tibgesomlz .gt_stub_row_group {
+&#10;#egeuswuvcc .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -334,12 +315,10 @@ useful
   padding-right: 5px;
   vertical-align: top;
 }
-
-#tibgesomlz .gt_row_group_first td {
+&#10;#egeuswuvcc .gt_row_group_first td {
   border-top-width: 2px;
 }
-
-#tibgesomlz .gt_summary_row {
+&#10;#egeuswuvcc .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -348,17 +327,14 @@ useful
   padding-left: 5px;
   padding-right: 5px;
 }
-
-#tibgesomlz .gt_first_summary_row {
+&#10;#egeuswuvcc .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_first_summary_row.thick {
+&#10;#egeuswuvcc .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
-
-#tibgesomlz .gt_last_summary_row {
+&#10;#egeuswuvcc .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -367,8 +343,7 @@ useful
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_grand_summary_row {
+&#10;#egeuswuvcc .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -377,8 +352,7 @@ useful
   padding-left: 5px;
   padding-right: 5px;
 }
-
-#tibgesomlz .gt_first_grand_summary_row {
+&#10;#egeuswuvcc .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -387,12 +361,10 @@ useful
   border-top-width: 6px;
   border-top-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_striped {
+&#10;#egeuswuvcc .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
-
-#tibgesomlz .gt_table_body {
+&#10;#egeuswuvcc .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -400,8 +372,7 @@ useful
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_footnotes {
+&#10;#egeuswuvcc .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -414,8 +385,7 @@ useful
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_footnote {
+&#10;#egeuswuvcc .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-left: 4px;
@@ -423,8 +393,7 @@ useful
   padding-left: 5px;
   padding-right: 5px;
 }
-
-#tibgesomlz .gt_sourcenotes {
+&#10;#egeuswuvcc .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -437,73 +406,58 @@ useful
   border-right-width: 2px;
   border-right-color: #D3D3D3;
 }
-
-#tibgesomlz .gt_sourcenote {
+&#10;#egeuswuvcc .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
   padding-left: 5px;
   padding-right: 5px;
 }
-
-#tibgesomlz .gt_left {
+&#10;#egeuswuvcc .gt_left {
   text-align: left;
 }
-
-#tibgesomlz .gt_center {
+&#10;#egeuswuvcc .gt_center {
   text-align: center;
 }
-
-#tibgesomlz .gt_right {
+&#10;#egeuswuvcc .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
-
-#tibgesomlz .gt_font_normal {
+&#10;#egeuswuvcc .gt_font_normal {
   font-weight: normal;
 }
-
-#tibgesomlz .gt_font_bold {
+&#10;#egeuswuvcc .gt_font_bold {
   font-weight: bold;
 }
-
-#tibgesomlz .gt_font_italic {
+&#10;#egeuswuvcc .gt_font_italic {
   font-style: italic;
 }
-
-#tibgesomlz .gt_super {
+&#10;#egeuswuvcc .gt_super {
   font-size: 65%;
 }
-
-#tibgesomlz .gt_footnote_marks {
+&#10;#egeuswuvcc .gt_footnote_marks {
   font-style: italic;
   font-weight: normal;
   font-size: 75%;
   vertical-align: 0.4em;
 }
-
-#tibgesomlz .gt_asterisk {
+&#10;#egeuswuvcc .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
-
-#tibgesomlz .gt_indent_1 {
+&#10;#egeuswuvcc .gt_indent_1 {
   text-indent: 5px;
 }
-
-#tibgesomlz .gt_indent_2 {
+&#10;#egeuswuvcc .gt_indent_2 {
   text-indent: 10px;
 }
-
-#tibgesomlz .gt_indent_3 {
+&#10;#egeuswuvcc .gt_indent_3 {
   text-indent: 15px;
 }
-
-#tibgesomlz .gt_indent_4 {
+&#10;#egeuswuvcc .gt_indent_4 {
   text-indent: 20px;
 }
-
-#tibgesomlz .gt_indent_5 {
+&#10;#egeuswuvcc .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -512,8 +466,7 @@ useful
     <tr>
       <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Recommended data samples for introducing selected topics</td>
     </tr>
-    
-  </thead>
+    &#10;  </thead>
   <thead class="gt_col_headings">
     <tr>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
@@ -548,8 +501,7 @@ useful
     <tr><td headers="Comparing groups full_link_10 full_link" class="gt_row gt_center"><a href = "https://lter.github.io/lterdatasampler/articles/and_vertebrates_vignette.html">`and_vertebrates`</a></td>
 <td headers="Comparing groups full_link_10 data_description" class="gt_row gt_left">Explore differences in size and abundance of cutthroat trout and salamanders in old growth versus previously clear cut forest sections (2 groups) or in different conditions (&gt; 2 groups, e.g. pool, cascade, riffle) of Mack Creek, Oregon</td></tr>
   </tbody>
-  
-  
+  &#10;  
 </table>
 </div>
 
@@ -569,12 +521,12 @@ Thank you also go to their Course Advisor Prof. Sang-yun Oh.
 
 People / organizations who supported this project:
 
--   LTER Network Office
--   LTER Information Managers
--   LTER Education Committee
--   All the LTER Researchers and Site PIs
--   Cyber-infrastructures: [EDI](https://edirepository.org/) and
-    [DataONE](https://www.dataone.org/)
+- LTER Network Office
+- LTER Information Managers
+- LTER Education Committee
+- All the LTER Researchers and Site PIs
+- Cyber-infrastructures: [EDI](https://edirepository.org/) and
+  [DataONE](https://www.dataone.org/)
 
 We gratefully acknowledge all authors and contributors of the
 [`roxygen2`](https://roxygen2.r-lib.org/),
@@ -582,7 +534,7 @@ We gratefully acknowledge all authors and contributors of the
 [`pkgdown`](https://pkgdown.r-lib.org/),
 [`devtools`](https://devtools.r-lib.org/),
 [`tidyverse`](https://www.tidyverse.org/) and
-[`metajam`](https://github.com/NCEAS/metajam) packages. This website
+[`metajam`](https://github.com/NCEAS/metajam/) packages. This website
 relies heavily on themes created by Dr. Desirée DeLeon and Dr. Alison
 Hill.
 
