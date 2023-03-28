@@ -54,14 +54,14 @@ We encourage you to explore existing LTER [teaching and training
 initiatives](https://lternet.edu/education-and-training/), and the
 **many** other available LTER datasets which can be accessed via the
 [Environmental Data
-Initiative](https://edirepository.org). Please contact
+Initiative](https://edirepository.org/). Please contact
 cited researchers directly to discuss using data for research purposes
 or in publication.
 
 ## Installation
 
 You can install the development version of `lterdatasampler` from
-[GitHub](https://github.com/) with:
+GitHub with:
 
 ``` r
 # install.packages("remotes")
@@ -183,7 +183,7 @@ We gratefully acknowledge all authors and contributors of the
 [`pkgdown`](https://pkgdown.r-lib.org/),
 [`devtools`](https://devtools.r-lib.org/),
 [`tidyverse`](https://www.tidyverse.org/) and
-[`metajam`](https://github.com/NCEAS/metajam) packages. This website
+[`metajam`](https://github.com/NCEAS/metajam/) packages. This website
 relies heavily on themes created by Dr. Desirée DeLeon and Dr. Alison
 Hill.
 
