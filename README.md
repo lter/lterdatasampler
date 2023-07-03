@@ -96,13 +96,11 @@ when teaching or learning them! It is not comprehensive - there are
 facilitate. Here we highlight a few that we think would be commonly
 useful
 
+### Recommended data samples for introducing selected topics
 
 <table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
   <thead>
-    <tr class="gt_heading">
-      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style>Recommended data samples for introducing selected topics</td>
-    </tr>
-    &#10;    <tr class="gt_col_headings">
+    <tr class="gt_col_headings">
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id=""></th>
       <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="Data sample">Data sample</th>
       <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="For example you could:">For example you could:</th>
