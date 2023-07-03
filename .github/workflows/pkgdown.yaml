@@ -1,10 +1,13 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Need help debugging build failures? Start at https://github.com/r-lib/actions#where-to-find-help
 on:
   push:
-    branches: main
+    branches: [main, master]
   pull_request:
-    branches: [main, dev]
+    branches: [main, master]
   release:
     types: [published]
+  workflow_dispatch:
 
 name: pkgdown
 
@@ -16,26 +19,20 @@ jobs:
       group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v3
 
       - uses: r-lib/actions/setup-pandoc@v2
 
-      - uses: r-lib/actions/setup-r/@v2
+      - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: |
-             any::pkgdown
-             any::ggplot2
-             any::here
-             any::dplyr
-             any::tidyr
-             any::remotes
-             any::rcmdcheck
-             local::.
+          extra-packages: any::pkgdown, local::.
           needs: website
 
       - name: Build site
