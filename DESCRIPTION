@@ -34,7 +34,7 @@ Authors@R: c(
            role = c("ctb"),
            comment = c("https://github.com/karenezhao"))
            )
-Description: Curated datasets from US Long Term Ecological Research sites.
+Description: Curated datasets from US Long Term Ecological Research sites. References: Gregory, S.V. and I. Arismendi (2020)<doi:10.6073/pasta/7c78d662e847cdbe33584add8f809165>, Shaver, G. (2019)<doi:10.6073/pasta/ce0f300cdf87ec002909012abefd9c5c>, Juice, S. and T. Fahey (2019)<doi:10.6073/pasta/0ade53ede9a916a36962799b2407097e>, EBlair, J (2021)<doi:10.6073/pasta/9c641b35695abc5889edd64c3950517f>, McDowell, W. (2021)<doi:10.6073/pasta/0a09f5aa2e6f11451553c92b102279a6>, Anderson, L. and D. Robertson (2020)<doi:10.6073/pasta/e3ff85971d817e9898bb8a83fb4c3a8b>, Magnuson, J.J., S.R. Carpenter, and E.H. Stanley (2021)<doi:10.6073/pasta/ab31f2489ee436beb73fc8f1d0213d97>, Whipple, A. and Niwot Ridge LTER (2020)<doi:10.6073/pasta/9f95baf55f98732f47a8844821ff690d>, Johnson, D. (2019)<doi:10.6073/pasta/4c27d2e778d3325d3830a5142e3839bb>
 License: CC0
 Encoding: UTF-8
 LazyData: true
