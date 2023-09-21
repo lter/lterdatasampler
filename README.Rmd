@@ -26,6 +26,9 @@ library(tidyverse)
 [![Package
 Site](https://github.com/lter/lterdatasampler/workflows/pkgdown/badge.svg)](https://github.com/lter/lterdatasampler/actions)
 [![R-CMD-check](https://github.com/lter/lterdatasampler/workflows/R-CMD-check/badge.svg)](https://github.com/lter/lterdatasampler/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/lterdatasampler)](https://cran.r-project.org/package=lterdatasampler)
+[![CRAN RStudio mirror downloads](http://cranlogs.r-pkg.org/badges/lterdatasampler)](http://www.r-pkg.org/pkg/lterdatasampler)
+
 
 <!-- badges: end -->
 
