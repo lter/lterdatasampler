@@ -39,6 +39,12 @@ purposes or in publication.
 
 ## Installation
 
+You can install the CRAN version of `lterdatasampler` with:
+
+``` r
+install.packages("lterdatasampler")
+```
+
 You can install the development version of `lterdatasampler` from GitHub
 with:
 
