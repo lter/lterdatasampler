@@ -152,8 +152,8 @@ combined_map
 Finally, adjust the bounding box and zoom to get a better look:
 
 ```{r zoom}
-pikas_location <- c(left = -105.65, bottom = 40.04, right = -105.55, top = 40.1)
-pikas_map <- ggmap(get_stamenmap(pikas_location, zoom = 13, maptype = "terrain")) + 
+pikas_location <- c(left = -105.64, bottom = 40.04, right = -105.55, top = 40.08)
+pikas_map <- ggmap(get_stamenmap(pikas_location, zoom = 12, maptype = "terrain")) + 
  geom_sf(data = pikas_sf, inherit.aes = FALSE, aes(color = site, shape = site)) +
   theme_minimal() +
   labs(title = "Location of Pika Sampling Stations", subtitle = "Niwot Ridge LTER", x = "Longitude (Degrees)", y = "Latitude (Degrees)") +
